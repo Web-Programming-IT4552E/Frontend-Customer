@@ -23,7 +23,23 @@ body {
 }
 
 .special-heading {
-  @apply text-[60px] font-medium leading-none text-center relative
+  @apply text-[60px] pb-[25px] mb-[63px] font-medium leading-none text-center relative;
+
+  &::after {
+    position: absolute;
+    left: 50%;
+    content: '';
+    height: 13px;
+    width: 140px;
+    margin-left: -70px;
+    display: block;
+    bottom: 0;
+    -webkit-mask-image: url(../assets/images/line-title.svg);
+    mask-image: url(../assets/images/line-title.svg);
+    background-color: #ffa6a8;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+  }
 }
 
 //font faces
@@ -43,4 +59,17 @@ body {
   font-family: Raleway;
   src: url('../assets/fonts/K2FhfZBRmr9vQ1pHEey6GIGo8_pv3myYjuXwe55njDw.woff2');
   // font-weight: 400;
+}
+
+a {
+  transition: all 0.3s ease 0.1s;
+  -moz-transition: all 0.3s ease 0.1s;
+  -webkit-transition: all 0.3s ease 0.1s;
+  -o-transition: all 0.3s ease 0.1s;
+  -ms-transition: all 0.3s ease 0.1s;
+  text-decoration: none;
+}
+
+a:hover {
+  @apply text-light_pink;
 }
