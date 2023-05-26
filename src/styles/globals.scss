@@ -3,9 +3,14 @@
 @tailwind utilities;
 
 @import "./colors.scss";
+@import "./home.scss";
 
 html,
 body {
   padding: 0;
   margin: 0;
+}
+
+.special-heading {
+  @apply text-[60px] font-medium leading-none text-center relative
 }
