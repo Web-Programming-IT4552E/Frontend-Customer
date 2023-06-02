@@ -1,5 +1,7 @@
 import '@/styles/globals.scss';
 import 'antd/dist/reset.css';
+import "@fortawesome/fontawesome-svg-core/styles.css"; 
+import { config } from "@fortawesome/fontawesome-svg-core";
 
 // import 'antd/dist/antd.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -10,6 +12,10 @@ import { PersistGate } from 'redux-persist/lib/integration/react';
 
 import store, { persistor } from '@/configs/redux';
 import LayoutDefault from '@/layouts/LayoutDefault';
+
+
+// Remove auto adding css
+config.autoAddCss = false; 
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const [queryClient] = useState(

@@ -1,0 +1,18 @@
+#common_product_item {
+  @apply relative;
+
+  .filter {
+    @apply absolute bg-white opacity-80 w-full h-full;
+  }
+
+  .box-hover {
+    @apply absolute flex gap-2;
+    
+    .link-item {
+      @apply p-[6px] bg-light_pink w-[42px] h-[42px] flex justify-center items-center rounded-[50%];
+      svg {
+        color: white !important;
+      }
+    }
+  }
+}
