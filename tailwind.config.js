@@ -45,6 +45,10 @@ module.exports = {
       backgroundImage: {
         'reviews_product': "url('/images/review_product.jpg')",
         'discount_banner': "url('/images/discount_banner.jpg')"
+       },
+      fontFamily: {
+        'primary-font': ['Raleway', 'sans-serif'],
+        'secondary-font': ['El Messiri', 'sans-serif'],
       }
     },
     screens: {

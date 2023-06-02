@@ -1,7 +1,8 @@
 import React from 'react';
-import Image from 'next/image'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import Image from 'next/image'
+import Tippy from '@tippyjs/react/headless';
 
 import logoImg from '@/assets/images/logo.png'
 
@@ -19,7 +20,20 @@ const Header = () => {
         </div>
 
         <div className='flex gap-6'>
-          <FontAwesomeIcon icon={faCartShopping} className='text-xl cursor-pointer' />
+          {/* wrap div to remove warning */}
+          <div>
+            <Tippy
+              placement='bottom-end'
+              interactive
+              render={attrs => (
+                <div className="cart-dropdown" tabIndex={-1} {...attrs}>
+                  No products in cart
+                </div>
+              )}
+            >
+              <FontAwesomeIcon icon={faCartShopping} className='text-xl cursor-pointer' />
+            </Tippy>
+          </div>
           <FontAwesomeIcon icon={faMagnifyingGlass} className='text-xl cursor-pointer' />
         </div>
       </div>

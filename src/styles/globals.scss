@@ -27,7 +27,7 @@ h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
+b, u, i, center, p,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
@@ -72,6 +72,11 @@ body {
   overflow-x: hidden;
 }
 
+// css slick slider
+// .slick-slider {
+//   width: 100%;
+// }
+
 .special-heading {
   @apply text-[60px] pb-[25px] mb-[63px] font-medium leading-none text-center relative;
 
@@ -96,6 +101,11 @@ body {
   .header-list-item {
     @apply cursor-pointer px-4 py-2 text-[#333] hover:bg-primary-color hover:text-white;
   }
+}
+
+.cart-dropdown {
+  @apply w-[330px] mt-1 px-3 py-6 text-center bg-white;
+  box-shadow: 0 0 7px rgba(0,0,0,0.2);
 }
 
 a {

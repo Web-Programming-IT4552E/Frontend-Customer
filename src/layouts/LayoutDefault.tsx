@@ -22,7 +22,7 @@ const LayoutDocument = ({
       </Head>
       <Header />
       {/* <GeneralModal /> */}
-      <div className="pt-[74px] pb-[30px]">{children}</div>
+      <div>{children}</div>
       <Footer />
     </>
   );

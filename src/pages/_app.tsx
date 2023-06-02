@@ -3,7 +3,9 @@ import 'antd/dist/reset.css';
 import "@fortawesome/fontawesome-svg-core/styles.css"; 
 import { config } from "@fortawesome/fontawesome-svg-core";
 
+// import 'antd/dist/reset.css';
 // import 'antd/dist/antd.css';
+
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { AppProps } from 'next/app';
 import { useState } from 'react';
