@@ -6,6 +6,8 @@
 @import "./home.scss";
 @import "./reviews-product.scss";
 @import "./common/index.scss";
+@import url('https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap');
+@import "./slick.scss";
 
 :root {
   --header-width: ;
@@ -22,6 +24,7 @@
 html,
 body {
   font-family: var(--global-font);
+  overflow-x: hidden;
 }
 
 .special-heading {

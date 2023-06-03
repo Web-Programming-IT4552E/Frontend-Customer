@@ -12,7 +12,8 @@ import { PersistGate } from 'redux-persist/lib/integration/react';
 
 import store, { persistor } from '@/configs/redux';
 import LayoutDefault from '@/layouts/LayoutDefault';
-
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
 
 // Remove auto adding css
 config.autoAddCss = false; 

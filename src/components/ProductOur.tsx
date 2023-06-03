@@ -1,6 +1,5 @@
 import React from "react";
 import ProductItem from "./common/ProductItem";
-import ReviewsProduct from "./ReviewsProduct";
 
 const ProductOur = () => {
   return (
@@ -11,7 +10,6 @@ const ProductOur = () => {
           return <ProductItem key={item} />;
         })}
       </div>
-      <ReviewsProduct/>
     </div>
   );
 };
