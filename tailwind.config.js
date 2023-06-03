@@ -40,6 +40,9 @@ module.exports = {
           900: '#2a4365',
         },
       },
+      backgroundImage: {
+        'reviews_product': "url('/images/review_product.jpg')",
+       }
     },
     screens: {
       'sm': '576px',
