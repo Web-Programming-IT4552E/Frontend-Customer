@@ -42,7 +42,8 @@ module.exports = {
       },
       backgroundImage: {
         'reviews_product': "url('/images/review_product.jpg')",
-       }
+        'discount_banner': "url('/images/discount_banner.jpg')"
+      }
     },
     screens: {
       'sm': '576px',
