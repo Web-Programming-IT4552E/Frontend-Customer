@@ -1,5 +1,5 @@
 #reviews-product {
-  @apply mb-[105px];
+  @apply mb-[115px];
   .cover {
     .avatar-author {
       @apply w-[150px] mb-[-70px] mx-auto;
@@ -29,9 +29,10 @@
       }
 
       .description {
-        @apply text-[#666666] text-[16px];
+        @apply text-[#666666] text-[15px];
         font-family: Raleway, Helvetica, Arial, sans-serif;
-        font-weight: Normal;
+        font-weight: 400;
+        line-height: 24px;
       }
     }
   }

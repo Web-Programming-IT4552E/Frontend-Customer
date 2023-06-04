@@ -24,8 +24,8 @@ const ReviewsProduct = () => {
               key={item}
               className="cover pt-[60px] px-[66px] bg-reviews_product bg-no-repeat bg-cover flex justify-content items-end lg:pt-[150px]"
             >
-              <div className="inner px-[15px] w-full">
-                <div className="reviews mt-[80px] bg-white">
+              <div className="container inner px-[15px] w-full">
+                <div className="reviews px-[15px] pt-[35px] mt-[80px] bg-white">
                   <div className="avatar-author">
                     <Image
                       className=" rounded-[100%]"
