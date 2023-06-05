@@ -110,6 +110,17 @@ body {
   box-shadow: 0 0 7px rgba(0,0,0,0.2);
 }
 
+.mask-img {
+  -webkit-mask-image: url(../assets/images/line-title.svg);
+  mask-image: url(../assets/images/line-title.svg);
+  -webkit-mask-size: 100%;
+  mask-size: 100%;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: repeat;
+  mask-repeat: repeat;    
+}
+
 a {
   transition: all 0.3s ease 0.1s;
   -moz-transition: all 0.3s ease 0.1s;
