@@ -2,12 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&family=Raleway:wght@400;500;600&display=swap');
+
 @import "./colors.scss";
 @import "./home.scss";
 @import "./reviews-product.scss";
 @import "./common/index.scss";
-@import url('https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap');
 @import "./slick.scss";
+@import "./discount-banner.scss";
 
 :root {
   --header-width: ;
@@ -47,24 +49,24 @@ body {
   }
 }
 
-//font faces
-@font-face {
-  font-family: Raleway;
-  src: url('../assets/fonts/1Ptsg8zYS_SKggPNyCg4TYFq.woff2');
-  // font-weight: 400;
-}
+// //font faces
+// @font-face {
+//   font-family: Raleway;
+//   src: url('../assets/fonts/1Ptsg8zYS_SKggPNyCg4TYFq.woff2');
+//   // font-weight: 400;
+// }
 
-@font-face {
-  font-family: Raleway;
-  src: url('../assets/fonts/1Ptug8zYS_SKggPNyC0ITw.woff2');
-  // font-weight: 400;
-}
+// @font-face {
+//   font-family: Raleway;
+//   src: url('../assets/fonts/1Ptug8zYS_SKggPNyC0ITw.woff2');
+//   // font-weight: 400;
+// }
 
-@font-face {
-  font-family: Raleway;
-  src: url('../assets/fonts/K2FhfZBRmr9vQ1pHEey6GIGo8_pv3myYjuXwe55njDw.woff2');
-  // font-weight: 400;
-}
+// @font-face {
+//   font-family: Raleway;
+//   src: url('../assets/fonts/K2FhfZBRmr9vQ1pHEey6GIGo8_pv3myYjuXwe55njDw.woff2');
+//   // font-weight: 400;
+// }
 
 a {
   transition: all 0.3s ease 0.1s;

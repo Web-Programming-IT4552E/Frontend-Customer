@@ -3,6 +3,7 @@ import React from "react";
 import Banner from "@/components/Banner";
 import ProductOur from "@/components/ProductOur";
 import ReviewsProduct from "@/components/ReviewsProduct";
+import DiscountBanner from "@/components/DiscountBanner";
 
 const Home = () => {
   return (
@@ -11,6 +12,7 @@ const Home = () => {
       <Banner />
       <ProductOur />
       <ReviewsProduct />
+      <DiscountBanner />
     </div>
   );
 };
