@@ -8,7 +8,6 @@ import DiscountBanner from "@/components/DiscountBanner";
 const Home = () => {
   return (
     <div id="home">
-      <p>Heyy</p>
       <Banner />
       <ProductOur />
       <ReviewsProduct />

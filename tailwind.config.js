@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
@@ -17,6 +18,7 @@ module.exports = {
     extend: {
       colors: {
         light_pink: "#ffa6a8",
+        'primary-color': '#ffa6a8',
         gray: {
           100: '#f7fafc',
           200: '#edf2f7',
@@ -43,6 +45,10 @@ module.exports = {
       backgroundImage: {
         'reviews_product': "url('/images/review_product.jpg')",
         'discount_banner': "url('/images/discount_banner.jpg')"
+       },
+      fontFamily: {
+        'primary-font': ['Raleway', 'sans-serif'],
+        'secondary-font': ['El Messiri', 'sans-serif'],
       }
     },
     screens: {

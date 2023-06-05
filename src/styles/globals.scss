@@ -2,7 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&family=Raleway:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Raleway:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&family=Raleway:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:wght@300;400;500;700&display=swap');
 
 @import "./colors.scss";
 @import "./home.scss";
@@ -12,15 +13,57 @@
 @import "./discount-banner.scss";
 
 :root {
-  --header-width: ;
-
   --global-font: 'Raleway', sans-serif;
 }
 
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  box-sizing: border-box ;
+}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center, p,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
 }
 
 html,
@@ -28,6 +71,11 @@ body {
   font-family: var(--global-font);
   overflow-x: hidden;
 }
+
+// css slick slider
+// .slick-slider {
+//   width: 100%;
+// }
 
 .special-heading {
   @apply text-[60px] pb-[25px] mb-[63px] font-medium leading-none text-center relative;
@@ -49,24 +97,16 @@ body {
   }
 }
 
-// //font faces
-// @font-face {
-//   font-family: Raleway;
-//   src: url('../assets/fonts/1Ptsg8zYS_SKggPNyCg4TYFq.woff2');
-//   // font-weight: 400;
-// }
+#home-header {
+  .header-list-item {
+    @apply cursor-pointer px-4 py-2 text-[#333] hover:bg-primary-color hover:text-white;
+  }
+}
 
-// @font-face {
-//   font-family: Raleway;
-//   src: url('../assets/fonts/1Ptug8zYS_SKggPNyC0ITw.woff2');
-//   // font-weight: 400;
-// }
-
-// @font-face {
-//   font-family: Raleway;
-//   src: url('../assets/fonts/K2FhfZBRmr9vQ1pHEey6GIGo8_pv3myYjuXwe55njDw.woff2');
-//   // font-weight: 400;
-// }
+.cart-dropdown {
+  @apply w-[330px] mt-1 px-3 py-6 text-center bg-white;
+  box-shadow: 0 0 7px rgba(0,0,0,0.2);
+}
 
 a {
   transition: all 0.3s ease 0.1s;
