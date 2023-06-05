@@ -18,11 +18,13 @@ const BannerItem = ({title, description, imgUrl}: IBannerItem) => {
       style={{
         backgroundImage: `url(${imgUrl.src})`,
       }}
-      className="bg-cover bg-center bg-no-repeat pt-[53%] relative"
+      className="bg-cover bg-center bg-no-repeat relative pt-[151%] sm:pt-[72%] lg:pt-[53%]"
     >
-      <div className='absolute top-0 bottom-0 left-32 w-[44%] flex flex-col justify-center items-center text-center'>
-        <h1 className='text-[90px] font-secondary-font text-[#333] mb-8'>{firstTitle} <br /> {restTitle}</h1>
-        <p className='text-[25px] text-[#B8B8B8] mb-11'>{description}</p>
+      <div 
+        className='absolute top-0 bottom-0 left-0 w-[100%] flex flex-col justify-center items-center text-center sm:w-[44%] sm:left-24 lg:left-32'
+      >
+        <h1 className='text-[66px] font-secondary-font text-[#333] mb-8 lg:text-[90px]'>{firstTitle} <br /> {restTitle}</h1>
+        <p className='text-[22px] text-[#B8B8B8] mb-11 lg:text-[25px]'>{description}</p>
         <Button primary>SHOP NOW</Button>
       </div>
     </div>
