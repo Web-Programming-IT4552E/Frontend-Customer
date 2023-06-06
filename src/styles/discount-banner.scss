@@ -1,6 +1,6 @@
 #discount-banner {
   font-family: Raleway, Helvetica, sans-serif;
-  @apply bg-no-repeat bg-cover bg-discount_banner pt-[100px] pb-[90px] flex justify-end;
+  @apply bg-no-repeat bg-cover bg-discount_banner pt-[100px] pb-[90px] flex justify-center lg:justify-end;
   .info {
     @apply w-[50%];
     h3 {

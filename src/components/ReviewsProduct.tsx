@@ -37,7 +37,7 @@ const ReviewsProduct = () => {
                     ></Image>
                   </div>
                   <div className="entry-content">
-                    <h2 className="author-name">Đặng Minh Khôi</h2>
+                    <h2 className="author-name">Dang Minh Khoi</h2>
                     <div className="item-rating">
                       <div className="star-rating">
                         {[1, 2].map((item) => (

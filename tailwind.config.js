@@ -19,6 +19,7 @@ module.exports = {
       colors: {
         light_pink: "#ffa6a8",
         'primary-color': '#ffa6a8',
+        medium_gray: "#666666",
         gray: {
           100: '#f7fafc',
           200: '#edf2f7',

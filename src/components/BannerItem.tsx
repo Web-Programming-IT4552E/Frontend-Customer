@@ -1,7 +1,7 @@
 import React from 'react'
 import type { StaticImageData } from 'next/image';
 
-import Button from './Button';
+import Button from './common/Button';
 
 export interface IBannerItem {
   title: string,
