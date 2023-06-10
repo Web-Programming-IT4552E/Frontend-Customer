@@ -2,8 +2,8 @@ import React from "react";
 
 const BreadCumb: React.FC<{ navigations: string[] }> = ({ navigations }) => {
   return (
-    <div id="bread-cumb">
-      <div id="inner">
+    <div className="" id="bread-cumb">
+      <div id="inner" className="container">
         <h1 className="heading-primary">Shop</h1>
         <div className="wrapper">
           <ul className="flex">
