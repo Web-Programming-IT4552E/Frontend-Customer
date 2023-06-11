@@ -124,5 +124,9 @@ a:hover {
 }
 
 .container {
-  @apply w-full px-[15px] lg:mx-auto sm:max-w-[540px] md:max-w-[720px] lg:max-w-[960px] xl:max-w-[1200px];
+  @apply w-full px-[15px] lg:mx-auto sm:max-w-[100%] lg:max-w-[960px] xl:max-w-[1200px];
+}
+
+.content-area {
+  @apply pt-[60px] pb-[40px] lg:pt-[100px] w-full;
 }
