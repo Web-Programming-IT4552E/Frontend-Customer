@@ -1,0 +1,35 @@
+#bread-cumb {
+  @apply text-dark bg-[#f7f7f7] py-[80px] lg:py-[100px];
+  background-image: url("../../assets/images/product-list-banner.jpg");
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+  -o-background-size: cover;
+  -ms-background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  #inner {
+    @apply px-[15px];
+    .heading-primary {
+      @apply text-[30px] mb-[20px] md:text-[40px] lg:text-[60px] pb-[15px] relative;
+      font-family: "El Messiri", Helvetica, Arial, sans-serif;
+      &::before {
+        position: absolute;
+        content: "";
+        height: 13px;
+        width: 70px;
+        margin-left: 0px;
+        display: block;
+        bottom: 0;
+        -webkit-mask-image: url(../../assets/images/line-title.svg);
+        mask-image: url(../../assets/images/line-title.svg);
+        background-color: #ffa6a8;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+      }
+    }
+
+    .wrapper {
+      @apply text-[15px];
+    }
+  }
+}

@@ -15,8 +15,8 @@ const ProductItem = () => {
           src={SampleProductImg}
           alt="product-item"
           loading="lazy"
-          width={380}
-          height={380}
+          width={500}
+          height={500}
         />
         <div className="filter translate-x-[-100%] group-hover:translate-x-[0%] transition-all ease-in-out duration-200"></div>
         <div className="box-hover translate-y-[100%] group-hover:translate-y-[-75%] transition-all ease-linear duration-200">
