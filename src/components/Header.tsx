@@ -11,6 +11,7 @@ import {
 import { HiLogin } from "react-icons/hi";
 import Image from "next/image";
 import Tippy from "@tippyjs/react/headless";
+import Link from 'next/link'
 
 import logoImg from "@/assets/images/logo.png";
 
@@ -63,10 +64,10 @@ const Header = () => {
 				/>
 
 				<div className="hidden xl:flex gap-8 text-base font-semibold items-center">
-					<span className="header-list-item">HOME</span>
-					<span className="header-list-item">SHOP</span>
-					<span className="header-list-item">BLOG</span>
-					<span className="header-list-item">CONTACT US</span>
+					<Link href="/" className="header-list-item">HOME</Link>
+					<Link href="/product/all" className="header-list-item">SHOP</Link>
+					<Link href="/" className="header-list-item">BLOG</Link>
+					<Link href="/" className="header-list-item">CONTACT US</Link>
 				</div>
 
 				<div className="flex gap-8 items-center">
