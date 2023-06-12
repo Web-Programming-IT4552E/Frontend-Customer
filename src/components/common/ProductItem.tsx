@@ -10,7 +10,7 @@ const ProductItem = () => {
       className="group flex flex-col justify-center items-center overflow-hidden"
       id="common_product_item"
     >
-      <div className="relative overflow-hidden flex justify-center items-end">
+      <div className="relative overflow-hidden flex justify-center items-end cursor-pointer">
         <Image
           src={SampleProductImg}
           alt="product-item"

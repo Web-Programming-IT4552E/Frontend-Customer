@@ -9,7 +9,7 @@
     @apply absolute flex gap-2;
     
     .link-item {
-      @apply p-[6px] bg-light_pink w-[42px] h-[42px] flex justify-center items-center rounded-[50%];
+      @apply p-[6px] bg-light_pink w-[42px] h-[42px] flex justify-center items-center rounded-[50%] hover:bg-[#4b4949];
       svg {
         color: white !important;
       }
