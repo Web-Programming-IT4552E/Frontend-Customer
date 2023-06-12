@@ -1,0 +1,47 @@
+#auth-login {
+	.auth-input {
+		box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+	}
+
+	:where(.css-dev-only-do-not-override-j0nf2s).ant-checkbox-wrapper {
+		font-family: "Raleway", sans-serif;
+	}
+
+	:where(.css-dev-only-do-not-override-j0nf2s).ant-checkbox
+		.ant-checkbox-inner {
+		width: 20px;
+		height: 20px;
+	}
+
+	:where(.css-dev-only-do-not-override-j0nf2s).ant-checkbox
+		.ant-checkbox-inner:after {
+		top: 44%;
+		inset-inline-start: 26.5%;
+		width: 6px;
+		height: 11px;
+	}
+
+	:where(.css-dev-only-do-not-override-j0nf2s).ant-checkbox-checked
+		.ant-checkbox-inner {
+		background-color: #ffa6a8;
+		border-color: #ffa6a8;
+	}
+
+	:where(.css-dev-only-do-not-override-j0nf2s).ant-checkbox-wrapper:not(
+			.ant-checkbox-wrapper-disabled
+		):hover
+		.ant-checkbox-inner,
+	:where(.css-dev-only-do-not-override-j0nf2s).ant-checkbox:not(
+			.ant-checkbox-disabled
+		):hover
+		.ant-checkbox-inner {
+		border-color: #ffa6a8;
+	}
+
+	:where(.css-dev-only-do-not-override-j0nf2s).ant-checkbox-wrapper:not(
+			.ant-checkbox-wrapper-disabled
+		):hover
+		.ant-checkbox-checked:not(.ant-checkbox-disabled):after {
+		border-color: #ffa6a8;
+	}
+}
