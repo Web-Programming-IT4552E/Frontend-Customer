@@ -103,7 +103,7 @@ const Header = () => {
 							delay={[0, 300]}
 							render={(attrs) => (
 								<div
-									className="tippy-dropdown min-w-[160px] mt-1 bg-white"
+									className="tippy-dropdown min-w-[150px] mt-1 bg-white"
 									tabIndex={-1}
 									{...attrs}
 								>
@@ -114,14 +114,14 @@ const Header = () => {
                       </>
 										) : (
 											<>
-												<li className="flex gap-4 items-center cursor-pointer px-4 py-[10px] border-b-[1px] border-solid border-[#d3d0d0] hover:bg-[#eee8e8]">
+												<Link href="/auth/login" className="flex gap-4 items-center cursor-pointer px-4 py-[10px] border-b-[1px] border-solid border-[#d3d0d0] transition-all duration-75 ease-linear hover:bg-[#e8e7e7] hover:text-black">
 													<span className="flex-1">Login</span>
 													<HiLogin className="text-[#666] text-[18px]" />
-												</li>
-												<li className="flex gap-4 items-center cursor-pointer px-4 py-[10px] hover:bg-[#eee8e8]">
+												</Link>
+												<Link href="/auth/register" className="flex gap-4 items-center cursor-pointer px-4 py-[10px] transition-all duration-75 ease-linear hover:bg-[#e8e7e7] hover:text-black">
 													<span className="flex-1">Sign up</span>
 													<HiOutlineUserPlus className="text-[#666] text-[18px]" />
-												</li>
+												</Link>
 											</>
 										)}
 									</ul>
