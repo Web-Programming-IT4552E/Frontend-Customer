@@ -15,6 +15,7 @@
 @import "./product-list.scss";
 @import "./detail-product.scss";
 @import "./auth.scss";
+@import "./profile.scss";
 
 :root {
   --global-font: 'Raleway', sans-serif;
@@ -145,4 +146,12 @@ a:hover {
 
 .content-area {
   @apply pt-[60px] pb-[40px] lg:pt-[100px] w-full;
+}
+
+.font-raleway {
+  font-family: Raleway, Arial, Helvetica, sans-serif;
+}
+
+.font-el-messiri {
+  font-family: 'El Messiri', Arial, Helvetica, sans-serif;
 }
