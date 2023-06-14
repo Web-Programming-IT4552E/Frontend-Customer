@@ -3,19 +3,57 @@
     @apply w-full;
   }
 
-  // .ant-col {
-  //   @apply w-full;
-  // }
+  .ant-col {
+    @apply text-left;
+  }
+
+  :where(.css-dev-only-do-not-override-j0nf2s).ant-form {
+    @apply flex flex-col gap-4;
+  }
 
   :where(.css-dev-only-do-not-override-j0nf2s).ant-form-item .ant-form-item-label >label {
-    @apply uppercase font-medium tracking-widest;
+    @apply uppercase font-semibold tracking-widest font-primary-font;
   }
 
-  :where(.css-dev-only-do-not-override-j0nf2s).ant-row {
-    @apply justify-between;
+  :where(.css-dev-only-do-not-override-j0nf2s).ant-input {
+    @apply px-3 py-[7px] font-primary-font border-[#999] rounded-none;
   }
 
-  :where(.css-dev-only-do-not-override-j0nf2s).ant-form-horizontal .ant-form-item-control {
-    // @apply ;
+  :where(.css-dev-only-do-not-override-j0nf2s).ant-input:focus, :where(.css-dev-only-do-not-override-j0nf2s).ant-input-focused,
+  :where(.css-dev-only-do-not-override-j0nf2s).ant-input:hover {
+    @apply border-[#999];
+  }
+
+  :where(.css-dev-only-do-not-override-j0nf2s).ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+    @apply h-[37.6px];
+  }
+
+  :where(.css-dev-only-do-not-override-j0nf2s).ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    @apply border-[#999];
+  }
+
+  :where(.css-dev-only-do-not-override-j0nf2s).ant-select-single:not(.ant-select-customize-input) .ant-select-selector .ant-select-selection-search-input {
+    @apply h-full;
+  }
+
+  :where(.css-dev-only-do-not-override-j0nf2s).ant-select-single .ant-select-selector .ant-select-selection-item, :where(.css-dev-only-do-not-override-j0nf2s).ant-select-single .ant-select-selector .ant-select-selection-placeholder {
+    @apply leading-[34px] text-black;
+  }
+
+  :where(.css-dev-only-do-not-override-j0nf2s).ant-select .ant-select-arrow {
+    @apply text-black;
+  }
+
+  :where(.css-dev-only-do-not-override-j0nf2s).ant-select-single .ant-select-selector {
+    @apply font-primary-font rounded-none;
+  }
+
+  textarea:where(.css-dev-only-do-not-override-j0nf2s).ant-input {
+    @apply min-h-[120px];
   }
 }
+
+:where(.css-dev-only-do-not-override-j0nf2s).ant-select-dropdown {
+  @apply font-primary-font;
+}
+
