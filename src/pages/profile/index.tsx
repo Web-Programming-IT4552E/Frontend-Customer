@@ -7,11 +7,13 @@ import { RankEnum } from "@/@types/rank";
 import dayjs from 'dayjs'
 import weekday from "dayjs/plugin/weekday"
 import localeData from "dayjs/plugin/localeData"
+import { useRouter } from "next/router";
 
 dayjs.extend(weekday)
 dayjs.extend(localeData)
 
 const Profile = () => {
+  const router = useRouter()
   const [isEdit, setIsEdit] = useState(true);
   const [profileData, setProfileData] = useState({
     username: "Alexander Kelvin",
@@ -27,7 +29,9 @@ const Profile = () => {
     setIsEdit(!isEdit);
   }
 
-  console.log(dayjs(profileData.birthday, "MM/DD/YYYY"))
+  const handleDirectShippingAddresses = () => {
+    router.push("/profile/shipping-addresses")
+  }
 
   return (
     <div className="mt-[80px]" id="profile">
@@ -45,7 +49,7 @@ const Profile = () => {
               {" "}
               <AiFillEdit className="mr-[5px]"  /> Edit Profile
             </Button>
-            <Button className="setting-btn">
+            <Button className="setting-btn" onClick={handleDirectShippingAddresses} >
               {" "}
               <FaAddressBook className="mr-[5px]" /> Shipping Addresses
             </Button>
@@ -65,7 +69,7 @@ const Profile = () => {
             </div>
             <div className="flex justify-between items-center">
               <h4 className="font-medium">Birthday: </h4>
-              {isEdit ? <DatePicker className="w-full max-w-[300px]" defaultValue={dayjs(profileData.birthday, "MM/DD/YYYY")} format={"MM/DD/YYYY"} onChange={(e: any) => {
+              {isEdit ? <DatePicker className="w-full max-w-[300px]" defaultValue={dayjs(profileData.birthday, "DD/MM/YYYY")} format={"DD/MM/YYYY"} onChange={(e: any) => {
                 console.log(e)
               }} /> : <p>{profileData.birthday}</p>}
             </div>

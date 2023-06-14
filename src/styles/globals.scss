@@ -16,6 +16,7 @@
 @import "./detail-product.scss";
 @import "./auth.scss";
 @import "./profile.scss";
+@import "./shipping-addresses.scss";
 
 :root {
   --global-font: 'Raleway', sans-serif;
@@ -154,4 +155,39 @@ a:hover {
 
 .font-el-messiri {
   font-family: 'El Messiri', Arial, Helvetica, sans-serif;
+}
+
+.shipping-modal {
+  #confirm-btn {
+    @apply rounded-none w-[80px] flex justify-center items-center bg-light_pink text-white font-semibold border-none hover:bg-[#f58c8f];
+  }
+  
+  #cancel-btn {
+    @apply rounded-none w-[80px] flex justify-center items-center border-medium_gray text-medium_gray font-semibold hover:bg-medium_gray hover:text-white;
+  }
+
+  .ant-form-item {
+    @apply mb-0 flex justify-between items-center;
+  }
+
+  .ant-input {
+    @apply w-full;
+    font-family: Raleway, Arial, Helvetica, sans-serif;
+  }
+
+  .ant-row {
+    @apply w-full;
+  }
+
+  .ant-col {
+    @apply text-left;
+  }
+
+  .ant-form-item-required, .ant-modal-title {
+    font-family: Raleway, Arial, Helvetica, sans-serif;
+  }
+
+  .ant-modal-close-x {
+    @apply flex justify-center items-center;
+  }
 }
