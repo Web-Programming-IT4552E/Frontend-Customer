@@ -55,14 +55,16 @@ const Login: NextPageWithLayout = () => {
 							Forgot password?
 						</p>
 					</div>
-					<Button primary type="submit">
-						Login
-					</Button>
-					<Link href="/auth/register">
-						<Button secondary type="button" className="w-full">
-							Register
-						</Button>
-					</Link>
+					<div className="flex flex-col gap-4">
+					  <Button primary type="submit">
+  						Login
+  					</Button>
+  					<Link href="/auth/register">
+  						<Button secondary type="button" className="w-full">
+  							Register
+  						</Button>
+  					</Link>
+					</div>
 				</form>
 			</div>
 		</div>

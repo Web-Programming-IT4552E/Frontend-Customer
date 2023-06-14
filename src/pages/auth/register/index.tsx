@@ -57,14 +57,16 @@ const Register: NextPageWithLayout = () => {
 							className="auth-input text-base py-4 px-3 outline-none placeholder:text-[#848484]"
 						/>
 					</div>
-					<Button primary type="submit">
-						Register
-					</Button>
-					<Link href="/auth/login">
-						<Button secondary type="button" className="w-full">
-							Login
-						</Button>
-					</Link>
+					<div className="flex flex-col gap-4">
+					  <Button primary type="submit">
+  						Register
+  					</Button>
+  					<Link href="/auth/login">
+  						<Button secondary type="button" className="w-full">
+  							Login
+  						</Button>
+  					</Link>
+					</div>
 				</form>
 			</div>
 		</div>
