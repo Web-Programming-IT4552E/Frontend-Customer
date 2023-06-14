@@ -4,3 +4,4 @@ export enum RankEnum {
   GOLD = "GOLD",
   DIAMOND = "DIAMOND"
 }
+

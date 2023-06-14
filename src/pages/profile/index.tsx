@@ -5,7 +5,11 @@ import { FaAddressBook } from "react-icons/fa"
 import MemberCard from "@/components/MemberCard";
 import { RankEnum } from "@/@types/rank";
 import dayjs from 'dayjs'
+import weekday from "dayjs/plugin/weekday"
+import localeData from "dayjs/plugin/localeData"
 
+dayjs.extend(weekday)
+dayjs.extend(localeData)
 
 const Profile = () => {
   const [isEdit, setIsEdit] = useState(true);
@@ -22,6 +26,8 @@ const Profile = () => {
   const handleEditProfile = () => {
     setIsEdit(!isEdit);
   }
+
+  console.log(dayjs(profileData.birthday, "MM/DD/YYYY"))
 
   return (
     <div className="mt-[80px]" id="profile">
@@ -59,7 +65,7 @@ const Profile = () => {
             </div>
             <div className="flex justify-between items-center">
               <h4 className="font-medium">Birthday: </h4>
-              {isEdit ? <DatePicker className="w-full max-w-[300px]" format={"MM/DD/YYYY"} onChange={(e: any) => {
+              {isEdit ? <DatePicker className="w-full max-w-[300px]" defaultValue={dayjs(profileData.birthday, "MM/DD/YYYY")} format={"MM/DD/YYYY"} onChange={(e: any) => {
                 console.log(e)
               }} /> : <p>{profileData.birthday}</p>}
             </div>
