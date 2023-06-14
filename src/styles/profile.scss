@@ -1,0 +1,19 @@
+#profile {
+  @apply text-dark;
+
+  .setting-btn {
+    @apply flex justify-center items-center font-semibold font-raleway text-[16px] px-[50px] py-[20px] rounded-none border-medium_gray hover:bg-medium_gray hover:text-white;
+  }
+
+  .actions-btn {
+    @apply flex justify-end gap-[10px];
+  }
+
+  .confirm-btn {
+    @apply rounded-none px-[30px] py-[10px] flex justify-center items-center bg-light_pink text-white font-semibold border-none hover:bg-[#f58c8f];
+  }
+
+  .cancel-btn {
+    @apply rounded-none px-[30px] py-[10px] flex justify-center items-center border-medium_gray text-medium_gray font-semibold hover:bg-medium_gray hover:text-white;
+  }
+}
