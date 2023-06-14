@@ -1,14 +1,14 @@
 import React from 'react'
 
 import CartItem from './common/CartItem'
-import type { cartItemType } from './common/CartItem'
 import Button from './common/Button'
+import { orderItemType } from '@/@types/order'
 
 import itemCart from '@/assets/images/cart-item.jpg'
 
 
 const CartList = () => {
-  const cartList: Array<cartItemType> = [
+  const cartList: Array<orderItemType> = [
     {
       name: 'Striped Stretchie',
       price: 17,

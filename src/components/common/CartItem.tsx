@@ -1,20 +1,10 @@
 import React from 'react'
 import Image from 'next/image'
-import type { StaticImageData } from 'next/image';
 import { HiXMark } from "react-icons/hi2";
 
-export type cartItemType = {
-  name: string;
-  price: number;
-  quantity: number;
-  itemImg: StaticImageData
-}
+import { IOrderItem } from '@/@types/order';
 
-export interface ICartItem {
-	data: cartItemType;
-} 
-
-const CartItem = ({data}: ICartItem) => {
+const CartItem = ({data}: IOrderItem) => {
   
   return (
     <div className='flex gap-3 pb-3 border-b-[1px] border-solid border-[#ccc] cursor-pointer hover:opacity-90'>
