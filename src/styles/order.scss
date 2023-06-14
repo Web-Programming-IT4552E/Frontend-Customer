@@ -1,0 +1,21 @@
+#order-detail {
+  .ant-row {
+    @apply w-full;
+  }
+
+  // .ant-col {
+  //   @apply w-full;
+  // }
+
+  :where(.css-dev-only-do-not-override-j0nf2s).ant-form-item .ant-form-item-label >label {
+    @apply uppercase font-medium tracking-widest;
+  }
+
+  :where(.css-dev-only-do-not-override-j0nf2s).ant-row {
+    @apply justify-between;
+  }
+
+  :where(.css-dev-only-do-not-override-j0nf2s).ant-form-horizontal .ant-form-item-control {
+    // @apply ;
+  }
+}

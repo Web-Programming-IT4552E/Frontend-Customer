@@ -1,5 +1,4 @@
 import React, { FormEvent, ReactElement } from "react";
-import { Checkbox } from "antd";
 import Link from "next/link";
 
 import type { NextPageWithLayout } from "@/pages/_app";
@@ -9,7 +8,7 @@ import Button from "@/components/common/Button";
 // import authBanner from '@/assets/images/auth_banner.jpg'
 import authBanner from "@/assets/images/auth-banner.webp";
 
-const Login: NextPageWithLayout = () => {
+const Register: NextPageWithLayout = () => {
 	const handleSubmitLogin = (event: FormEvent) => {
 		event.preventDefault();
 		console.log("hi");
@@ -24,7 +23,7 @@ const Login: NextPageWithLayout = () => {
 				className="bg-cover bg-center bg-no-repeat h-full hidden sm:block sm:pt-[46%] lg:pt-[40%] xl:pt-0"
 			></div>
 
-			<div className="flex flex-col justify-center px-8 sm:py-10 sm:px-20 lg:px-32 bg-[#f6f7fc] xl:py-20 xl:px-40">
+			<div className="flex flex-col justify-center px-8 sm:py-10 sm:px-20 lg:px-32 bg-[#f6f7fc] xl:py-12 xl:px-40">
 				<h1 className="text-[28px] mb-14 text-center">
 					Welcome to{" "}
 					<span className="text-primary-color font-bold">
@@ -49,19 +48,21 @@ const Login: NextPageWithLayout = () => {
 							className="auth-input text-base py-4 px-3 outline-none placeholder:text-[#848484]"
 						/>
 					</div>
-					<div className="mt-[-20px] text-sm flex justify-between items-center">
-						<Checkbox>Remember me</Checkbox>
-						<p className="mb-0 cursor-pointer underline hover:no-underline">
-							Forgot password?
-						</p>
+          <div className="flex flex-col gap-3">
+						<label htmlFor="">Re-enter password</label>
+						<input
+							type="password"
+							placeholder="Your password"
+							className="auth-input text-base py-4 px-3 outline-none placeholder:text-[#848484]"
+						/>
 					</div>
 					<div className="flex flex-col gap-4">
 					  <Button primary type="submit">
-  						Login
+  						Register
   					</Button>
-  					<Link href="/auth/register">
+  					<Link href="/auth/login">
   						<Button secondary type="button" className="w-full">
-  							Register
+  							Login
   						</Button>
   					</Link>
 					</div>
@@ -71,8 +72,8 @@ const Login: NextPageWithLayout = () => {
 	);
 };
 
-Login.getLayout = function getLayout(page: ReactElement) {
+Register.getLayout = function getLayout(page: ReactElement) {
 	return <LayoutAuth>{page}</LayoutAuth>;
 };
 
-export default Login;
+export default Register;

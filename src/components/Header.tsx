@@ -13,6 +13,8 @@ import Image from "next/image";
 import Tippy from "@tippyjs/react/headless";
 import Link from 'next/link'
 
+import CartList from "./CartList";
+
 import logoImg from "@/assets/images/logo.png";
 
 const Header = () => {
@@ -79,11 +81,11 @@ const Header = () => {
 							delay={[0, 300]}
 							render={(attrs) => (
 								<div
-									className="w-[330px] mt-1 px-3 py-6 text-center bg-white tippy-dropdown"
+									className="w-[330px] mt-1 px-2 py-3 text-center bg-white tippy-dropdown"
 									tabIndex={-1}
 									{...attrs}
 								>
-									No products in cart
+                  <CartList />
 								</div>
 							)}
 						>
