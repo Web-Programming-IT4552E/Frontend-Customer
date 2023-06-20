@@ -2,10 +2,6 @@ import Head from 'next/head';
 import type { ReactNode } from 'react';
 import React from 'react';
 
-// import GeneralModal from 'src/components/common/GeneralModal';
-import Footer from '@/components/Footer';
-import Header from '@/components/Header';
-
 type Props = {
   children: ReactNode;
   title?: string;
@@ -20,10 +16,8 @@ const LayoutDocument = ({
       <Head>
         <title>{title}</title>
       </Head>
-      <Header />
       {/* <GeneralModal /> */}
       <div>{children}</div>
-      <Footer />
     </>
   );
 };

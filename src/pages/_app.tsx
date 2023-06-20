@@ -1,17 +1,35 @@
 import '@/styles/globals.scss';
 import 'antd/dist/reset.css';
+import "@fortawesome/fontawesome-svg-core/styles.css"; 
+import { config } from "@fortawesome/fontawesome-svg-core";
 
+// import 'antd/dist/reset.css';
 // import 'antd/dist/antd.css';
+
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { AppProps } from 'next/app';
-import { useState } from 'react';
+import { ReactElement, ReactNode, useState } from 'react';
+import type { NextPage } from 'next'
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/lib/integration/react';
 
 import store, { persistor } from '@/configs/redux';
 import LayoutDefault from '@/layouts/LayoutDefault';
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
 
-const MyApp = ({ Component, pageProps }: AppProps) => {
+// Remove auto adding css
+config.autoAddCss = false; 
+
+export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+  getLayout?: (page: ReactElement) => ReactNode
+}
+
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout
+}
+
+const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
   const [queryClient] = useState(
     new QueryClient({
       defaultOptions: {
@@ -22,14 +40,14 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       },
     })
   );
+  
+  const getLayout = Component.getLayout ?? ((page) => <LayoutDefault>{page}</LayoutDefault>)
 
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <QueryClientProvider client={queryClient}>
-          <LayoutDefault>
-            <Component {...pageProps} />
-          </LayoutDefault>
+          {getLayout(<Component {...pageProps} />)}
         </QueryClientProvider>
       </PersistGate>
     </Provider>

@@ -1,0 +1,39 @@
+#reviews-product {
+  @apply mb-[115px];
+  .cover {
+    .avatar-author {
+      @apply w-[150px] mb-[-70px] mx-auto;
+      transform: translateY(-50%);
+      -moz-transform: translateY(-50%);
+      -webkit-transform: translateY(-50%);
+      -o-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+    }
+
+    .entry-content {
+      @apply max-w-[960px] p-[20px] pb-[50px] mx-auto my-0 text-center;
+      
+      .author-name {
+        @apply text-[30px];
+        font-family: El Messiri, Helvetica, Arial, sans-serif;
+        font-weight: Normal;
+        color: #333;
+      }
+
+      .item-rating {
+        @apply mb-[25px];
+
+        .star-rating {
+          @apply mx-auto my-0;
+        }
+      }
+
+      .description {
+        @apply text-[#666666] text-[15px];
+        font-family: Raleway, Helvetica, Arial, sans-serif;
+        font-weight: 400;
+        line-height: 24px;
+      }
+    }
+  }
+}

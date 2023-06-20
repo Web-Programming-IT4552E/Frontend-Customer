@@ -1,0 +1,22 @@
+#shipping-addresses {
+  @apply text-center;
+
+
+  .ant-btn {
+    @apply flex justify-center items-center rounded-none border-[2px] py-[50px] text-[16px] max-w-[400px] w-full;
+    span {
+      font-weight: 600;
+    }
+    font-weight: 400;
+    font-family: Raleway, Arial, Helvetica, sans-serif;
+  }
+
+  h3,p {
+    @apply mb-0;
+  }
+}
+
+.ant-modal-footer {
+ @apply flex justify-end gap-[2px];   
+}
+

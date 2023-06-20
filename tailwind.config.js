@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
@@ -16,6 +17,10 @@ module.exports = {
     },
     extend: {
       colors: {
+        light_pink: "#ffa6a8",
+        'primary-color': '#ffa6a8',
+        medium_gray: "#666666",
+        dark: "#333",
         gray: {
           100: '#f7fafc',
           200: '#edf2f7',
@@ -39,7 +44,23 @@ module.exports = {
           900: '#2a4365',
         },
       },
+      backgroundImage: {
+        'reviews_product': "url('/images/review_product.jpg')",
+        'discount_banner': "url('/images/discount_banner.jpg')"
+       },
+      fontFamily: {
+        'primary-font': ['Raleway', 'sans-serif'],
+        'secondary-font': ['El Messiri', 'sans-serif'],
+      }
     },
+    screens: {
+      'sm': '576px',
+      'md': '768px',
+      'lg': '992px',
+      'xl': '1200px',
+    }
   },
-  plugins: [],
+  variants: {
+    transitionProperty: ['responsive', 'motion-safe', 'motion-reduce']
+  },
 };

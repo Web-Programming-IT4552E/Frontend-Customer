@@ -1,0 +1,57 @@
+#discount-banner {
+  font-family: Raleway, Helvetica, sans-serif;
+  @apply bg-no-repeat bg-cover bg-discount_banner pt-[100px] pb-[90px] flex justify-center lg:justify-end;
+  .info {
+    @apply w-[50%];
+    h3 {
+      position: relative;
+      z-index: 1;
+      font-family:  El Messiri, Helvetica, Arial, sans-serif;
+      &::before {
+        width: 170px;
+        height: 20px;
+        background: #ffa6a8;
+        position: absolute;
+        left: 40px;
+        top: 10px;
+        content: "";
+        z-index: -1;
+      }
+    }
+    h4 {
+      font-family:  El Messiri, Helvetica, Arial, sans-serif;
+    }
+    .info-btn {
+      color: #333;
+      padding: 13px 25px;
+      border: 1px solid #333;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      font-size: 15px;
+
+      &::before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        transition: all 0.2s;
+        -moz-transition: all 0.2s;
+        -webkit-transition: all 0.2s;
+        -o-transition: all 0.2s;
+        -ms-transition: all 0.2s;
+        width: 0;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: #333;
+      }
+
+      &:hover {
+        color: white;
+        &::before {
+          width: 100%;
+        }
+      } 
+    }
+  }
+}
