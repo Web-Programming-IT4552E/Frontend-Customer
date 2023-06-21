@@ -2,8 +2,12 @@ import BreadCumb from "@/components/common/BreadCumb";
 import React from "react";
 import { Select, Pagination, Input, Slider } from "antd";
 import ProductItem from "@/components/common/ProductItem";
+import { useGetAllProducts } from "@/apis/productApi";
+import { DEFAULT_LIMIT } from "@/utils/pagination";
 
 const ProductList = () => {
+  const { data, error, isError } = useGetAllProducts(0, DEFAULT_LIMIT);
+  console.log(isError)
   return (
     <div id="product-list">
       <BreadCumb navigations={["Home", "Shop", "Page 2"]} />
