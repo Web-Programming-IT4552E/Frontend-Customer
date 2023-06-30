@@ -26,8 +26,8 @@ module.exports = withBundleAnalyzer({
   images: {
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "**",
+        protocol: 'https',
+        hostname: '**',
       },
     ],
   },

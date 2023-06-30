@@ -1,18 +1,23 @@
-import BreadCumb from "@/components/common/BreadCumb";
-import React from "react";
-import { Select, Pagination, Input, Slider } from "antd";
-import ProductItem from "@/components/common/ProductItem";
+import { Input, Pagination, Select, Slider } from 'antd';
+import React from 'react';
+
+import { useGetAllProducts } from '@/apis/productApi';
+import BreadCumb from '@/components/common/BreadCumb';
+import ProductItem from '@/components/common/ProductItem';
+import { DEFAULT_LIMIT } from '@/utils/pagination';
 
 const ProductList = () => {
+  const { isError } = useGetAllProducts(0, DEFAULT_LIMIT);
+  console.log(isError);
   return (
     <div id="product-list">
-      <BreadCumb navigations={["Home", "Shop", "Page 2"]} />
+      <BreadCumb navigations={['Home', 'Shop', 'Page 2']} />
       <div className="content-area">
         <div className="container">
           <div className="grid grid-cols-3 lg:grid-cols-4">
             <div className="col-span-3 lg:px-[15px]">
               <div
-                className="flex items-center justify-between mb-[30px]"
+                className="mb-[30px] flex items-center justify-between"
                 id="wrapper-result-count"
               >
                 <p className="mb-0">Showing 1-9 of 18 results</p>
@@ -20,7 +25,7 @@ const ProductList = () => {
                   <Select.Option>Sort By Value</Select.Option>
                 </Select>
               </div>
-              <div className="grid grid-cols-2 gap-[7px] lg:grid-cols-3 gap-[15px]">
+              <div className="grid grid-cols-2 gap-[15px] lg:grid-cols-3">
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((_, idx) => {
                   return <ProductItem key={idx} />;
                 })}
@@ -29,62 +34,53 @@ const ProductList = () => {
                 <Pagination total={50} />
               </div>
             </div>
-            <div className="pt-[30px] col-span-3 lg:col-span-1 lg:px-[15px] lg:pt-[0px]">
+            <div className="col-span-3 pt-[30px] lg:col-span-1 lg:px-[15px] lg:pt-[0px]">
               <aside className="mb-[50px]">
                 <Input.Search placeholder="Search products..." enterButton />
               </aside>
               <aside className="mb-[50px]">
                 <h3 className="widget-title">Filter By Price</h3>
-                <Slider range={{ draggableTrack: true }} defaultValue={[0, 100]}/>
+                <Slider
+                  range={{ draggableTrack: true }}
+                  defaultValue={[0, 100]}
+                />
                 <div className="price-slider mt-[30px]">
-                  <p className="text-[#666] text-[14px]">Price: 0$ - 30$</p>
+                  <p className="text-[14px] text-[#666]">Price: 0$ - 30$</p>
                 </div>
               </aside>
               <aside className="mb-[50px]">
                 <h3 className="widget-title">Categories</h3>
                 <div className="product-categories">
                   <div className="flex justify-between py-[12px]">
-                    <span className="text-[#666] text-[15px]">
-                      BB Creams
-                    </span>
-                    <span className="text-[#666] text-[15px]">
-                      (8)
-                    </span>
+                    <span className="text-[15px] text-[#666]">BB Creams</span>
+                    <span className="text-[15px] text-[#666]">(8)</span>
                   </div>
                   <div className="flex justify-between py-[12px]">
-                    <span className="text-[#666] text-[15px]">
-                      BB Creams
-                    </span>
-                    <span className="text-[#666] text-[15px]">
-                      (8)
-                    </span>
+                    <span className="text-[15px] text-[#666]">BB Creams</span>
+                    <span className="text-[15px] text-[#666]">(8)</span>
                   </div>
                   <div className="flex justify-between py-[12px]">
-                    <span className="text-[#666] text-[15px]">
-                      BB Creams
-                    </span>
-                    <span className="text-[#666] text-[15px]">
-                      (8)
-                    </span>
+                    <span className="text-[15px] text-[#666]">BB Creams</span>
+                    <span className="text-[15px] text-[#666]">(8)</span>
                   </div>
                 </div>
               </aside>
               <aside className="mb-[50px]">
                 <h3 className="widget-title">Product tags</h3>
                 <div className="grid gap-[5px] lg:grid-cols-3" id="tags">
-                  <a className="border-[1px] border-[#e6e6e6] border-solid text-[15px] py-[10px] text-center">
+                  <a className="border-[1px] border-solid border-[#e6e6e6] py-[10px] text-center text-[15px]">
                     Fresh
                   </a>
-                  <a className="border-[1px] border-[#e6e6e6] border-solid text-[15px] py-[10px] text-center">
+                  <a className="border-[1px] border-solid border-[#e6e6e6] py-[10px] text-center text-[15px]">
                     Fresh
                   </a>
-                  <a className="border-[1px] border-[#e6e6e6] border-solid text-[15px] py-[10px] text-center">
+                  <a className="border-[1px] border-solid border-[#e6e6e6] py-[10px] text-center text-[15px]">
                     Fresh
                   </a>
-                  <a className="border-[1px] border-[#e6e6e6] border-solid text-[15px] py-[10px] text-center">
+                  <a className="border-[1px] border-solid border-[#e6e6e6] py-[10px] text-center text-[15px]">
                     Fresh
                   </a>
-                  <a className="border-[1px] border-[#e6e6e6] border-solid text-[15px] py-[10px] text-center">
+                  <a className="border-[1px] border-solid border-[#e6e6e6] py-[10px] text-center text-[15px]">
                     Fresh
                   </a>
                 </div>

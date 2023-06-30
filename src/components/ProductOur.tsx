@@ -1,5 +1,6 @@
-import React from "react";
-import ProductItem from "./common/ProductItem";
+import React from 'react';
+
+import ProductItem from './common/ProductItem';
 
 const ProductOur = () => {
   return (

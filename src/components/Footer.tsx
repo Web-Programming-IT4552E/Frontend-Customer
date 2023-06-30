@@ -1,18 +1,19 @@
-import React from "react";
-import Logo from "@/assets/images/logo.png";
-import Image from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFacebook,
-  faTwitter,
-  faLinkedin,
   faInstagram,
-} from "@fortawesome/free-brands-svg-icons";
+  faLinkedin,
+  faTwitter,
+} from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Image from 'next/image';
+import React from 'react';
+
+import Logo from '@/assets/images/logo.png';
 
 const Footer = () => {
   return (
     <div className="container" id="footer">
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-[32px] mx-auto">
+      <div className="mx-auto grid grid-cols-1 gap-[32px] md:grid-cols-2 xl:grid-cols-4">
         <div id="logo-and-socials">
           <p>
             <Image
@@ -28,16 +29,16 @@ const Footer = () => {
             Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut.
           </p>
           <div className="pt-[7px]" id="socials">
-            <a className="text-medium_gray mr-[20px]">
+            <a className="mr-[20px] text-medium_gray">
               <FontAwesomeIcon icon={faFacebook} />
             </a>
-            <a className="text-medium_gray mr-[20px]">
+            <a className="mr-[20px] text-medium_gray">
               <FontAwesomeIcon icon={faTwitter} />
             </a>
-            <a className="text-medium_gray mr-[20px]">
+            <a className="mr-[20px] text-medium_gray">
               <FontAwesomeIcon icon={faLinkedin} />
             </a>
-            <a className="text-medium_gray mr-[20px]">
+            <a className="mr-[20px] text-medium_gray">
               <FontAwesomeIcon icon={faInstagram} />
             </a>
           </div>
@@ -56,10 +57,18 @@ const Footer = () => {
         <div id="profile">
           <h3 className="widget-text">Profile</h3>
           <ul>
-            <li><a>My Account</a></li>
-            <li><a>Checkout</a></li>
-            <li><a>Order Tracking</a></li>
-            <li><a>Help & Support</a> </li>
+            <li>
+              <a>My Account</a>
+            </li>
+            <li>
+              <a>Checkout</a>
+            </li>
+            <li>
+              <a>Order Tracking</a>
+            </li>
+            <li>
+              <a>Help & Support</a>{' '}
+            </li>
           </ul>
         </div>
         <div id="newsletter">
@@ -67,10 +76,12 @@ const Footer = () => {
           <ul>
             <li>Subcribe to our newsletter</li>
             <li>
-            <div className="email">
-              <input type="email" name="EMAIL" placeholder="Your e-mail..."/>
-              <button className="bg-[#666] text-white py-[7px] px-[10px] hover:bg-black">Send</button>
-            </div>
+              <div className="email">
+                <input type="email" name="EMAIL" placeholder="Your e-mail..." />
+                <button className="bg-[#666] py-[7px] px-[10px] text-white hover:bg-black">
+                  Send
+                </button>
+              </div>
             </li>
           </ul>
         </div>
