@@ -1,20 +1,29 @@
-import React, { useState } from "react";
-import { Button, Modal, Form, Input, Select } from "antd";
-import { AiOutlinePlusCircle } from "react-icons/ai";
-import { truncateString } from "@/utils/string";
+import { Button, Form, Input, Modal, Select } from 'antd';
+import React, { useState } from 'react';
+import { AiOutlinePlusCircle } from 'react-icons/ai';
+
+import { truncateString } from '@/utils/string';
 
 const ShippingAddresses = () => {
   const [form] = Form.useForm();
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
 
-  const handleClose = () => {
-    resetForm();
-    setIsOpenModal(false);
-  };
-
   const handleClickBtn = (isAdd: boolean = false) => {
     console.log(isAdd);
     setIsOpenModal(true);
+  };
+
+  const resetForm = () => {
+    form.setFieldsValue({
+      receiver_name: '',
+      receiver_phone_number: '',
+      address: '',
+    });
+  };
+
+  const handleClose = () => {
+    resetForm();
+    setIsOpenModal(false);
   };
 
   const onFinish = (values: any) => {
@@ -24,16 +33,8 @@ const ShippingAddresses = () => {
   };
 
   const onFinishFailed = () => {
-    console.log("Failed")
+    console.log('Failed');
   };
-
-  const resetForm = () => {
-    form.setFieldsValue({
-      receiver_name: "",
-      receiver_phone_number: "",
-      address: ""
-    });
-  }
 
   return (
     <>
@@ -42,14 +43,13 @@ const ShippingAddresses = () => {
         title="Add shipping address"
         open={isOpenModal}
         onCancel={handleClose}
-        footer={[
-        ]}
+        footer={[]}
       >
         <Form
           form={form}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
-          className="flex flex-col gap-[12px] mt-[20px]"
+          className="mt-[20px] flex flex-col gap-[12px]"
           {...{
             labelCol: { span: 6 },
             wrapperCol: { span: 18 },
@@ -72,30 +72,45 @@ const ShippingAddresses = () => {
           >
             <Input placeholder="Please input phone nunber!" />
           </Form.Item>
-          <Form.Item initialValue={0} name="city" label="City:" rules={[{ required: true }]}>
+          <Form.Item
+            initialValue={0}
+            name="city"
+            label="City:"
+            rules={[{ required: true }]}
+          >
             <Select
               options={[
-                { value: 0,  label: "Jack" },
-                { value: 1, label: "Lucy" },
-                { value: 2, label: "yiminghe" },
+                { value: 0, label: 'Jack' },
+                { value: 1, label: 'Lucy' },
+                { value: 2, label: 'yiminghe' },
               ]}
             ></Select>
           </Form.Item>
-          <Form.Item initialValue={0} name="district" label="District:" rules={[{ required: true }]}>
+          <Form.Item
+            initialValue={0}
+            name="district"
+            label="District:"
+            rules={[{ required: true }]}
+          >
             <Select
               options={[
-                { value: 0,  label: "Jack" },
-                { value: 1, label: "Lucy" },
-                { value: 2, label: "yiminghe" },
+                { value: 0, label: 'Jack' },
+                { value: 1, label: 'Lucy' },
+                { value: 2, label: 'yiminghe' },
               ]}
             ></Select>
           </Form.Item>
-          <Form.Item initialValue={0} name="ward" label="Ward:" rules={[{ required: true }]}>
+          <Form.Item
+            initialValue={0}
+            name="ward"
+            label="Ward:"
+            rules={[{ required: true }]}
+          >
             <Select
               options={[
-                { value: 0,  label: "Jack" },
-                { value: 1, label: "Lucy" },
-                { value: 2, label: "yiminghe" },
+                { value: 0, label: 'Jack' },
+                { value: 1, label: 'Lucy' },
+                { value: 2, label: 'yiminghe' },
               ]}
             ></Select>
           </Form.Item>
@@ -107,21 +122,23 @@ const ShippingAddresses = () => {
             <Input placeholder="Please input address!" />
           </Form.Item>
           <div className="flex justify-end gap-[2px]">
-          <Button id="confirm-btn" htmlType="submit">
-            Confirm
-          </Button>,
-          <Button id="cancel-btn" onClick={handleClose}>
-            {" "}
-            Close
-          </Button>,
+            <Button id="confirm-btn" htmlType="submit">
+              Confirm
+            </Button>
+            ,
+            <Button id="cancel-btn" onClick={handleClose}>
+              {' '}
+              Close
+            </Button>
+            ,
           </div>
         </Form>
       </Modal>
       <div id="shipping-addresses">
-        <h2 className="text-[24px] font-semibold mt-[60px] mb-[40px] md:text-[36px]">
+        <h2 className="mt-[60px] mb-[40px] text-[24px] font-semibold md:text-[36px]">
           Shipping Address
         </h2>
-        <div className="px-[20px] flex justify-center items-center flex-wrap gap-[12px] lg:px-[60px]">
+        <div className="flex flex-wrap items-center justify-center gap-[12px] px-[20px] lg:px-[60px]">
           {[1, 2, 3].map((item) => {
             return (
               <Button
@@ -132,8 +149,13 @@ const ShippingAddresses = () => {
                 }}
               >
                 <div className="flex flex-col gap-[5px] text-start">
-                  <p><span>Address:</span> {truncateString("Nho Quan, Gia Viễn, Ninh Bình")}</p>
-                  <p><span>Phone:</span> 0946067834</p>
+                  <p>
+                    <span>Address:</span>{' '}
+                    {truncateString('Nho Quan, Gia Viễn, Ninh Bình')}
+                  </p>
+                  <p>
+                    <span>Phone:</span> 0946067834
+                  </p>
                 </div>
               </Button>
             );
