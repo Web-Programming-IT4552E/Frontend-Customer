@@ -1,26 +1,36 @@
-import React from "react";
-import { AiFillCrown } from "react-icons/ai";
-import { RankEnum } from "@/@types/rank";
-import { RankColor } from "@/utils/rank";
+import React from 'react';
+import { AiFillCrown } from 'react-icons/ai';
 
-const MemberCard: React.FC<{ rank: RankEnum, rank_point: number, point: number }> = ({ rank, rank_point, point }) => {
+import type { RankEnum } from '@/@types/rank';
+import { RankColor } from '@/utils/rank';
+
+const MemberCard: React.FC<{
+  rank: RankEnum;
+  rank_point: number;
+  point: number;
+}> = ({ rank, rank_point, point }) => {
   return (
-    <div className={`w-full h-[200px] rounded-lg flex items-center justify-center`} style={{
-      backgroundColor: RankColor[rank]
-    }}>
+    <div
+      className={`flex h-[200px] w-full items-center justify-center rounded-lg`}
+      style={{
+        backgroundColor: RankColor[rank],
+      }}
+    >
       <div className="w-5/6">
-        <div className="flex items-center font-bold text-[24px] uppercase mb-[40px] text-white">
+        <div className="mb-[40px] flex items-center text-[24px] font-bold uppercase text-white">
           <AiFillCrown className={`mr-2`} />
           {rank} Member
         </div>
         <div className="flex justify-between">
           <div>
-            <p className="text-sm text-white font-bold">Rank Point:</p>
-            <p className="font-semibold font-raleway text-white">{rank_point}</p>
+            <p className="text-sm font-bold text-white">Rank Point:</p>
+            <p className="font-raleway font-semibold text-white">
+              {rank_point}
+            </p>
           </div>
           <div>
-            <p className="text-sm text-white font-bold">Bonus Point:</p>
-            <p className="font-semibold font-raleway text-white">{point}</p>
+            <p className="text-sm font-bold text-white">Bonus Point:</p>
+            <p className="font-raleway font-semibold text-white">{point}</p>
           </div>
         </div>
       </div>

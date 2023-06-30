@@ -1,7 +1,7 @@
 export enum UserStatus {
   NEWLY_CREATED,
   ACTIVE,
-  INACTIVE
+  INACTIVE,
 }
 
 export enum UserType {

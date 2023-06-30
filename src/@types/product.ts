@@ -1,5 +1,5 @@
-import { CategoryData } from "./category";
-import { PaginationInfo } from "./pagination";
+import type { CategoryData } from './category';
+import type { PaginationInfo } from './pagination';
 
 export enum ProductStatus {
   IN_STOCK,
@@ -21,8 +21,7 @@ export interface ProductItemData {
   category: [CategoryData];
 }
 
-
 export interface GetAllProductsResponse {
   data: [ProductItemData];
-  paginationInfo: PaginationInfo
+  paginationInfo: PaginationInfo;
 }

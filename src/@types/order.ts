@@ -1,7 +1,8 @@
-import type { StaticImageData } from "next/image";
-import { ShippingAddressData } from "./shipping-address";
+import type { StaticImageData } from 'next/image';
 
-export type orderItemType = {
+import type { ShippingAddressData } from './shipping-address';
+
+export type OrderItemType = {
   name: string;
   price: number;
   quantity: number;
@@ -9,7 +10,7 @@ export type orderItemType = {
 };
 
 export interface IOrderItem {
-  data: orderItemType;
+  data: OrderItemType;
 }
 
 export interface OrderProduct {

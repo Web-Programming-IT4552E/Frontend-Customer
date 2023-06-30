@@ -17,10 +17,10 @@ module.exports = {
     },
     extend: {
       colors: {
-        light_pink: "#ffa6a8",
+        light_pink: '#ffa6a8',
         'primary-color': '#ffa6a8',
-        medium_gray: "#666666",
-        dark: "#333",
+        medium_gray: '#666666',
+        dark: '#333',
         gray: {
           100: '#f7fafc',
           200: '#edf2f7',
@@ -45,22 +45,22 @@ module.exports = {
         },
       },
       backgroundImage: {
-        'reviews_product': "url('/images/review_product.jpg')",
-        'discount_banner': "url('/images/discount_banner.jpg')"
-       },
+        reviews_product: "url('/images/review_product.jpg')",
+        discount_banner: "url('/images/discount_banner.jpg')",
+      },
       fontFamily: {
         'primary-font': ['Raleway', 'sans-serif'],
         'secondary-font': ['El Messiri', 'sans-serif'],
-      }
+      },
     },
     screens: {
-      'sm': '576px',
-      'md': '768px',
-      'lg': '992px',
-      'xl': '1200px',
-    }
+      sm: '576px',
+      md: '768px',
+      lg: '992px',
+      xl: '1200px',
+    },
   },
   variants: {
-    transitionProperty: ['responsive', 'motion-safe', 'motion-reduce']
+    transitionProperty: ['responsive', 'motion-safe', 'motion-reduce'],
   },
 };

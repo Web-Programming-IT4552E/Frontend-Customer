@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const BreadCumb: React.FC<{ navigations: string[] }> = ({ navigations }) => {
   return (
@@ -8,7 +8,16 @@ const BreadCumb: React.FC<{ navigations: string[] }> = ({ navigations }) => {
         <div className="wrapper">
           <ul className="flex">
             {navigations.map((item, idx) => {
-              return <li key={idx}>{item} {idx + 1 < navigations.length ? <span className="mx-[11px]">/</span> : <></>}</li>
+              return (
+                <li key={idx}>
+                  {item}{' '}
+                  {idx + 1 < navigations.length ? (
+                    <span className="mx-[11px]">/</span>
+                  ) : (
+                    <></>
+                  )}
+                </li>
+              );
             })}
           </ul>
         </div>
