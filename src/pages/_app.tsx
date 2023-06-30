@@ -20,6 +20,8 @@ import store, { persistor } from '@/configs/redux';
 import LayoutDefault from '@/layouts/LayoutDefault';
 import * as authService from '@/services/authService';
 
+import { fetchCategories } from '@/reducers/category';
+
 // Remove auto adding css
 config.autoAddCss = false;
 
@@ -61,6 +63,8 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
     ) {
       router.push('/');
     }
+    
+    store.dispatch(fetchCategories())
   }, []);
 
   return (

@@ -17,8 +17,8 @@ const client = axios.create({
 
 /**
  *
- * @param {options} : { url, method, params }
- * @param {isAuth} : check whether should use token or not
+ * @param {options}: { url, method, params }
+ * @param {isAuth}: check whether should use token or not
  * @returns
  */
 

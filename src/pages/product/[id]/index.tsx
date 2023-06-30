@@ -131,9 +131,9 @@ const DetailProduct = () => {
         <h2 className="special-heading">Related Products</h2>
         <div className="container">
           <div className="grid grid-cols-1 gap-[30px] md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {[1, 2, 3, 4].map((item) => {
+            {/* {[1, 2, 3, 4].map((item) => {
               return <ProductItem key={item} />;
-            })}
+            })} */}
           </div>
         </div>
       </div>

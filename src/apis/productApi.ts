@@ -3,24 +3,23 @@ import { useQuery } from '@tanstack/react-query';
 import type { GetAllProductsResponse } from '@/@types/product';
 import env from '@/configs/env';
 import { request } from '@/utils/request';
+import { ProductFilter } from '@/interfaces/product.interface';
 
 const productApis = {
-  async getAllProduct(page: number, limit: number) {
-    return request(
+  async getAllProduct(filter: ProductFilter) {
+    const response = await request(
       {
         url: `${env.api}/product`,
-        params: {
-          page,
-          limit,
-        },
+        params: filter
       },
       false
     );
+    return response.data;
   },
 };
 
-export const useGetAllProducts = (page: number, limit: number) => {
-  return useQuery<GetAllProductsResponse>(['product/all'], () =>
-    productApis.getAllProduct(page, limit)
+export const useGetAllProducts = (filter: ProductFilter) => {
+  return useQuery<GetAllProductsResponse>(['product/all', filter], () =>
+    productApis.getAllProduct(filter)
   );
 };
