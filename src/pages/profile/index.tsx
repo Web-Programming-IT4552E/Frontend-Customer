@@ -1,38 +1,55 @@
-import { Avatar, Button, DatePicker, Input, Upload } from 'antd';
-import dayjs from 'dayjs';
-import localeData from 'dayjs/plugin/localeData';
-import weekday from 'dayjs/plugin/weekday';
-import { useRouter } from 'next/router';
-import React, { useState } from 'react';
-import { AiFillEdit } from 'react-icons/ai';
-import { FaAddressBook } from 'react-icons/fa';
+import { Avatar, Button, Input, Upload } from "antd";
+import dayjs from "dayjs";
+import localeData from "dayjs/plugin/localeData";
+import weekday from "dayjs/plugin/weekday";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import { AiFillEdit } from "react-icons/ai";
+import { FaAddressBook } from "react-icons/fa";
 
-import { RankEnum } from '@/@types/rank';
-import MemberCard from '@/components/MemberCard';
+import MemberCard from "@/components/MemberCard";
+import { useGetProfile, useUpdateProfile } from "@/apis/customerApi";
+import { Customer } from "@/@types/customer";
+import RenderIf from "@/components/common/RenderIf";
 
 dayjs.extend(weekday);
 dayjs.extend(localeData);
 
 const Profile = () => {
   const router = useRouter();
-  const [isEdit, setIsEdit] = useState(true);
-  const [profileData, setProfileData] = useState({
-    username: 'Alexander Kelvin',
-    birthday: new Date().toLocaleDateString(),
-    email: 'longdieu12x@gmail.com',
-  });
+  const { data: customerData } = useGetProfile();
+  const [isEdit, setIsEdit] = useState(false);
+  const [profileData, setProfileData] = useState<Customer | undefined>(
+    undefined
+  );
+  const { mutateAsync } = useUpdateProfile(profileData as Customer);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setProfileData(customerData);
+  }, [customerData]);
 
   const handleUploadAvatar = (e: any) => {
-    console.log(e);
   };
 
-  const handleEditProfile = () => {
+  const handleEditProfile = async () => {
     setIsEdit(!isEdit);
   };
 
   const handleDirectShippingAddresses = () => {
-    router.push('/profile/shipping-addresses');
+    router.push("/profile/shipping-addresses");
   };
+
+  const handleUpdateProfile = async () => {
+    setLoading(true);
+    await mutateAsync();
+    setIsEdit(!isEdit);
+    setLoading(false);
+  };
+
+  const handleCancelProfile = () => {
+    setIsEdit(false);
+  }
 
   return (
     <div className="mt-[80px]" id="profile">
@@ -41,20 +58,23 @@ const Profile = () => {
           <Upload showUploadList={false} customRequest={handleUploadAvatar}>
             <Avatar
               className="h-full max-h-[150px] w-full max-w-[150px]"
-              src="https://www.nicepng.com/png/detail/186-1866063_dicks-out-for-harambe-sample-avatar.png"
+              src={
+                profileData?.avatar ||
+                "https://www.nicepng.com/png/detail/186-1866063_dicks-out-for-harambe-sample-avatar.png"
+              }
             />
           </Upload>
-          <h2 className="text-[24px] font-semibold">Alexander Kelvin</h2>
+          <h2 className="text-[24px] font-semibold">{`${profileData?.fullname}`}</h2>
           <div className="setting-options flex flex-col gap-[10px]">
             <Button className="setting-btn" onClick={handleEditProfile}>
-              {' '}
+              {" "}
               <AiFillEdit className="mr-[5px]" /> Edit Profile
             </Button>
             <Button
               className="setting-btn"
               onClick={handleDirectShippingAddresses}
             >
-              {' '}
+              {" "}
               <FaAddressBook className="mr-[5px]" /> Shipping Addresses
             </Button>
           </div>
@@ -68,57 +88,36 @@ const Profile = () => {
                 <Input
                   className="w-full max-w-[300px]"
                   placeholder="Please input username!"
-                  defaultValue={profileData.username}
+                  defaultValue={profileData?.fullname}
                   onChange={(e: any) => {
                     setProfileData({
                       ...profileData,
-                      username: e.target.value,
-                    });
+                      fullname: e.target.value as string,
+                    } as Customer);
                   }}
                 />
               ) : (
-                <p>{profileData.username}</p>
-              )}
-            </div>
-            <div className="flex items-center justify-between">
-              <h4 className="font-medium">Birthday: </h4>
-              {isEdit ? (
-                <DatePicker
-                  className="w-full max-w-[300px]"
-                  defaultValue={dayjs(profileData.birthday, 'DD/MM/YYYY')}
-                  format={'DD/MM/YYYY'}
-                  onChange={(e: any) => {
-                    console.log(e);
-                  }}
-                />
-              ) : (
-                <p>{profileData.birthday}</p>
+                <p>{profileData?.fullname}</p>
               )}
             </div>
             <div className="flex items-center justify-between">
               <h4 className="font-medium">Email: </h4>
-              {isEdit ? (
-                <Input
-                  className="w-full max-w-[300px]"
-                  placeholder="Please input email!"
-                  defaultValue={profileData.email}
-                  onChange={(e: any) => {
-                    setProfileData({
-                      ...profileData,
-                      email: e.target.value,
-                    });
-                  }}
-                />
-              ) : (
-                <p>{profileData.email}</p>
-              )}
+              <p>{profileData?.email}</p>
             </div>
           </div>
-          <MemberCard rank={RankEnum.SILVER} point={60} rank_point={50} />
-          <div className="actions-btn">
-            <Button className="confirm-btn">Confirm</Button>
-            <Button className="cancel-btn">Cancel</Button>
-          </div>
+          <MemberCard
+            rank={profileData?.rank || 0}
+            point={profileData?.point || 0}
+            rank_point={customerData?.rank_point || 0}
+          />
+          <RenderIf isTrue={isEdit}>
+            <div className="actions-btn">
+              <Button className="confirm-btn" onClick={handleUpdateProfile} loading={loading}>
+                Confirm
+              </Button>
+              <Button className="cancel-btn" onClick={handleCancelProfile}>Cancel</Button>
+            </div>
+          </RenderIf>
         </div>
       </div>
     </div>

@@ -19,7 +19,7 @@ const MemberCard: React.FC<{
       <div className="w-5/6">
         <div className="mb-[40px] flex items-center text-[24px] font-bold uppercase text-white">
           <AiFillCrown className={`mr-2`} />
-          {rank} Member
+          Member
         </div>
         <div className="flex justify-between">
           <div>
