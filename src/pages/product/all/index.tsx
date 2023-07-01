@@ -10,10 +10,12 @@ import { GetAllProductsResponse, ProductItemData } from '../../../@types/product
 import { useRouter } from 'next/router';
 import { useAppSelector } from '@/configs/redux';
 import { ProductFilter } from '@/interfaces/product.interface';
+import Link from 'next/link';
 
 const ProductList = () => {
   const categoryStore = useAppSelector((state) => state.category);
   const router = useRouter();
+  const pathname = router.pathname;
   const breadcump = router.query?.category as string || "Shop";
   const [filter, setFilter] = useState<ProductFilter>({
     page: 1,
@@ -43,6 +45,24 @@ const ProductList = () => {
     setFilter({...filter, page: e as number})
   }
 
+  const handlePriceFilter = (e: any) => {
+    setFilter({...filter, price: e as number[]});
+  }
+
+  const handleSearchFilter = (e: any) => {
+    setFilter({...filter, search: e as string | undefined});
+  }
+
+  const handleSearchChangeFilter = (e: any) => {
+    if (e.target.value == '') {
+      setFilter({...filter, search: undefined as string | undefined});
+    }
+  }
+
+  const handleSortFilter = (e: any) => {
+    setFilter({...filter, search: e});
+  }
+
   return (
     <div id="product-list">
       <BreadCumb navigations={['Home', breadcump , `Page ${filter.page}`]} />
@@ -59,8 +79,9 @@ const ProductList = () => {
                 id="wrapper-result-count"
               >
                 <p className="mb-0">Showing {data !== undefined && `${(data!.paginationInfo.page - 1)  * (data!.paginationInfo.limit) + 1}-${(data!.paginationInfo.page) * (data!.paginationInfo.limit) > data.paginationInfo.total ? data.paginationInfo.total : (data!.paginationInfo.page) * (data!.paginationInfo.limit)} of ${data!.paginationInfo.total} results`}</p>
-                <Select placeholder="Default sorting" className="w-[200px]">
-                  <Select.Option>Sort By Value</Select.Option>
+                <Select placeholder="Default sorting" className="w-[200px]" onChange={handleSortFilter}>
+                  <Select.Option value="esc">Sort By Value in ESC</Select.Option>
+                  <Select.Option value="desc">Sort By Value in DESC</Select.Option>
                 </Select>
               </div>
               <div className="grid grid-cols-1 gap-[15px] sm:grid-cols-2 lg:grid-cols-3">
@@ -74,11 +95,12 @@ const ProductList = () => {
             </div>
             <div className="col-span-3 pt-[30px] lg:col-span-1 lg:px-[15px] lg:pt-[0px]">
               <aside className="mb-[50px]">
-                <Input.Search placeholder="Search products..." enterButton />
+                <Input.Search placeholder="Search products..." enterButton onSearch={handleSearchFilter} onChange={handleSearchChangeFilter} />
               </aside>
               <aside className="mb-[50px]">
                 <h3 className="widget-title">Filter By Price</h3>
                 <Slider
+                  onChange={handlePriceFilter}
                   range={{ draggableTrack: true }}
                   defaultValue={[0, 100]}
                 />
@@ -92,12 +114,16 @@ const ProductList = () => {
                 <div className="product-categories">
                   {categoryStore.data.map((category, idx) => {
                     return (
-                      <div className="flex justify-between py-[12px]" key={idx}>
-                      <span className="text-[15px] text-[#666]">{category?.name}</span>
-                      <span className="text-[15px] text-[#666]">{`(${category?.slug})`}</span>
-                    </div>
+                      <Link href={`${pathname}?category=${category?.name}`} className="flex justify-between py-[12px] text-[#666] cursor-pointer" key={idx}>
+                        <span className="text-[15px]">{category?.name}</span>
+                        <span className="text-[15px]">{`(${category?.slug})`}</span>
+                      </Link>
                     )
                   })}
+                  <Link href={`${pathname}`} className="flex justify-between py-[12px] text-[#666] cursor-pointer">
+                    <span className="text-[15px]">{"All"}</span>
+                    <span className="text-[15px]">{`(${"all"})`}</span>
+                  </Link>
                 </div>
               </aside>
             </div>

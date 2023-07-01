@@ -18,12 +18,13 @@ const ProductItem: React.FC<{ product: ProductItemData }> = ({ product }) => {
     >
       <div className="relative flex cursor-pointer items-end justify-center overflow-hidden w-full h-full">
         <Image
-          src={product.image}
+          src={`${product.image}`}
           alt="product-item"
           loading="lazy"
           width={500}
           height={500}
           className="h-full w-full object-cover"
+          onClick={() => { router.push(`/${pathname.split("/")[1]}/${product._id}`) }}
         />
         <div className="translate-x-[-100%] transition-all duration-200 ease-in-out group-hover:translate-x-[0%]"></div>
         <div className="box-hover translate-y-[100%] transition-all duration-200 ease-linear group-hover:translate-y-[-75%]">
@@ -33,12 +34,12 @@ const ProductItem: React.FC<{ product: ProductItemData }> = ({ product }) => {
               style={{ fontSize: 16, color: 'black' }}
             />
           </a>
-          <a className="link-item cursor-pointer">
+          <Link className="link-item cursor-pointer" href={`/${pathname.split("/")[1]}/${product._id}`}>
             <FontAwesomeIcon
               icon={faSearch}
               style={{ fontSize: 16, color: 'black' }}
             />
-          </a>
+          </Link>
         </div>
       </div>
 
