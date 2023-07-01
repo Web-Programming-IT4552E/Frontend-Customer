@@ -4,10 +4,15 @@ import type {
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from 'axios';
-import axios from 'axios';
+import axios, { AxiosHeaders } from 'axios';
+
+import * as authService from '@/services/authService';
 
 const client = axios.create({
-  baseURL: `${process.env.NEXT_PUBLIC_API}`,
+  baseURL: process.env.NEXT_PUBLIC_API,
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
 /**
@@ -25,6 +30,11 @@ export const request = async (
     client.interceptors.request.use(
       async (config: InternalAxiosRequestConfig<AxiosRequestConfig>) => {
         // Handle logic access token here, to request to server here
+        const { accessToken } = authService.getTokenFromLocal();
+        config.headers = new AxiosHeaders({
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        });
         return config;
       },
       (error) => {
@@ -34,14 +44,25 @@ export const request = async (
 
     client.interceptors.response.use(
       (response: AxiosResponse) => {
-        if (response && response.data) {
-          return response.data;
-        }
         return response;
       },
-      (error) => {
-        if (typeof window === 'undefined') {
-          throw error;
+      async (error) => {
+        // take out the origin request
+        const originalRequest = error.config;
+        if (error.response?.status === 401) {
+          // Unauthorized request
+          const data = await authService.getToken();
+          if (data) {
+            axios.defaults.headers.common.Authorization = `Bearer ${data?.accessToken}`;
+            if (data?.accessToken) {
+              authService.setTokenToLocal(
+                data?.accessToken,
+                data?.refreshToken
+              );
+            }
+            return client(originalRequest);
+          }
+          authService.logout();
         }
         return Promise.reject(error);
       }

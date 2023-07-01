@@ -26,8 +26,8 @@ const CartList = () => {
     <>
       {cartList.length > 0 ? (
         <div className="flex flex-col gap-5 px-3 py-4">
-          {cartList.map((cartItem, idx) => (
-            <CartItem data={cartItem} key={idx} />
+          {cartList.map((cartItem, index) => (
+            <CartItem data={cartItem} key={index} />
           ))}
 
           <div className="flex flex-col gap-7">
