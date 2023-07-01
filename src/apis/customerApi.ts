@@ -5,6 +5,7 @@ import {
 } from "@tanstack/react-query";
 import { request } from "@/utils/request";
 import { Customer } from "@/@types/customer";
+import { toast } from "react-toastify";
 
 const customerApis = {
   async getProfile() {
@@ -38,6 +39,11 @@ export const useUpdateProfile = (data: Customer) => {
   return useMutation<Customer>(() => customerApis.updateProfile(data), {
     onSuccess: () => {
       queryClient.invalidateQueries(["/profile"]);
+      toast.success("Update profile successfully!");
     },
+    onError: (e) => {
+      console.log(e)
+      toast.success("Update profile failed!");
+    }
   });
 };

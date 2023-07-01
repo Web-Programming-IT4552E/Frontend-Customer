@@ -19,7 +19,6 @@ export const uploadImage = (
       }
     },
     (error: any) => {
-      // console.error(error);
       toast.error(error?.response?.message);
     },
     () => {

@@ -11,6 +11,7 @@ import MemberCard from "@/components/MemberCard";
 import { useGetProfile, useUpdateProfile } from "@/apis/customerApi";
 import { Customer } from "@/@types/customer";
 import RenderIf from "@/components/common/RenderIf";
+import { uploadImage } from "@/services/image";
 
 dayjs.extend(weekday);
 dayjs.extend(localeData);
@@ -23,13 +24,21 @@ const Profile = () => {
     undefined
   );
   const { mutateAsync } = useUpdateProfile(profileData as Customer);
+  const [avatarUrl, setAvatarUrl] = useState("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setProfileData(customerData);
   }, [customerData]);
 
+  useEffect(() => {
+    if (avatarUrl !== "") {
+      setProfileData({...profileData, avatar: avatarUrl} as Customer);
+    }
+  }, [avatarUrl])
+
   const handleUploadAvatar = (e: any) => {
+    uploadImage(e.file.name, e.file, setAvatarUrl);
   };
 
   const handleEditProfile = async () => {
@@ -57,9 +66,16 @@ const Profile = () => {
         <div className="flex flex-col gap-[20px] text-center">
           <Upload showUploadList={false} customRequest={handleUploadAvatar}>
             <Avatar
-              className="h-full max-h-[150px] w-full max-w-[150px]"
+              size={{
+                xs: 150,
+                sm: 150,
+                md: 150,
+                lg: 150,
+                xl: 150,
+                xxl: 150,
+              }}
               src={
-                profileData?.avatar ||
+                avatarUrl || profileData?.avatar ||
                 "https://www.nicepng.com/png/detail/186-1866063_dicks-out-for-harambe-sample-avatar.png"
               }
             />
@@ -83,7 +99,7 @@ const Profile = () => {
           <h2 className="text-[24px] font-semibold lg:text-[32px]">Profile</h2>
           <div className="info-section flex flex-col gap-[16px]">
             <div className="flex items-center justify-between">
-              <h4 className="font-medium">Username: </h4>
+              <h4 className="font-medium">Fullname: </h4>
               {isEdit ? (
                 <Input
                   className="w-full max-w-[300px]"
@@ -103,6 +119,24 @@ const Profile = () => {
             <div className="flex items-center justify-between">
               <h4 className="font-medium">Email: </h4>
               <p>{profileData?.email}</p>
+            </div>
+            <div className="flex items-center justify-between">
+              <h4 className="font-medium">Phone: </h4>
+              {isEdit ? (
+                <Input
+                  className="w-full max-w-[300px]"
+                  placeholder="Please input username!"
+                  defaultValue={profileData?.phone}
+                  onChange={(e: any) => {
+                    setProfileData({
+                      ...profileData,
+                      phone: e.target.value as string,
+                    } as Customer);
+                  }}
+                />
+              ) : (
+                <p>{profileData?.phone}</p>
+              )}
             </div>
           </div>
           <MemberCard

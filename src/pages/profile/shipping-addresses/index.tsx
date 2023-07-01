@@ -3,8 +3,10 @@ import React, { useState } from 'react';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 
 import { truncateString } from '@/utils/string';
+import { useGetAllShippingAddresses } from '@/apis/shippingAddressApi';
 
 const ShippingAddresses = () => {
+  const { data: shippingAddressData } = useGetAllShippingAddresses(1, 9);
   const [form] = Form.useForm();
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
 
@@ -57,7 +59,7 @@ const ShippingAddresses = () => {
         >
           <Form.Item
             name="receiver_name"
-            label="Username:"
+            label="Fullname:"
             rules={[{ required: true }]}
           >
             <Input
@@ -139,11 +141,11 @@ const ShippingAddresses = () => {
           Shipping Address
         </h2>
         <div className="flex flex-wrap items-center justify-center gap-[12px] px-[20px] lg:px-[60px]">
-          {[1, 2, 3].map((item) => {
+          {shippingAddressData?.data !== undefined && shippingAddressData.data.map((item, idx) => {
             return (
               <Button
                 type="default"
-                key={item}
+                key={idx}
                 onClick={() => {
                   handleClickBtn(false);
                 }}
@@ -151,10 +153,10 @@ const ShippingAddresses = () => {
                 <div className="flex flex-col gap-[5px] text-start">
                   <p>
                     <span>Address:</span>{' '}
-                    {truncateString('Nho Quan, Gia Viễn, Ninh Bình')}
+                    {truncateString(`${item.address_detail.address}, ${item.address_detail.ward}, ${item.address_detail.district}, ${item.address_detail.city}` || "")}
                   </p>
                   <p>
-                    <span>Phone:</span> 0946067834
+                    <span>Phone:</span> {item.address_detail.receiver_phone_number}
                   </p>
                 </div>
               </Button>
