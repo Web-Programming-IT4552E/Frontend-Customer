@@ -1,13 +1,18 @@
 import type {
-  AxiosDefaults,
-  AxiosRequestConfig,
-  AxiosResponse,
-  InternalAxiosRequestConfig,
-} from 'axios';
-import axios from 'axios';
+	AxiosDefaults,
+	AxiosRequestConfig,
+	AxiosResponse,
+	InternalAxiosRequestConfig,
+} from "axios";
+import axios, { AxiosHeaders } from "axios";
+
+import * as authService from "@/services/authService";
 
 const client = axios.create({
-  baseURL: `${process.env.NEXT_PUBLIC_API}`,
+	baseURL: process.env.NEXT_PUBLIC_API,
+	headers: {
+		"Content-Type": "application/json",
+	},
 });
 
 /**
@@ -18,40 +23,56 @@ const client = axios.create({
  */
 
 export const request = async (
-  { ...options }: AxiosRequestConfig<AxiosDefaults>,
-  auth: boolean
+	{ ...options }: AxiosRequestConfig<AxiosDefaults>,
+	auth: boolean
 ) => {
-  if (auth) {
-    client.interceptors.request.use(
-      async (config: InternalAxiosRequestConfig<AxiosRequestConfig>) => {
-        // Handle logic access token here, to request to server here
-        return config;
-      },
-      (error) => {
-        return Promise.reject(error);
-      }
-    );
+	if (auth) {
+		client.interceptors.request.use(
+			async (config: InternalAxiosRequestConfig<AxiosRequestConfig>) => {
+				// Handle logic access token here, to request to server here
+				const { accessToken } = authService.getTokenFromLocal();
+				config.headers = new AxiosHeaders({
+					Authorization: `Bearer ${accessToken}`,
+					"Content-Type": "application/json",
+				});
+				return config;
+			},
+			(error) => {
+				return Promise.reject(error);
+			}
+		);
 
-    client.interceptors.response.use(
-      (response: AxiosResponse) => {
-        if (response && response.data) {
-          return response.data;
-        }
-        return response;
-      },
-      (error) => {
-        if (typeof window === 'undefined') {
-          throw error;
-        }
-        return Promise.reject(error);
-      }
-    );
-  }
+		client.interceptors.response.use(
+			(response: AxiosResponse) => {
+				return response;
+			},
+			async (error) => {
+				// take out the origin request
+				const originalRequest = error.config;
+				if (error.response?.status === 401) {   // Unauthorized request
+					const data = await authService.getToken();
+					if(data) {
+            axios.defaults.headers.common["Authorization"] = "Bearer " + data?.accessToken;
+            if (data?.accessToken) {
+              authService.setTokenToLocal(data?.accessToken, data?.refreshToken);
+            }
+            return client(originalRequest);
+          } else {
+            authService.logout();
+          }
+				}
+				return Promise.reject(error);
+			}
+		);
+	}
 
-  try {
-    const res = await client(options);
-    return res;
-  } catch (err: any) {
-    return err?.response;
-  }
+	try {
+		const res = await client(options);
+		return res;
+	} catch (err: any) {
+		return err?.response;
+	}
 };
+
+
+
