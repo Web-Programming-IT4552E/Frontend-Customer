@@ -50,14 +50,32 @@ const Login: NextPageWithLayout = () => {
   };
 
   const handleForgotPassword = async () => {
-    console.log(email);
+    const response = await authService.forgotPassword(email);
+    console.log(response);
+    
+    switch(response.status) {
+      case 200:
+        toast.success(response.data.message, {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 1500,
+          pauseOnHover: false,
+        });
+        break;
+      default:
+        toast.error(response.data.message, {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 1500,
+          pauseOnHover: false,
+        });
+        break;
+    }
   };
 
   useEffect(() => {
     if (isLoginSuccess) {
       const timerId = setTimeout(() => {
         router.push('/');
-      }, 2000);
+      }, 1500);
 
       return () => {
         clearTimeout(timerId);

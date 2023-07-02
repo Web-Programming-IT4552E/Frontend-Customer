@@ -192,3 +192,10 @@ a:hover {
     @apply flex justify-center items-center;
   }
 }
+
+#verify-register,
+#verify-forgot-password {
+  .anticon {
+    @apply text-[36px];
+  }
+}
