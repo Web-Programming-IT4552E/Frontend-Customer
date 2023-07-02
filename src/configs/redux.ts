@@ -5,11 +5,13 @@ import storage from 'redux-persist/lib/storage';
 
 import counterReducer from '@/reducers/counter';
 import categoryReducer from '@/reducers/category';
+import profileReducer from '@/reducers/profile';
 import { TypedUseSelectorHook, useSelector } from 'react-redux';
 
 const appReducer = combineReducers({
   counter: counterReducer,
   category: categoryReducer,
+  profile: profileReducer
 });
 
 const rootReducer = (state: any, action: any) => {

@@ -4,10 +4,11 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { request } from "@/utils/request";
-import { Customer } from "@/@types/customer";
+import { Customer, ChangePassword } from "@/@types/customer";
 import { toast } from "react-toastify";
+import { SuccessCode } from "@/utils/status";
 
-const customerApis = {
+export const customerApis = {
   async getProfile() {
     const response = await request(
       {
@@ -28,6 +29,20 @@ const customerApis = {
     );
     return response.data;
   },
+  async changePassword(data: ChangePassword) {
+    const response = await request(
+      {
+        url: `account/change/password`,
+        data: data as any,
+        method: "PATCH"
+      },
+      true
+    );
+    if (!SuccessCode.includes(response.status)) {
+      throw new Error(`${response.data.message}`);
+    }
+    return response.data;
+  }
 };
 
 export const useGetProfile = () => {
@@ -43,7 +58,18 @@ export const useUpdateProfile = (data: Customer) => {
     },
     onError: (e) => {
       console.log(e)
-      toast.success("Update profile failed!");
+      toast.error("Update profile failed!");
     }
   });
 };
+
+export const useChangePassword = (data: ChangePassword) => {
+  return useMutation<ChangePassword>(() => customerApis.changePassword(data), {
+    onSuccess: () => {
+      toast.success("Update profile successfully!");
+    },
+    onError: (e) => {
+      toast.error("Update profile failed!");
+    }
+  });
+}

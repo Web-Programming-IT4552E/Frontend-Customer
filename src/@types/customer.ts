@@ -30,3 +30,8 @@ export interface Customer {
   del_flag: boolean; // Flag to indicate whether the user has been deleted or not
   active_token: string; // User's active_token, generated when activating the account or resetting the password
 }
+
+export interface ChangePassword {
+  old_password: string,
+  new_password: string
+}

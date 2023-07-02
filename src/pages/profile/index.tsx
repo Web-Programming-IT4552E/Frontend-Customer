@@ -6,59 +6,65 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { AiFillEdit } from "react-icons/ai";
 import { FaAddressBook } from "react-icons/fa";
-
+import { MdPassword } from "react-icons/md";
 import MemberCard from "@/components/MemberCard";
 import { useGetProfile, useUpdateProfile } from "@/apis/customerApi";
 import { Customer } from "@/@types/customer";
 import RenderIf from "@/components/common/RenderIf";
 import { uploadImage } from "@/services/image";
+import { ProfilePage } from "@/interfaces/profile.interface";
+import ChangePassword from "@/components/ChangePassword";
+import store, { useAppSelector } from "@/configs/redux";
+import { updateProfile } from "@/reducers/profile";
+import ProfileInfo from "@/components/ProfileInfo";
 
 dayjs.extend(weekday);
 dayjs.extend(localeData);
 
+
+
 const Profile = () => {
+  const profileData = useAppSelector(state => state.profile);
   const router = useRouter();
+  const pathname = router.pathname;
   const { data: customerData } = useGetProfile();
-  const [isEdit, setIsEdit] = useState(false);
-  const [profileData, setProfileData] = useState<Customer | undefined>(
-    undefined
-  );
-  const { mutateAsync } = useUpdateProfile(profileData as Customer);
+  const [currentPage, setCurrentPage] = useState(ProfilePage.VIEW);
   const [avatarUrl, setAvatarUrl] = useState("");
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setProfileData(customerData);
+    if (customerData !== undefined) {
+      updateProfileStore(customerData as Customer)
+    }
   }, [customerData]);
-
   useEffect(() => {
     if (avatarUrl !== "") {
-      setProfileData({...profileData, avatar: avatarUrl} as Customer);
+      updateProfileStore({ ...profileData.data, avatar: avatarUrl } as Customer)
     }
-  }, [avatarUrl])
+  }, [avatarUrl]);
+  
+  useEffect(() => {
+    setCurrentPage(router.query.page as ProfilePage);
+  }, [router.query])
+
+  const updateProfileStore = (profile: Customer) => {
+    store.dispatch(updateProfile(profile))
+  }
 
   const handleUploadAvatar = (e: any) => {
     uploadImage(e.file.name, e.file, setAvatarUrl);
   };
 
   const handleEditProfile = async () => {
-    setIsEdit(!isEdit);
+    router.push(`${pathname}?page=${ProfilePage.EDIT}`);
   };
 
   const handleDirectShippingAddresses = () => {
     router.push("/profile/shipping-addresses");
   };
 
-  const handleUpdateProfile = async () => {
-    setLoading(true);
-    await mutateAsync();
-    setIsEdit(!isEdit);
-    setLoading(false);
+  const handleChangePasswordPage = () => {
+    router.push(`${pathname}?page=${ProfilePage.CHANGE_PASSWORD}`)
   };
-
-  const handleCancelProfile = () => {
-    setIsEdit(false);
-  }
 
   return (
     <div className="mt-[80px]" id="profile">
@@ -75,12 +81,13 @@ const Profile = () => {
                 xxl: 150,
               }}
               src={
-                avatarUrl || profileData?.avatar ||
+                avatarUrl ||
+                profileData?.data?.avatar ||
                 "https://www.nicepng.com/png/detail/186-1866063_dicks-out-for-harambe-sample-avatar.png"
               }
             />
           </Upload>
-          <h2 className="text-[24px] font-semibold">{`${profileData?.fullname}`}</h2>
+          <h2 className="text-[24px] font-semibold">{`${profileData?.data?.fullname}`}</h2>
           <div className="setting-options flex flex-col gap-[10px]">
             <Button className="setting-btn" onClick={handleEditProfile}>
               {" "}
@@ -93,64 +100,19 @@ const Profile = () => {
               {" "}
               <FaAddressBook className="mr-[5px]" /> Shipping Addresses
             </Button>
+            <Button className="setting-btn" onClick={handleChangePasswordPage}>
+              {" "}
+              <MdPassword className="mr-[5px]" /> Change Password
+            </Button>
           </div>
         </div>
         <div className="detail-info mt-[20px] flex w-full max-w-[450px] flex-col gap-[20px] py-[0px] px-[20px] lg:mx-[60px] lg:mt-0">
           <h2 className="text-[24px] font-semibold lg:text-[32px]">Profile</h2>
-          <div className="info-section flex flex-col gap-[16px]">
-            <div className="flex items-center justify-between">
-              <h4 className="font-medium">Fullname: </h4>
-              {isEdit ? (
-                <Input
-                  className="w-full max-w-[300px]"
-                  placeholder="Please input username!"
-                  defaultValue={profileData?.fullname}
-                  onChange={(e: any) => {
-                    setProfileData({
-                      ...profileData,
-                      fullname: e.target.value as string,
-                    } as Customer);
-                  }}
-                />
-              ) : (
-                <p>{profileData?.fullname}</p>
-              )}
-            </div>
-            <div className="flex items-center justify-between">
-              <h4 className="font-medium">Email: </h4>
-              <p>{profileData?.email}</p>
-            </div>
-            <div className="flex items-center justify-between">
-              <h4 className="font-medium">Phone: </h4>
-              {isEdit ? (
-                <Input
-                  className="w-full max-w-[300px]"
-                  placeholder="Please input username!"
-                  defaultValue={profileData?.phone}
-                  onChange={(e: any) => {
-                    setProfileData({
-                      ...profileData,
-                      phone: e.target.value as string,
-                    } as Customer);
-                  }}
-                />
-              ) : (
-                <p>{profileData?.phone}</p>
-              )}
-            </div>
-          </div>
-          <MemberCard
-            rank={profileData?.rank || 0}
-            point={profileData?.point || 0}
-            rank_point={customerData?.rank_point || 0}
-          />
-          <RenderIf isTrue={isEdit}>
-            <div className="actions-btn">
-              <Button className="confirm-btn" onClick={handleUpdateProfile} loading={loading}>
-                Confirm
-              </Button>
-              <Button className="cancel-btn" onClick={handleCancelProfile}>Cancel</Button>
-            </div>
+          <RenderIf isTrue={currentPage !== ProfilePage.CHANGE_PASSWORD}>
+            <ProfileInfo/>
+          </RenderIf>
+          <RenderIf isTrue={currentPage === ProfilePage.CHANGE_PASSWORD}>
+            <ChangePassword/>
           </RenderIf>
         </div>
       </div>
