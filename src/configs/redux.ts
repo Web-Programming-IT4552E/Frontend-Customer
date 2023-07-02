@@ -4,9 +4,14 @@ import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 import counterReducer from '@/reducers/counter';
+import categoryReducer from '@/reducers/category';
+import profileReducer from '@/reducers/profile';
+import { TypedUseSelectorHook, useSelector } from 'react-redux';
 
 const appReducer = combineReducers({
   counter: counterReducer,
+  category: categoryReducer,
+  profile: profileReducer
 });
 
 const rootReducer = (state: any, action: any) => {
@@ -38,5 +43,7 @@ const persistor = persistStore(store);
 export { persistor };
 
 export default store;
+export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch;
 export type AppState = ReturnType<typeof rootReducer>;
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector

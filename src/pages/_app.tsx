@@ -20,6 +20,8 @@ import store, { persistor } from '@/configs/redux';
 import LayoutDefault from '@/layouts/LayoutDefault';
 import * as authService from '@/services/authService';
 
+import { fetchCategories } from '@/reducers/category';
+
 // Remove auto adding css
 config.autoAddCss = false;
 
@@ -33,7 +35,6 @@ type AppPropsWithLayout = AppProps & {
 
 const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
   const router = useRouter();
-  console.log(router);
 
   const [queryClient] = useState(
     new QueryClient({
@@ -61,6 +62,8 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
     ) {
       router.push('/');
     }
+    
+    store.dispatch(fetchCategories())
   }, []);
 
   return (

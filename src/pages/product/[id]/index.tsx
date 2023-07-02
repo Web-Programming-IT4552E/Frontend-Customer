@@ -4,12 +4,21 @@ import { Button, Input } from 'antd';
 import Image from 'next/image';
 import React, { useState } from 'react';
 import Slider from 'react-slick';
-
 import BreadCumb from '@/components/common/BreadCumb';
+import { useGetAllProducts, useGetDetailProduct } from '@/apis/productApi';
+import { useRouter } from 'next/router';
 import ProductItem from '@/components/common/ProductItem';
 
 const DetailProduct = () => {
-  const [imageUrl, setImageUrl] = useState(
+  const router = useRouter();
+  const productId = router.query.id as string;
+  const { data: productData } = useGetDetailProduct(productId);
+  const { data: relatedProductsData } = useGetAllProducts({
+    page: 1,
+    limit: 4,
+    category: `${productData?.category && productData?.category.map(item => item._id).join(",")}`
+  })
+  const [_, setImageUrl] = useState(
     'https://uray.physcode.com/wp-content/uploads/2019/02/product8-1024x1024.jpg'
   );
   const [quantity, setQuantity] = useState(0);
@@ -23,7 +32,6 @@ const DetailProduct = () => {
   };
 
   const increaseQuantity = () => {
-    console.log('Heyy');
     setQuantity(quantity + 1);
   };
 
@@ -35,11 +43,11 @@ const DetailProduct = () => {
 
   return (
     <div id="detail-product">
-      <BreadCumb navigations={['Home', 'Shop', 'Page 2']} />
+      <BreadCumb navigations={['Home', 'Product', `${productData?.name}`]} />
       <div className="content-area container">
         <div className="grid grid-cols-1 md:grid-cols-2">
           <div className="product-images">
-            <Image src={imageUrl} width={800} height={800} alt="main-image" />
+            <Image src={`${productData?.image || '/'}`} width={800} height={800} alt="main-image" />
             <Slider {...settings}>
               {[
                 'https://uray.physcode.com/wp-content/uploads/2019/02/product1-1024x1024.jpg',
@@ -70,7 +78,7 @@ const DetailProduct = () => {
           <div className="product-content  mt-[60px] md:mt-0 md:pl-[45px]">
             <div className="wrap-title-price mb-[25px]">
               <h2 className="text-[30px] font-semibold text-[#333]">
-                Striped Stretchie <span className="text-[#666]">| $17</span>
+                {`${productData?.name}`} <span className="text-[#666]">| ${`${productData?.price}`}</span>
               </h2>
             </div>
             <div className="product-info">
@@ -84,18 +92,15 @@ const DetailProduct = () => {
                 ))}
               </div>
               <p className="mb-[25px] whitespace-pre-line leading-[26px] text-[#666]">
-                {`A great essential for naptime or nighttime!
-                Made of 100% cotton in a rib knit
-                Note: for child’s safety, garment should fit snugly. This garment is not flame resistant. Loose fitting garment is more likely to catch fire.`}
+                {`${productData?.description}`}
               </p>
               <div className="flex flex-col gap-[10px] text-[15px]">
                 <p className="mb-0 text-medium_gray">
                   <span className="font-semibold text-dark">Categories:</span>{' '}
-                  Make up, Skin care
+                  {`${productData?.category !== undefined && productData.category.map(item => item.name).join(", ")}`}
                 </p>
                 <p className="mb-0 text-medium_gray">
-                  <span className="font-semibold text-dark">Tag:</span> Make up,
-                  Skin care
+                  <span className="font-semibold text-dark">Slug:</span> {`${productData?.category !== undefined && productData.category.map(item => item.slug).join(", ")}`}
                 </p>
               </div>
               <div className="actions mt-[37px] mb-[43px]  flex gap-[20px]">
@@ -131,9 +136,9 @@ const DetailProduct = () => {
         <h2 className="special-heading">Related Products</h2>
         <div className="container">
           <div className="grid grid-cols-1 gap-[30px] md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {[1, 2, 3, 4].map((item) => {
-              return <ProductItem key={item} />;
-            })}
+            {relatedProductsData?.data !== undefined ? relatedProductsData.data.map((item, key) => {
+              return <ProductItem key={key} product={item} />;
+            }) : undefined}
           </div>
         </div>
       </div>

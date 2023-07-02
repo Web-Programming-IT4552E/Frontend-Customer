@@ -63,4 +63,7 @@ module.exports = {
   variants: {
     transitionProperty: ['responsive', 'motion-safe', 'motion-reduce'],
   },
+  plugins: [
+    require('@tailwindcss/aspect-ratio'),
+  ]
 };
