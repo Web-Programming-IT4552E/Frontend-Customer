@@ -1,5 +1,3 @@
-const SuccessCode = [200,201,202,203];
+const SuccessCode = [200, 201, 202, 203];
 
-export {
-  SuccessCode
-}
+export { SuccessCode };

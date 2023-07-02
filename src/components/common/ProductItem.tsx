@@ -9,7 +9,6 @@ import { useRouter } from 'next/router';
 
 const ProductItem: React.FC<{ product: ProductItemData }> = ({ product }) => {
   const router = useRouter();
-  const pathname = router.pathname;
 
   return (
     <div
@@ -24,7 +23,7 @@ const ProductItem: React.FC<{ product: ProductItemData }> = ({ product }) => {
           width={500}
           height={500}
           className="h-full w-full object-cover max-w-[300px] max-h-[300px]"
-          onClick={() => { router.push(`/${pathname.split("/")[1]}/${product._id}`) }}
+          onClick={() => { router.push(`/${"profuct"}/${product._id}`) }}
         />
         <div className="translate-x-[-100%] transition-all duration-200 ease-in-out group-hover:translate-x-[0%]"></div>
         <div className="box-hover translate-y-[100%] transition-all duration-200 ease-linear group-hover:translate-y-[-75%]">
@@ -34,7 +33,7 @@ const ProductItem: React.FC<{ product: ProductItemData }> = ({ product }) => {
               style={{ fontSize: 16, color: 'black' }}
             />
           </a>
-          <Link className="link-item cursor-pointer" href={`/${pathname.split("/")[1]}/${product._id}`}>
+          <Link className="link-item cursor-pointer" href={`/${"product"}/${product._id}`}>
             <FontAwesomeIcon
               icon={faSearch}
               style={{ fontSize: 16, color: 'black' }}
@@ -48,7 +47,7 @@ const ProductItem: React.FC<{ product: ProductItemData }> = ({ product }) => {
           {product.category.map((item, idx) => {
             return (
               <>
-                <Link rel="tag" href={`${pathname}?category=${item.name}`}>{item.name}</Link>
+                <Link rel="tag" href={`/product/all?category=${item.name}`}>{item.name}</Link>
                 {idx + 1 < product.category.length ? ', ' : ''}
               </>);
           })}
