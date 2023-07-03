@@ -46,10 +46,10 @@ const ProductItem: React.FC<{ product: ProductItemData }> = ({ product }) => {
         <div id="cat_product" className="text-[15px] text-[#999]">
           {product.category.map((item, idx) => {
             return (
-              <>
+              <React.Fragment key={idx}>
                 <Link rel="tag" href={`/product/all?category=${item.name}`}>{item.name}</Link>
                 {idx + 1 < product.category.length ? ', ' : ''}
-              </>);
+              </React.Fragment>);
           })}
 
         </div>
