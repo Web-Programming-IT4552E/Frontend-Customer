@@ -44,7 +44,15 @@ const ShippingAddressModal: React.FC<{
         receiver_name, receiver_phone_number, address
       })
     }
-  }, [shippingData, cityData, districtData, wardData])
+    else {
+      setFilters({
+        countryId: filters.countryId,
+        cityId: "",
+        districtId: "",
+        wardId: "",
+      })
+    }
+  }, [shippingData])
 
   useEffect(() => {
     if (countryData && Object.keys(countryData).length >= 0) {

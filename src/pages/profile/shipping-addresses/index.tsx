@@ -17,12 +17,12 @@ const ShippingAddresses = () => {
   const [shippingId, setShippingId] = useState("")
   const { data: shippingAddressDetail } = useGetShippingAddressDetail(shippingId, shippingId !== "")
 
-
   const handleClickBtn = (isAdd: boolean = false) => {
     setIsOpenModal(true);
   };
 
   const handleClose = () => {
+    setShippingId("");
     setIsOpenModal(false);
   };
 
