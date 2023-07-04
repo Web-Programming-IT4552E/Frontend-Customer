@@ -4,7 +4,7 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { request } from "@/utils/request";
-import { GetAllShippingAddresses } from "@/@types/shipping-address";
+import { GetAllShippingAddressDataFieldItem, GetAllShippingAddresses } from "@/@types/shipping-address";
 import { ShippingAddressFilter } from '../interfaces/shipping_addresses.interface';
 import { CreateShippingAddressDto, UpdateShippingAddressDto } from '../@types/shipping-address';
 import { SuccessCode } from '@/utils/status';
@@ -16,6 +16,15 @@ export const shippingApis = {
     const response = await request(
       {
         url: `shipping-address?page=${filter.page}&limit=${filter.limit}`,
+      },
+      true
+    );
+    return response.data;
+  },
+  async getDetail(shippingId: string) {
+    const response = await request(
+      {
+        url: `shipping-address/${shippingId}`,
       },
       true
     );
@@ -49,5 +58,9 @@ export const shippingApis = {
 };
 
 export const useGetAllShippingAddresses = (filter: ShippingAddressFilter) => {
-  return useQuery<GetAllShippingAddresses>(["/profile/shipping-address", filter], () => shippingApis.getAll(filter));
+  return useQuery<GetAllShippingAddresses>(["/shipping-address", filter], () => shippingApis.getAll(filter));
+};
+
+export const useGetShippingAddressDetail = (shippingId: string, enabled: boolean = true) => {
+  return useQuery<GetAllShippingAddressDataFieldItem>(["/shipping-address/:id", shippingId], () => shippingApis.getDetail(shippingId), { enabled });
 };

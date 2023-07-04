@@ -55,10 +55,7 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
     const isLogin = authService.getIsAuthFromLocal();
 
     if (
-      isLogin &&
-      (path.includes('login') ||
-        path.includes('register') ||
-        path.includes('profile'))
+      isLogin && ['/auth/login', '/auth/register'].includes(path)
     ) {
       router.push('/');
     }

@@ -7,9 +7,10 @@ import { Button, Form, Input, Modal, Select } from "antd";
 import React, { useEffect, useState } from "react";
 import { shippingApis } from "@/apis/shippingAddressApi";
 import { toast } from "react-toastify";
+import { GetAllShippingAddressDataFieldItem } from '../@types/shipping-address';
 
 const ShippingAddressModal: React.FC<{
-  shippingData?: ShippingAddressData;
+  shippingData?: GetAllShippingAddressDataFieldItem;
   open: boolean;
   onCancel?: () => void;
   onSuccess?: () => void;
@@ -22,25 +23,34 @@ const ShippingAddressModal: React.FC<{
     districtId: "",
     wardId: "",
   });
-  const { data: countryData = [] } = useGetAllCountries();
+  const { data: countryData = [] } = useGetAllCountries(open === true);
   const { data: cityData = [] } = useGetAllCities(
     filters.countryId,
-    countryData !== undefined
+    Object.keys(countryData).length !== 0
   );
   const { data: districtData = [] } = useGetAllDistricts(
     filters.cityId,
-    cityData !== undefined
+    Object.keys(cityData).length !== 0
   );
   const { data: wardData = [] } = useGetAllWards(
     filters.districtId,
-    districtData !== undefined
+    Object.keys(districtData).length !== 0
   );
+
+  useEffect(() => {
+    if (shippingData !== undefined) {
+      const { receiver_name, receiver_phone_number, address } = shippingData.address_detail;
+      form.setFieldsValue({
+        receiver_name, receiver_phone_number, address
+      })
+    }
+  }, [shippingData, cityData, districtData, wardData])
 
   useEffect(() => {
     if (countryData && Object.keys(countryData).length >= 0) {
       setFilters({
         ...filters,
-        countryId: countryData[0]!.code,
+        countryId: countryData[0]?.code || "",
       });
     }
   }, [countryData]);
@@ -104,7 +114,7 @@ const ShippingAddressModal: React.FC<{
     if (shippingData === undefined) {
       handleFunction.push(shippingApis.addOne({ address_detail: values }));
     } else {
-      handleFunction.push(shippingApis.addOne({ address_detail: values }));
+      handleFunction.push(shippingApis.updateOne(shippingData._id,{ address_detail: values }));
     }
     await Promise.all(handleFunction)
       .then(() => {
@@ -119,7 +129,6 @@ const ShippingAddressModal: React.FC<{
           onError();
         }
       });
-    console.log(values);
     handleClose();
   };
 
@@ -130,7 +139,7 @@ const ShippingAddressModal: React.FC<{
   return (
     <Modal
       className="shipping-modal"
-      title="Add shipping address"
+      title={`${shippingData === undefined ? "Add" : "Modify"} shipping address`}
       open={open}
       onCancel={onCancel}
       footer={[]}

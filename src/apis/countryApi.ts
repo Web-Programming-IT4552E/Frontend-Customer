@@ -16,6 +16,6 @@ const countryApis = {
   },
 };
 
-export const useGetAllCountries = () => {
-  return useQuery<CountryData[]>(["/area/countries"], () => countryApis.getAll());
+export const useGetAllCountries = (enabled: boolean = true) => {
+  return useQuery<CountryData[]>(["/area/countries"], () => countryApis.getAll(), { enabled});
 };

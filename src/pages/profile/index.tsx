@@ -20,8 +20,6 @@ import ProfileInfo from "@/components/ProfileInfo";
 dayjs.extend(weekday);
 dayjs.extend(localeData);
 
-
-
 const Profile = () => {
   const profileData = useAppSelector(state => state.profile);
   const router = useRouter();
