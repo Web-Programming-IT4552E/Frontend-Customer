@@ -19,13 +19,14 @@ import { toast, ToastContainer } from "react-toastify";
 
 import logoImg from "@/assets/images/logo.png";
 import * as authService from "@/services/authService";
+import { useAppSelector } from "@/configs/redux";
 
 import CartList from "./CartList";
 
 const Header = () => {
 	const [searchInput, setSearchInput] = useState("");
-
 	const isLogin = authService.getIsAuthFromLocal();
+	const cartList = useAppSelector((state) => state.order.data);
 
 	const handleSearchCloseIcon = () => {
 		const searchElement = document.querySelector("#home-header .header-search");
@@ -129,7 +130,9 @@ const Header = () => {
 							>
 								<div className="relative">
 									<HiOutlineShoppingBag className="cursor-pointer text-[24px]" />
-                  <div className="absolute w-3 h-3 rounded-full bg-red-600 top-[-2px] right-[-2px]"></div>
+									{cartList.length > 0 && (
+										<div className="absolute w-3 h-3 rounded-full bg-red-600 top-[-2px] right-[-2px]"></div>
+									)}
 								</div>
 							</Tippy>
 						</div>
@@ -208,14 +211,14 @@ const Header = () => {
 						<Link
 							href="/"
 							className="block cursor-pointer border-t-[1px] border-solid border-[#e9e9e9] px-8 py-4 text-[15px] font-semibold"
-              onClick={handleSubMenu}
+							onClick={handleSubMenu}
 						>
 							HOME
 						</Link>
 						<Link
 							href="/product/all"
 							className="block cursor-pointer border-t-[1px] border-solid border-[#e9e9e9] px-8 py-4 text-[15px] font-semibold"
-              onClick={handleSubMenu}
+							onClick={handleSubMenu}
 						>
 							SHOP
 						</Link>

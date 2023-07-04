@@ -112,6 +112,12 @@ body {
   .header-search {
     @apply absolute left-0 right-0 h-full z-20 flex justify-center items-center gap-4 px-6 transition-all duration-300 ease-linear bg-white xl:px-20;
   }
+
+  ::-webkit-scrollbar {
+    // width: 2px;
+    // height: 10px;
+    // background-color: red;
+  }
 }
 
 .tippy-dropdown {
