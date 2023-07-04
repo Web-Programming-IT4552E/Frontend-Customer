@@ -33,8 +33,10 @@ export const useGetAllProducts = (filter: ProductFilter, enabled: boolean = true
   );
 };
 
-export const useGetDetailProduct = (productId: string) => {
+export const useGetDetailProduct = (productId: string, enabled: boolean = true) => {
   return useQuery<ProductItemData>(['product/', productId], () =>
-    productApis.getDetailProduct(productId)
+    productApis.getDetailProduct(productId), {
+      enabled
+    }
   );
 };

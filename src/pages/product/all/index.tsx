@@ -33,7 +33,6 @@ const ProductList = () => {
 
   useEffect(() => {
     const category = categoryStore.data.length == 0 ? undefined : categoryStore.data.filter(item => item!.name == breadcump.toLocaleUpperCase()).map(item => item!._id).join(",");
-
     setFilter({
       ...filter,
       page: 1,
@@ -90,7 +89,7 @@ const ProductList = () => {
                 })}
               </div>
               <div className="mt-[20px] flex justify-center">
-                {data !== undefined && <Pagination total={data.paginationInfo.total} onChange={handleChangePagination} defaultPageSize={DEFAULT_LIMIT} />}
+                {data !== undefined && <Pagination total={data.paginationInfo.total} onChange={handleChangePagination} defaultPageSize={DEFAULT_LIMIT} current={filter.page}/>}
               </div>
             </div>
             <div className="col-span-3 pt-[30px] lg:col-span-1 lg:px-[15px] lg:pt-[0px]">
