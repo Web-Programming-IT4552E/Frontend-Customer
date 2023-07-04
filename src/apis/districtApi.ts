@@ -14,7 +14,7 @@ const districtApis = {
   },
 };
 
-export const useGetAllDistricts = (cityId: string, enabled: boolean =  true) => {
+export const useGetAllDistricts = (cityId: string, enabled: boolean = true) => {
   return useQuery<DistrictData[]>(
     ["/area/districts", cityId],
     () => districtApis.getAll(cityId),

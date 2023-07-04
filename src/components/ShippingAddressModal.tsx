@@ -5,30 +5,35 @@ import { useGetAllDistricts } from "@/apis/districtApi";
 import { useGetAllWards } from "@/apis/wardApi";
 import { Button, Form, Input, Modal, Select } from "antd";
 import React, { useEffect, useState } from "react";
+import { shippingApis } from "@/apis/shippingAddressApi";
+import { toast } from "react-toastify";
 
 const ShippingAddressModal: React.FC<{
   shippingData?: ShippingAddressData;
   open: boolean;
-  onCancel: () => void;
-}> = ({ open, onCancel }) => {
+  onCancel?: () => void;
+  onSuccess?: () => void;
+  onError?: () => void;
+}> = ({ open, onCancel, shippingData, onSuccess, onError }) => {
   const [form] = Form.useForm();
   const [filters, setFilters] = useState({
     countryId: "",
     cityId: "",
     districtId: "",
+    wardId: "",
   });
-  const { data: countryData } = useGetAllCountries();
-  const { data: cityData } = useGetAllCities(
+  const { data: countryData = [] } = useGetAllCountries();
+  const { data: cityData = [] } = useGetAllCities(
     filters.countryId,
-    filters.countryId !== ""
+    countryData !== undefined
   );
-  const { data: districtData } = useGetAllDistricts(
+  const { data: districtData = [] } = useGetAllDistricts(
     filters.cityId,
-    filters.cityId !== ""
+    cityData !== undefined
   );
-  const { data: wardData } = useGetAllWards(
+  const { data: wardData = [] } = useGetAllWards(
     filters.districtId,
-    filters.districtId !== ""
+    districtData !== undefined
   );
 
   useEffect(() => {
@@ -40,6 +45,15 @@ const ShippingAddressModal: React.FC<{
     }
   }, [countryData]);
 
+  useEffect(() => {
+    form.setFieldsValue({
+      city: filters.cityId,
+      country: filters.countryId,
+      district: filters.districtId,
+      ward: filters.wardId
+    })
+  }, [filters]);
+
   const resetForm = () => {
     form.setFieldsValue({
       receiver_name: "",
@@ -50,27 +64,63 @@ const ShippingAddressModal: React.FC<{
 
   const handleClose = () => {
     resetForm();
-    onCancel();
+    if (onCancel !== undefined) {
+      onCancel();
+    }
   };
 
   const handleFilters = (e: any, type: string) => {
     switch (type) {
       case "country":
-        setFilters({ ...filters, countryId: e });
+        setFilters({
+          ...filters,
+          countryId: e,
+          cityId: "",
+          districtId: "",
+          wardId: "",
+        });
         break;
       case "city":
-        setFilters({ ...filters, cityId: e });
+        setFilters({ ...filters, cityId: e, districtId: "", wardId: "" });
         break;
       case "district":
-        setFilters({ ...filters, districtId: e });
+        setFilters({ ...filters, districtId: e, wardId: "" });
+        break;
+      case "ward":
+        setFilters({ ...filters, wardId: e });
         break;
     }
   };
 
-  const onFinish = (values: any) => {
+  const onFinish = async (values: ShippingAddressData) => {
+    let handleFunction = [];
+
+    values = {
+      ...values,
+      district: districtData.filter((item) => item.code === values.district)[0]!.name,
+      ward: wardData.filter((item) => item.code === values.ward)[0]!.name,
+      city: cityData.filter((item) => item.code === values.city)[0]!.name,
+    }
+    if (shippingData === undefined) {
+      handleFunction.push(shippingApis.addOne({ address_detail: values }));
+    } else {
+      handleFunction.push(shippingApis.addOne({ address_detail: values }));
+    }
+    await Promise.all(handleFunction)
+      .then(() => {
+        toast.success("Successfully");
+        if (onSuccess !== undefined) {
+          onSuccess();
+        }
+      })
+      .catch((e) => {
+        toast.error(e?.message || "Error");
+        if (onError !== undefined) {
+          onError();
+        }
+      });
     console.log(values);
     handleClose();
-    onCancel();
   };
 
   const onFinishFailed = () => {
@@ -111,74 +161,95 @@ const ShippingAddressModal: React.FC<{
         </Form.Item>
         {countryData !== undefined && (
           <Form.Item
-            initialValue={countryData[0]!.code}
+            initialValue={filters.countryId}
             name="country"
             label="Country:"
             rules={[{ required: true }]}
           >
             <Select
-              onChange={(e: any) => { handleFilters(e, "country") }}
-              options={countryData.map((item) => {
-                return {
-                  value: item.code,
-                  label: item.name,
-                };
-              })}
+              onChange={(e: any) => {
+                handleFilters(e, "country");
+              }}
+              options={[
+                { value: "", label: "Select country" },
+                ...countryData.map((item) => {
+                  return {
+                    value: item.code,
+                    label: item.name,
+                  };
+                }),
+              ]}
             ></Select>
           </Form.Item>
         )}
-        {cityData !== undefined && (
+        {filters.countryId !== ""  && (
           <Form.Item
-            initialValue={cityData[0]?.code}
+            initialValue={filters.cityId}
             name="city"
             label="City:"
             rules={[{ required: true }]}
           >
             <Select
-              onChange={(e: any) => { handleFilters(e, "city") }}
-              options={cityData.map((item) => {
-                return {
-                  value: item.code,
-                  label: item.name,
-                };
-              })}
+              onChange={(e: any) => {
+                handleFilters(e, "city");
+              }}
+              options={[
+                { value: "", label: "Select city" },
+                ...cityData.map((item) => {
+                  return {
+                    value: item.code,
+                    label: item.name,
+                  };
+                }),
+              ]}
             ></Select>
           </Form.Item>
         )}
 
-        {districtData !== undefined && (
+        {filters.cityId !== ""   && (
           <Form.Item
-            initialValue={districtData[0]!.code}
+            initialValue={filters.districtId}
             name="district"
             label="District:"
             rules={[{ required: true }]}
           >
             <Select
-              onChange={(e: any) => { handleFilters(e, "district") }}
-              options={districtData.map((item) => {
-                return {
-                  value: item.code,
-                  label: item.name,
-                };
-              })}
+              onChange={(e: any) => {
+                handleFilters(e, "district");
+              }}
+              options={[
+                { value: "", label: "Select district" },
+                ...districtData.map((item) => {
+                  return {
+                    value: item.code,
+                    label: item.name,
+                  };
+                }),
+              ]}
             ></Select>
           </Form.Item>
         )}
 
-        {wardData !== undefined && (
+        {filters.districtId !== ""  && (
           <Form.Item
-            initialValue={wardData[0]!.code}
+            initialValue={filters.wardId}
             name="ward"
             label="Ward:"
             rules={[{ required: true }]}
           >
             <Select
-              options={wardData.map((item) => {
-                return {
-                  value: item.code,
-                  label: item.name,
-                };
-              })}
+              onChange={(e: any) => {
+                handleFilters(e, "ward");
+              }}
+              options={[
+                { value: "", label: "Select ward" },
+                ...wardData.map((item) => {
+                  return {
+                    value: item.code,
+                    label: item.name,
+                  };
+                }),
+              ]}
             ></Select>
           </Form.Item>
         )}

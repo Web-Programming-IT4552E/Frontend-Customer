@@ -9,7 +9,7 @@ import ShippingAddressModal from "@/components/ShippingAddressModal";
 const DEFAULT_LIMIT = 9;
 const ShippingAddresses = () => {
   const [page, setPage] = useState(1);
-  const { data: shippingAddressData } = useGetAllShippingAddresses({
+  const { data: shippingAddressData, refetch } = useGetAllShippingAddresses({
     page: page,
     limit: DEFAULT_LIMIT,
   });
@@ -29,7 +29,7 @@ const ShippingAddresses = () => {
 
   return (
     <>
-      <ShippingAddressModal open={isOpenModal} onCancel={handleClose}/>
+      <ShippingAddressModal open={isOpenModal} onCancel={handleClose} onSuccess={() => { refetch() }}/>
       <div id="shipping-addresses">
         <h2 className="mt-[60px] mb-[40px] text-[24px] font-semibold md:text-[36px]">
           Shipping Address
