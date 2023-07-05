@@ -3,7 +3,10 @@ import React, { useState } from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 
 import { truncateString } from "@/utils/string";
-import { useGetAllShippingAddresses, useGetShippingAddressDetail } from "@/apis/shippingAddressApi";
+import {
+  useGetAllShippingAddresses,
+  useGetShippingAddressDetail,
+} from "@/apis/shippingAddressApi";
 import ShippingAddressModal from "@/components/ShippingAddressModal";
 
 const DEFAULT_LIMIT = 9;
@@ -14,8 +17,11 @@ const ShippingAddresses = () => {
     limit: DEFAULT_LIMIT,
   });
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
-  const [shippingId, setShippingId] = useState("")
-  const { data: shippingAddressDetail } = useGetShippingAddressDetail(shippingId, shippingId !== "")
+  const [shippingId, setShippingId] = useState("");
+  const { data: shippingAddressDetail } = useGetShippingAddressDetail(
+    shippingId,
+    shippingId !== ""
+  );
 
   const handleClickBtn = (isAdd: boolean = false) => {
     setIsOpenModal(true);
@@ -33,11 +39,18 @@ const ShippingAddresses = () => {
   const handleClickShippingAddress = (id: string) => {
     setShippingId(id);
     handleClickBtn(false);
-  }
+  };
 
   return (
     <>
-      <ShippingAddressModal shippingData={shippingAddressDetail} open={isOpenModal} onCancel={handleClose} onSuccess={() => { refetch() }}/>
+      <ShippingAddressModal
+        shippingData={shippingAddressDetail}
+        open={isOpenModal}
+        onCancel={handleClose}
+        onSuccess={() => {
+          refetch();
+        }}
+      />
       <div id="shipping-addresses">
         <h2 className="mt-[60px] mb-[40px] text-[24px] font-semibold md:text-[36px]">
           Shipping Address
@@ -50,16 +63,21 @@ const ShippingAddresses = () => {
                   type="default"
                   key={idx}
                   onClick={() => {
-                    handleClickShippingAddress(item._id)
+                    handleClickShippingAddress(item._id);
                   }}
                 >
                   <div className="flex flex-col gap-[5px] text-start">
                     <p>
                       <span>Address:</span>{" "}
-                      {truncateString(
-                        `${item.address_detail.address}, ${item.address_detail.ward}, ${item.address_detail.district}, ${item.address_detail.city}` ||
-                          ""
-                      )}
+                      {`${item.address_detail.address}` || ""}
+                      {", "}
+                      <span>Ward:</span> {`${item.address_detail.ward}` || ""}
+                    </p>
+                    <p>
+                      <span>District:</span>{" "}
+                      {`${item.address_detail.district}` || ""}
+                      {", "}
+                      <span>City:</span> {`${item.address_detail.city}` || ""}
                     </p>
                     <p>
                       <span>Phone:</span>{" "}
