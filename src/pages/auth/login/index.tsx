@@ -66,6 +66,8 @@ const Login: NextPageWithLayout = () => {
         clearTimeout(timerId);
       };
     }
+
+    return;
   }, [isLoginSuccess]);
 
   return (
