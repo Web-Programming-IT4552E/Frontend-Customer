@@ -31,7 +31,7 @@ const Button = ({
         normal,
     },
     'min-w-[80px] px-[26px] py-[12px] text-[13px] font-semibold uppercase transition duration-200 ease-linear sm:px-[30px] sm:py-[15px] lg:text-[15px]',
-    [className]
+    [className],
   );
 
   return (

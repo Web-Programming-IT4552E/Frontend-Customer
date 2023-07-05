@@ -11,7 +11,7 @@ export const customerApis = {
       {
         url: `account`,
       },
-      true
+      true,
     );
     return response.data;
   },
@@ -22,7 +22,7 @@ export const customerApis = {
         data: data as any,
         method: 'PUT',
       },
-      true
+      true,
     );
     return response.data;
   },
@@ -33,7 +33,7 @@ export const customerApis = {
         data: data as any,
         method: 'PATCH',
       },
-      true
+      true,
     );
     if (!SuccessCode.includes(response.status)) {
       throw new Error(`${response.data.message}`);

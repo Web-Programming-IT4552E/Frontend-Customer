@@ -12,47 +12,38 @@ const ProductItem: React.FC<{ product: ProductItemData }> = ({ product }) => {
 
   return (
     <div
-      className="group flex flex-col items-center justify-center overflow-hidden"
-      id="common_product_item"
+      className='group flex flex-col items-center justify-center overflow-hidden'
+      id='common_product_item'
     >
-      <div className="relative flex h-full w-full cursor-pointer items-end justify-center overflow-hidden">
+      <div className='relative flex h-full w-full cursor-pointer items-end justify-center overflow-hidden'>
         <Image
           src={`${product.image}`}
-          alt="product-item"
-          loading="lazy"
+          alt='product-item'
+          loading='lazy'
           width={500}
           height={500}
-          className="h-full max-h-[300px] w-full max-w-[300px] object-cover"
+          className='h-full max-h-[300px] w-full max-w-[300px] object-cover'
           onClick={() => {
             router.push(`/${'product'}/${product._id}`);
           }}
         />
-        <div className="translate-x-[-100%] transition-all duration-200 ease-in-out group-hover:translate-x-[0%]"></div>
-        <div className="box-hover translate-y-[100%] transition-all duration-200 ease-linear group-hover:translate-y-[-75%]">
-          <a className="link-item cursor-pointer">
-            <FontAwesomeIcon
-              icon={faCartPlus}
-              style={{ fontSize: 16, color: 'black' }}
-            />
+        <div className='translate-x-[-100%] transition-all duration-200 ease-in-out group-hover:translate-x-[0%]'></div>
+        <div className='box-hover translate-y-[100%] transition-all duration-200 ease-linear group-hover:translate-y-[-75%]'>
+          <a className='link-item cursor-pointer'>
+            <FontAwesomeIcon icon={faCartPlus} style={{ fontSize: 16, color: 'black' }} />
           </a>
-          <Link
-            className="link-item cursor-pointer"
-            href={`/${'product'}/${product._id}`}
-          >
-            <FontAwesomeIcon
-              icon={faSearch}
-              style={{ fontSize: 16, color: 'black' }}
-            />
+          <Link className='link-item cursor-pointer' href={`/${'product'}/${product._id}`}>
+            <FontAwesomeIcon icon={faSearch} style={{ fontSize: 16, color: 'black' }} />
           </Link>
         </div>
       </div>
 
-      <div id="wrapper_content_item" className="my-[30px] w-[100%] text-center">
-        <div id="cat_product" className="text-[15px] text-[#999]">
+      <div id='wrapper_content_item' className='my-[30px] w-[100%] text-center'>
+        <div id='cat_product' className='text-[15px] text-[#999]'>
           {product.category.map((item, idx) => {
             return (
               <React.Fragment key={idx}>
-                <Link rel="tag" href={`/product/all?category=${item.name}`}>
+                <Link rel='tag' href={`/product/all?category=${item.name}`}>
                   {item.name}
                 </Link>
                 {idx + 1 < product.category.length ? ', ' : ''}
@@ -60,16 +51,10 @@ const ProductItem: React.FC<{ product: ProductItemData }> = ({ product }) => {
             );
           })}
         </div>
-        <h2
-          id="product_item_title"
-          className="my-[20px] mx-[5px] text-[20px] font-semibold"
-        >
+        <h2 id='product_item_title' className='my-[20px] mx-[5px] text-[20px] font-semibold'>
           {product.name}
         </h2>
-        <p
-          id="product_item_price"
-          className="text-[25px] font-bold text-light_pink"
-        >
+        <p id='product_item_price' className='text-[25px] font-bold text-light_pink'>
           ${product.price}
         </p>
       </div>

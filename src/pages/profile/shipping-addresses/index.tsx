@@ -2,10 +2,7 @@ import { Button, Pagination } from 'antd';
 import React, { useState } from 'react';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 
-import {
-  useGetAllShippingAddresses,
-  useGetShippingAddressDetail,
-} from '@/apis/shippingAddressApi';
+import { useGetAllShippingAddresses, useGetShippingAddressDetail } from '@/apis/shippingAddressApi';
 import ShippingAddressModal from '@/components/ShippingAddressModal';
 
 const DEFAULT_LIMIT = 9;
@@ -19,7 +16,7 @@ const ShippingAddresses = () => {
   const [shippingId, setShippingId] = useState('');
   const { data: shippingAddressDetail } = useGetShippingAddressDetail(
     shippingId,
-    shippingId !== ''
+    shippingId !== '',
   );
 
   const handleClickBtn = () => {
@@ -50,58 +47,53 @@ const ShippingAddresses = () => {
           refetch();
         }}
       />
-      <div id="shipping-addresses">
-        <h2 className="mt-[60px] mb-[40px] text-[24px] font-semibold md:text-[36px]">
+      <div id='shipping-addresses'>
+        <h2 className='mt-[60px] mb-[40px] text-[24px] font-semibold md:text-[36px]'>
           Shipping Address
         </h2>
-        <div className="flex flex-wrap items-center justify-center gap-[12px] px-[20px] lg:px-[60px]">
+        <div className='flex flex-wrap items-center justify-center gap-[12px] px-[20px] lg:px-[60px]'>
           {shippingAddressData?.data !== undefined &&
             shippingAddressData.data.map((item, idx) => {
               return (
                 <Button
-                  type="default"
+                  type='default'
                   key={idx}
                   onClick={() => {
                     handleClickShippingAddress(item._id);
                   }}
                 >
-                  <div className="flex flex-col gap-[5px] text-start">
+                  <div className='flex flex-col gap-[5px] text-start'>
                     <p>
-                      <span>Address:</span>{' '}
-                      {`${item.address_detail.address}` || ''}
+                      <span>Address:</span> {`${item.address_detail.address}` || ''}
                       {', '}
                       <span>Ward:</span> {`${item.address_detail.ward}` || ''}
                     </p>
                     <p>
-                      <span>District:</span>{' '}
-                      {`${item.address_detail.district}` || ''}
+                      <span>District:</span> {`${item.address_detail.district}` || ''}
                       {', '}
                       <span>City:</span> {`${item.address_detail.city}` || ''}
                     </p>
                     <p>
-                      <span>Phone:</span>{' '}
-                      {item.address_detail.receiver_phone_number}
+                      <span>Phone:</span> {item.address_detail.receiver_phone_number}
                     </p>
                   </div>
                 </Button>
               );
             })}
           {shippingAddressData !== undefined &&
-            Math.ceil(
-              shippingAddressData.paginationInfo.total / DEFAULT_LIMIT
-            ) === shippingAddressData.paginationInfo.page && (
+            Math.ceil(shippingAddressData.paginationInfo.total / DEFAULT_LIMIT) ===
+              shippingAddressData.paginationInfo.page && (
               <Button
-                type="dashed"
+                type='dashed'
                 onClick={() => {
                   handleClickBtn();
                 }}
               >
-                <AiOutlinePlusCircle className="mr-[5px] text-[20px]" /> Add
-                shipping address
+                <AiOutlinePlusCircle className='mr-[5px] text-[20px]' /> Add shipping address
               </Button>
             )}
         </div>
-        <div className="mt-[20px] flex justify-center">
+        <div className='mt-[20px] flex justify-center'>
           {shippingAddressData !== undefined && (
             <Pagination
               total={shippingAddressData.paginationInfo.total}

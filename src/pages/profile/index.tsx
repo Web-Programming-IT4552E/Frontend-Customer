@@ -68,9 +68,9 @@ const Profile = () => {
   }, [router.query]);
 
   return (
-    <div className="mt-[80px]" id="profile">
-      <div className="wrap flex flex-col items-center justify-start lg:flex-row lg:items-start lg:justify-center">
-        <div className="flex flex-col gap-[20px] text-center">
+    <div className='mt-[80px]' id='profile'>
+      <div className='wrap flex flex-col items-center justify-start lg:flex-row lg:items-start lg:justify-center'>
+        <div className='flex flex-col gap-[20px] text-center'>
           <Upload showUploadList={false} customRequest={handleUploadAvatar}>
             <Avatar
               size={{
@@ -88,27 +88,24 @@ const Profile = () => {
               }
             />
           </Upload>
-          <h2 className="text-[24px] font-semibold">{`${profileData?.data?.fullname}`}</h2>
-          <div className="setting-options flex flex-col gap-[10px]">
-            <Button className="setting-btn" onClick={handleEditProfile}>
+          <h2 className='text-[24px] font-semibold'>{`${profileData?.data?.fullname}`}</h2>
+          <div className='setting-options flex flex-col gap-[10px]'>
+            <Button className='setting-btn' onClick={handleEditProfile}>
               {' '}
-              <AiFillEdit className="mr-[5px]" /> Edit Profile
+              <AiFillEdit className='mr-[5px]' /> Edit Profile
             </Button>
-            <Button
-              className="setting-btn"
-              onClick={handleDirectShippingAddresses}
-            >
+            <Button className='setting-btn' onClick={handleDirectShippingAddresses}>
               {' '}
-              <FaAddressBook className="mr-[5px]" /> Shipping Addresses
+              <FaAddressBook className='mr-[5px]' /> Shipping Addresses
             </Button>
-            <Button className="setting-btn" onClick={handleChangePasswordPage}>
+            <Button className='setting-btn' onClick={handleChangePasswordPage}>
               {' '}
-              <MdPassword className="mr-[5px]" /> Change Password
+              <MdPassword className='mr-[5px]' /> Change Password
             </Button>
           </div>
         </div>
-        <div className="detail-info mt-[20px] flex w-full max-w-[450px] flex-col gap-[20px] py-[0px] px-[20px] lg:mx-[60px] lg:mt-0">
-          <h2 className="text-[24px] font-semibold lg:text-[32px]">Profile</h2>
+        <div className='detail-info mt-[20px] flex w-full max-w-[450px] flex-col gap-[20px] py-[0px] px-[20px] lg:mx-[60px] lg:mt-0'>
+          <h2 className='text-[24px] font-semibold lg:text-[32px]'>Profile</h2>
           <RenderIf isTrue={currentPage !== ProfilePage.CHANGE_PASSWORD}>
             <ProfileInfo />
           </RenderIf>
