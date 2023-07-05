@@ -12,7 +12,7 @@ const productApis = {
         url: `${env.api}/product`,
         params: filter,
       },
-      false
+      false,
     );
     return response.data;
   },
@@ -21,32 +21,26 @@ const productApis = {
       {
         url: `${env.api}/product/${productId}`,
       },
-      false
+      false,
     );
     return response.data;
   },
 };
 
-export const useGetAllProducts = (
-  filter: ProductFilter,
-  enabled: boolean = true
-) => {
+export const useGetAllProducts = (filter: ProductFilter, enabled: boolean = true) => {
   return useQuery<GetAllProductsResponse>(
     ['product/all', filter],
     () => productApis.getAllProduct(filter),
-    { enabled }
+    { enabled },
   );
 };
 
-export const useGetDetailProduct = (
-  productId: string,
-  enabled: boolean = true
-) => {
+export const useGetDetailProduct = (productId: string, enabled: boolean = true) => {
   return useQuery<ProductItemData>(
     ['product/', productId],
     () => productApis.getDetailProduct(productId),
     {
       enabled,
-    }
+    },
   );
 };

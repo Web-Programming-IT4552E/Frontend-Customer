@@ -9,16 +9,12 @@ const countryApis = {
       {
         url: `area/countries`,
       },
-      true
+      true,
     );
     return response.data;
   },
 };
 
 export const useGetAllCountries = (enabled: boolean = true) => {
-  return useQuery<CountryData[]>(
-    ['/area/countries'],
-    () => countryApis.getAll(),
-    { enabled }
-  );
+  return useQuery<CountryData[]>(['/area/countries'], () => countryApis.getAll(), { enabled });
 };

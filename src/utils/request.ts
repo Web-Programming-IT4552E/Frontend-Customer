@@ -22,10 +22,7 @@ const client = axios.create({
  * @returns
  */
 
-export const request = async (
-  { ...options }: AxiosRequestConfig<AxiosDefaults>,
-  auth: boolean
-) => {
+export const request = async ({ ...options }: AxiosRequestConfig<AxiosDefaults>, auth: boolean) => {
   if (auth) {
     client.interceptors.request.use(
       async (config: InternalAxiosRequestConfig<AxiosRequestConfig>) => {
@@ -39,7 +36,7 @@ export const request = async (
       },
       (error) => {
         return Promise.reject(error);
-      }
+      },
     );
 
     client.interceptors.response.use(
@@ -55,17 +52,14 @@ export const request = async (
           if (data) {
             axios.defaults.headers.common.Authorization = `Bearer ${data?.accessToken}`;
             if (data?.accessToken) {
-              authService.setTokenToLocal(
-                data?.accessToken,
-                data?.refreshToken
-              );
+              authService.setTokenToLocal(data?.accessToken, data?.refreshToken);
             }
             return client(originalRequest);
           }
           authService.logout();
         }
         return Promise.reject(error);
-      }
+      },
     );
   }
 

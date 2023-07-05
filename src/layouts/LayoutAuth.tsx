@@ -7,10 +7,7 @@ type Props = {
   title?: string;
 };
 
-const LayoutDocument = ({
-  children,
-  title = 'This is the default title',
-}: Props) => {
+const LayoutDocument = ({ children, title = 'This is the default title' }: Props) => {
   return (
     <>
       <Head>

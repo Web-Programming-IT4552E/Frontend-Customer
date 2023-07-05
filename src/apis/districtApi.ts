@@ -9,16 +9,14 @@ const districtApis = {
       {
         url: `area/districts?city=${cityId}`,
       },
-      true
+      true,
     );
     return response.data;
   },
 };
 
 export const useGetAllDistricts = (cityId: string, enabled: boolean = true) => {
-  return useQuery<DistrictData[]>(
-    ['/area/districts', cityId],
-    () => districtApis.getAll(cityId),
-    { enabled }
-  );
+  return useQuery<DistrictData[]>(['/area/districts', cityId], () => districtApis.getAll(cityId), {
+    enabled,
+  });
 };
