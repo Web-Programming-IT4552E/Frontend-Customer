@@ -1,17 +1,4 @@
-import type { StaticImageData } from 'next/image';
-
 import type { ShippingAddressData } from './shipping-address';
-
-export type OrderItemType = {
-  name: string;
-  price: number;
-  quantity: number;
-  itemImg: StaticImageData;
-};
-
-export interface IOrderItem {
-  data: OrderItemType;
-}
 
 export interface OrderProduct {
   product_id: string;
@@ -20,6 +7,14 @@ export interface OrderProduct {
   quantity: number;
   image: string;
 }
+export interface IOrderItem {
+  data: OrderProduct;
+}
+
+export type OrderItemUpdateQuantity = {
+  data: OrderProduct;
+  quantity: number;
+};
 
 export enum OrderStatus {
   NEW = 0,

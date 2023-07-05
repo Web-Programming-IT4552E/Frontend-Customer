@@ -1,7 +1,8 @@
 import type { AxiosDefaults, AxiosRequestConfig } from 'axios';
 import Router from 'next/router';
 
-import type { LoginRequest, RefreshTokenRequest } from '@/@types/auth';
+import type { LoginRequest, RefreshTokenRequest, ResetPasswordRequest } from '@/@types/auth';
+import type { RegisterUserRequest } from '@/@types/user';
 import * as httpRequest from '@/utils/request';
 
 export const setTokenToLocal = (accessToken: string, refreshToken: string) => {
@@ -58,6 +59,68 @@ export const logout = async () => {
   } else {
     console.log(response.data.message);
   }
+  return response;
+};
+
+export const register = async ({ email, password, phone, fullname }: RegisterUserRequest) => {
+  const options: AxiosRequestConfig<AxiosDefaults> = {
+    url: 'account',
+    method: 'post',
+    data: { email, password, phone, fullname } as any,
+  };
+
+  const response = await httpRequest.request(options, false);
+  console.log(response);
+  return response;
+};
+
+export const verifyRegister = async (activeToken: string) => {
+  const options: AxiosRequestConfig<AxiosDefaults> = {
+    url: `account/register/verify/${activeToken}`,
+    method: 'get',
+  };
+
+  const response = await httpRequest.request(options, false);
+  return response;
+};
+
+export const forgotPassword = async (email: string) => {
+  const options: AxiosRequestConfig<AxiosDefaults> = {
+    url: 'account/forgot-password',
+    method: 'post',
+    data: { email } as any,
+  };
+
+  const response = await httpRequest.request(options, false);
+  return response;
+};
+
+export const verifyForgotPassword = async (activeToken: string) => {
+  const options: AxiosRequestConfig<AxiosDefaults> = {
+    url: `account/forgot-password/verify/${activeToken}`,
+    method: 'get',
+  };
+
+  const response = await httpRequest.request(options, false);
+  return response;
+};
+
+export const updatePassword = async ({
+  active_token,
+  new_password,
+  confirm_new_password,
+}: ResetPasswordRequest) => {
+  const options: AxiosRequestConfig<AxiosDefaults> = {
+    url: 'account/forgot-password/updatePassword',
+    method: 'post',
+    data: {
+      active_token,
+      new_password,
+      confirm_new_password,
+    } as any,
+  };
+
+  const response = await httpRequest.request(options, false);
   return response;
 };
 

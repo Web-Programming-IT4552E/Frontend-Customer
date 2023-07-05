@@ -1,18 +1,20 @@
 import { configureStore } from '@reduxjs/toolkit';
 import type { TypedUseSelectorHook } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { combineReducers } from 'redux';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 import categoryReducer from '@/reducers/category';
 import counterReducer from '@/reducers/counter';
+import orderReducer from '@/reducers/order';
 import profileReducer from '@/reducers/profile';
 
 const appReducer = combineReducers({
   counter: counterReducer,
   category: categoryReducer,
   profile: profileReducer,
+  order: orderReducer,
 });
 
 const rootReducer = (state: any, action: any) => {
@@ -46,5 +48,6 @@ export { persistor };
 export default store;
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+export const useAppDispatch: () => AppDispatch = useDispatch;
 export type AppState = ReturnType<typeof rootReducer>;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

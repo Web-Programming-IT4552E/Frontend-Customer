@@ -1,25 +1,11 @@
 import React from 'react';
 
-import type { OrderItemType } from '@/@types/order';
-import orderItemImg from '@/assets/images/cart-item.jpg';
+import { useAppSelector } from '@/configs/redux';
 
 import OrderItem from './common/OrderItem';
 
 const OrderList = () => {
-  const orderList: Array<OrderItemType> = [
-    {
-      name: 'Striped Stretchie',
-      price: 17,
-      quantity: 2,
-      itemImg: orderItemImg,
-    },
-    {
-      name: 'Striped Stretchie',
-      price: 17,
-      quantity: 1,
-      itemImg: orderItemImg,
-    },
-  ];
+  const orderList = useAppSelector((state) => state.order.data);
 
   return (
     <>
@@ -31,14 +17,14 @@ const OrderList = () => {
             <h1 className='mb-0 font-bold tracking-wider'>Quantity</h1>
             <h1 className='mb-0 font-bold tracking-wider'>Subtotal</h1>
           </div>
-          <div className='flex w-[600px] flex-col gap-3 sm:w-full'>
+          <div className='flex h-[400px] w-[600px] flex-col gap-3 overflow-y-auto sm:w-full'>
             {orderList.map((orderItem, index) => (
               <OrderItem data={orderItem} key={index} />
             ))}
           </div>
         </div>
       ) : (
-        <div className='py-5'>No products in cart</div>
+        <div className='py-5 text-[24px] font-semibold'>No products in cart</div>
       )}
     </>
   );

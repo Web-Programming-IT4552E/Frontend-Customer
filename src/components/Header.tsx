@@ -18,14 +18,15 @@ import {
 import { toast, ToastContainer } from 'react-toastify';
 
 import logoImg from '@/assets/images/logo.png';
+import { useAppSelector } from '@/configs/redux';
 import * as authService from '@/services/authService';
 
 import CartList from './CartList';
 
 const Header = () => {
   const [searchInput, setSearchInput] = useState('');
-
   const isLogin = authService.getIsAuthFromLocal();
+  const cartList = useAppSelector((state) => state.order.data);
 
   const handleSearchCloseIcon = () => {
     const searchElement = document.querySelector('#home-header .header-search');
@@ -87,11 +88,13 @@ const Header = () => {
             <HiBars3 className='cursor-pointer p-2 text-[50px] text-[#666]' />
           </div>
 
-          <Image
-            src={logoImg}
-            alt='logo'
-            className='h-[50px] w-[100px] cursor-pointer xl:h-[70px] xl:w-[140px]'
-          />
+          <Link href='/'>
+            <Image
+              src={logoImg}
+              alt='logo'
+              className='h-[50px] w-[100px] cursor-pointer xl:h-[70px] xl:w-[140px]'
+            />
+          </Link>
 
           <div className='hidden items-center gap-8 text-base font-semibold xl:flex'>
             <Link href='/' className='header-list-item'>
@@ -125,8 +128,11 @@ const Header = () => {
                   </div>
                 )}
               >
-                <div>
+                <div className='relative'>
                   <HiOutlineShoppingBag className='cursor-pointer text-[24px]' />
+                  {cartList.length > 0 && (
+                    <div className='absolute top-[-2px] right-[-2px] h-3 w-3 rounded-full bg-red-600'></div>
+                  )}
                 </div>
               </Tippy>
             </div>
@@ -202,16 +208,24 @@ const Header = () => {
           className='absolute inset-x-0 top-[-121px] z-10 bg-white transition-all duration-300 ease-linear'
         >
           <ul className='mb-0'>
-            <li className='cursor-pointer border-t-[1px] border-solid border-[#e9e9e9] px-8 py-4 text-[15px] font-semibold'>
+            <Link
+              href='/'
+              className='block cursor-pointer border-t-[1px] border-solid border-[#e9e9e9] px-8 py-4 text-[15px] font-semibold'
+              onClick={handleSubMenu}
+            >
               HOME
-            </li>
-            <li className='cursor-pointer border-t-[1px] border-solid border-[#e9e9e9] px-8 py-4 text-[15px] font-semibold'>
+            </Link>
+            <Link
+              href='/product/all'
+              className='block cursor-pointer border-t-[1px] border-solid border-[#e9e9e9] px-8 py-4 text-[15px] font-semibold'
+              onClick={handleSubMenu}
+            >
               SHOP
-            </li>
-            <li className='cursor-pointer border-t-[1px] border-solid border-[#e9e9e9] px-8 py-4 text-[15px] font-semibold'>
+            </Link>
+            <li className='cursor-pointer border-t-[1px] border-solid border-[#e9e9e9] px-8 py-4 text-[15px] font-semibold hover:text-primary-color'>
               BLOG
             </li>
-            <li className='cursor-pointer border-t-[1px] border-solid border-[#e9e9e9] px-8 py-4 text-[15px] font-semibold'>
+            <li className='cursor-pointer border-t-[1px] border-solid border-[#e9e9e9] px-8 py-4 text-[15px] font-semibold hover:text-primary-color'>
               CONTACT US
             </li>
           </ul>
