@@ -1,4 +1,4 @@
-import { RankEnum } from "@/@types/rank";
+import { RankEnum } from '@/@types/rank';
 
 export const RankColor = {
   [RankEnum.BRONZE]: '#DCD7C9',

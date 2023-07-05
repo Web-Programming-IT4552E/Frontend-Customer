@@ -1,13 +1,16 @@
-import { ShippingAddressData } from "@/@types/shipping-address";
-import { useGetAllCities } from "@/apis/cityApi";
-import { useGetAllCountries } from "@/apis/countryApi";
-import { useGetAllDistricts } from "@/apis/districtApi";
-import { useGetAllWards } from "@/apis/wardApi";
-import { Button, Form, Input, Modal, Select } from "antd";
-import React, { useEffect, useState } from "react";
-import { shippingApis } from "@/apis/shippingAddressApi";
-import { toast } from "react-toastify";
-import { GetAllShippingAddressDataFieldItem } from '../@types/shipping-address';
+import { Button, Form, Input, Modal, Select } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+
+import type {
+  GetAllShippingAddressDataFieldItem,
+  ShippingAddressData,
+} from '@/@types/shipping-address';
+import { useGetAllCities } from '@/apis/cityApi';
+import { useGetAllCountries } from '@/apis/countryApi';
+import { useGetAllDistricts } from '@/apis/districtApi';
+import { shippingApis } from '@/apis/shippingAddressApi';
+import { useGetAllWards } from '@/apis/wardApi';
 
 const ShippingAddressModal: React.FC<{
   shippingData?: GetAllShippingAddressDataFieldItem;
@@ -18,10 +21,10 @@ const ShippingAddressModal: React.FC<{
 }> = ({ open, onCancel, shippingData, onSuccess, onError }) => {
   const [form] = Form.useForm();
   const [filters, setFilters] = useState({
-    countryId: "",
-    cityId: "",
-    districtId: "",
-    wardId: "",
+    countryId: '',
+    cityId: '',
+    districtId: '',
+    wardId: '',
   });
   const { data: countryData = [] } = useGetAllCountries(open === true);
   const { data: cityData = [] } = useGetAllCities(
@@ -39,26 +42,28 @@ const ShippingAddressModal: React.FC<{
 
   useEffect(() => {
     if (shippingData !== undefined) {
-      const { receiver_name, receiver_phone_number, address } = shippingData.address_detail;
+      const { receiver_name, receiver_phone_number, address } =
+        shippingData.address_detail;
       form.setFieldsValue({
-        receiver_name, receiver_phone_number, address
-      })
-    }
-    else {
+        receiver_name,
+        receiver_phone_number,
+        address,
+      });
+    } else {
       setFilters({
         countryId: filters.countryId,
-        cityId: "",
-        districtId: "",
-        wardId: "",
-      })
+        cityId: '',
+        districtId: '',
+        wardId: '',
+      });
     }
-  }, [shippingData])
+  }, [shippingData]);
 
   useEffect(() => {
     if (countryData && Object.keys(countryData).length >= 0) {
       setFilters({
         ...filters,
-        countryId: countryData[0]?.code || "",
+        countryId: countryData[0]?.code || '',
       });
     }
   }, [countryData]);
@@ -68,15 +73,15 @@ const ShippingAddressModal: React.FC<{
       city: filters.cityId,
       country: filters.countryId,
       district: filters.districtId,
-      ward: filters.wardId
-    })
+      ward: filters.wardId,
+    });
   }, [filters]);
 
   const resetForm = () => {
     form.setFieldsValue({
-      receiver_name: "",
-      receiver_phone_number: "",
-      address: "",
+      receiver_name: '',
+      receiver_phone_number: '',
+      address: '',
     });
   };
 
@@ -89,50 +94,59 @@ const ShippingAddressModal: React.FC<{
 
   const handleFilters = (e: any, type: string) => {
     switch (type) {
-      case "country":
+      case 'country':
         setFilters({
           ...filters,
           countryId: e,
-          cityId: "",
-          districtId: "",
-          wardId: "",
+          cityId: '',
+          districtId: '',
+          wardId: '',
         });
         break;
-      case "city":
-        setFilters({ ...filters, cityId: e, districtId: "", wardId: "" });
+      case 'city':
+        setFilters({ ...filters, cityId: e, districtId: '', wardId: '' });
         break;
-      case "district":
-        setFilters({ ...filters, districtId: e, wardId: "" });
+      case 'district':
+        setFilters({ ...filters, districtId: e, wardId: '' });
         break;
-      case "ward":
+      case 'ward':
         setFilters({ ...filters, wardId: e });
+        break;
+      default:
         break;
     }
   };
 
   const onFinish = async (values: ShippingAddressData) => {
-    let handleFunction = [];
+    const handleFunction = [];
 
-    values = {
+    const addressDetail = {
       ...values,
-      district: districtData.filter((item) => item.code === values.district)[0]!.name,
+      district: districtData.filter((item) => item.code === values.district)[0]!
+        .name,
       ward: wardData.filter((item) => item.code === values.ward)[0]!.name,
       city: cityData.filter((item) => item.code === values.city)[0]!.name,
-    }
+    };
     if (shippingData === undefined) {
-      handleFunction.push(shippingApis.addOne({ address_detail: values }));
+      handleFunction.push(
+        shippingApis.addOne({ address_detail: addressDetail })
+      );
     } else {
-      handleFunction.push(shippingApis.updateOne(shippingData._id,{ address_detail: values }));
+      handleFunction.push(
+        shippingApis.updateOne(shippingData._id, {
+          address_detail: addressDetail,
+        })
+      );
     }
     await Promise.all(handleFunction)
       .then(() => {
-        toast.success("Successfully");
+        toast.success('Successfully');
         if (onSuccess !== undefined) {
           onSuccess();
         }
       })
       .catch((e) => {
-        toast.error(e?.message || "Error");
+        toast.error(e?.message || 'Error');
         if (onError !== undefined) {
           onError();
         }
@@ -141,13 +155,15 @@ const ShippingAddressModal: React.FC<{
   };
 
   const onFinishFailed = () => {
-    console.log("Failed");
+    console.log('Failed');
   };
 
   return (
     <Modal
       className="shipping-modal"
-      title={`${shippingData === undefined ? "Add" : "Modify"} shipping address`}
+      title={`${
+        shippingData === undefined ? 'Add' : 'Modify'
+      } shipping address`}
       open={open}
       onCancel={onCancel}
       footer={[]}
@@ -185,10 +201,10 @@ const ShippingAddressModal: React.FC<{
           >
             <Select
               onChange={(e: any) => {
-                handleFilters(e, "country");
+                handleFilters(e, 'country');
               }}
               options={[
-                { value: "", label: "Select country" },
+                { value: '', label: 'Select country' },
                 ...countryData.map((item) => {
                   return {
                     value: item.code,
@@ -199,7 +215,7 @@ const ShippingAddressModal: React.FC<{
             ></Select>
           </Form.Item>
         )}
-        {filters.countryId !== ""  && (
+        {filters.countryId !== '' && (
           <Form.Item
             initialValue={filters.cityId}
             name="city"
@@ -208,10 +224,10 @@ const ShippingAddressModal: React.FC<{
           >
             <Select
               onChange={(e: any) => {
-                handleFilters(e, "city");
+                handleFilters(e, 'city');
               }}
               options={[
-                { value: "", label: "Select city" },
+                { value: '', label: 'Select city' },
                 ...cityData.map((item) => {
                   return {
                     value: item.code,
@@ -223,7 +239,7 @@ const ShippingAddressModal: React.FC<{
           </Form.Item>
         )}
 
-        {filters.cityId !== ""   && (
+        {filters.cityId !== '' && (
           <Form.Item
             initialValue={filters.districtId}
             name="district"
@@ -232,10 +248,10 @@ const ShippingAddressModal: React.FC<{
           >
             <Select
               onChange={(e: any) => {
-                handleFilters(e, "district");
+                handleFilters(e, 'district');
               }}
               options={[
-                { value: "", label: "Select district" },
+                { value: '', label: 'Select district' },
                 ...districtData.map((item) => {
                   return {
                     value: item.code,
@@ -247,7 +263,7 @@ const ShippingAddressModal: React.FC<{
           </Form.Item>
         )}
 
-        {filters.districtId !== ""  && (
+        {filters.districtId !== '' && (
           <Form.Item
             initialValue={filters.wardId}
             name="ward"
@@ -256,10 +272,10 @@ const ShippingAddressModal: React.FC<{
           >
             <Select
               onChange={(e: any) => {
-                handleFilters(e, "ward");
+                handleFilters(e, 'ward');
               }}
               options={[
-                { value: "", label: "Select ward" },
+                { value: '', label: 'Select ward' },
                 ...wardData.map((item) => {
                   return {
                     value: item.code,
@@ -279,7 +295,7 @@ const ShippingAddressModal: React.FC<{
           </Button>
           ,
           <Button id="cancel-btn" onClick={handleClose}>
-            {" "}
+            {' '}
             Close
           </Button>
           ,

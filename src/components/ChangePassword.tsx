@@ -1,39 +1,38 @@
-import { Button, Form, Input } from "antd";
-import React from "react";
-import { customerApis } from "@/apis/customerApi";
-import { toast } from "react-toastify";
-import { useRouter } from "next/router";
+import { Button, Form, Input } from 'antd';
+import { useRouter } from 'next/router';
+import React from 'react';
+import { toast } from 'react-toastify';
+
+import { customerApis } from '@/apis/customerApi';
 
 const ChangePassword = () => {
   const [form] = Form.useForm();
   const router = useRouter();
+
+  const resetForm = () => {
+    form.setFieldsValue({
+      old_password: '',
+      new_password: '',
+    });
+  };
 
   const handleClose = () => {
     resetForm();
     router.push(router.pathname);
   };
 
-  const resetForm = () => {
-    form.setFieldsValue({
-      old_password: "",
-      new_password: "",
-    });
-  };
-
   const onFinish = async (values: any) => {
     resetForm();
     try {
-      await customerApis
-      .changePassword(values)
-      toast.success("Update password success");
-    }
-    catch(err: any) {
-      toast.error(err?.message || "Update password failed!");
+      await customerApis.changePassword(values);
+      toast.success('Update password success');
+    } catch (err: any) {
+      toast.error(err?.message || 'Update password failed!');
     }
   };
 
   const onFinishFailed = () => {
-    console.log("Failed");
+    console.log('Failed');
   };
 
   return (
@@ -71,15 +70,12 @@ const ChangePassword = () => {
           />
         </Form.Item>
         <div className="flex justify-end gap-[2px]">
-        <Button
-          className="confirm-btn"
-          htmlType="submit"
-        >
-          Confirm
-        </Button>
-        <Button className="cancel-btn" onClick={handleClose}>
-          Cancel
-        </Button>
+          <Button className="confirm-btn" htmlType="submit">
+            Confirm
+          </Button>
+          <Button className="cancel-btn" onClick={handleClose}>
+            Cancel
+          </Button>
         </div>
       </Form>
     </>

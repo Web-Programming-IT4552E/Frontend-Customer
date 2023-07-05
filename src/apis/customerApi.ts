@@ -1,12 +1,9 @@
-import {
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
-import { request } from "@/utils/request";
-import { Customer, ChangePassword } from "@/@types/customer";
-import { toast } from "react-toastify";
-import { SuccessCode } from "@/utils/status";
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
+
+import type { ChangePassword, Customer } from '@/@types/customer';
+import { request } from '@/utils/request';
+import { SuccessCode } from '@/utils/status';
 
 export const customerApis = {
   async getProfile() {
@@ -23,7 +20,7 @@ export const customerApis = {
       {
         url: `account/change/profile`,
         data: data as any,
-        method: "PUT"
+        method: 'PUT',
       },
       true
     );
@@ -34,7 +31,7 @@ export const customerApis = {
       {
         url: `account/change/password`,
         data: data as any,
-        method: "PATCH"
+        method: 'PATCH',
       },
       true
     );
@@ -42,34 +39,34 @@ export const customerApis = {
       throw new Error(`${response.data.message}`);
     }
     return response.data;
-  }
+  },
 };
 
 export const useGetProfile = () => {
-  return useQuery<Customer>(["/profile"], () => customerApis.getProfile());
+  return useQuery<Customer>(['/profile'], () => customerApis.getProfile());
 };
 
 export const useUpdateProfile = (data: Customer) => {
   const queryClient = useQueryClient();
   return useMutation(() => customerApis.updateProfile(data), {
     onSuccess: () => {
-      queryClient.invalidateQueries(["/profile"]);
-      toast.success("Update profile successfully!");
+      queryClient.invalidateQueries(['/profile']);
+      toast.success('Update profile successfully!');
     },
     onError: (e) => {
-      console.log(e)
-      toast.error("Update profile failed!");
-    }
+      console.log(e);
+      toast.error('Update profile failed!');
+    },
   });
 };
 
 export const useChangePassword = (data: ChangePassword) => {
   return useMutation<ChangePassword>(() => customerApis.changePassword(data), {
     onSuccess: () => {
-      toast.success("Update profile successfully!");
+      toast.success('Update profile successfully!');
     },
-    onError: (e) => {
-      toast.error("Update profile failed!");
-    }
+    onError: (e: any) => {
+      toast.error(e?.message || 'Update profile failed!');
+    },
   });
-}
+};

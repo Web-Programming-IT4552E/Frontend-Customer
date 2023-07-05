@@ -1,4 +1,4 @@
-import { PaginationInfo } from "./pagination";
+import type { PaginationInfo } from './pagination';
 
 export interface ShippingAddressData {
   receiver_name: string;
@@ -19,12 +19,11 @@ export interface UpdateShippingAddressDto {
 
 export interface GetAllShippingAddressDataFieldItem {
   _id: string;
-  user_id: string,
-  address_detail: ShippingAddressData,
+  user_id: string;
+  address_detail: ShippingAddressData;
 }
 
-
 export interface GetAllShippingAddresses {
-  data: GetAllShippingAddressDataFieldItem[],
-  paginationInfo: PaginationInfo,
+  data: GetAllShippingAddressDataFieldItem[];
+  paginationInfo: PaginationInfo;
 }

@@ -4,7 +4,9 @@ const BreadCumb: React.FC<{ navigations: string[] }> = ({ navigations }) => {
   return (
     <div className="" id="bread-cumb">
       <div id="inner" className="container">
-        <h1 className="heading-primary">{navigations[1]?.toLocaleLowerCase()}</h1>
+        <h1 className="heading-primary">
+          {navigations[1]?.toLocaleLowerCase()}
+        </h1>
         <div className="wrapper">
           <ul className="flex">
             {navigations.map((item, idx) => {
