@@ -13,7 +13,10 @@
         "endOfLine": "auto"
       }
     ],
-    "no-underscore-dangle": ["error", { "allow": ["_id"] }]
+    "no-underscore-dangle": ["error", { "allow": ["_id"] }],
+    "consistent-return": "off",
+    "import/no-cycle": "off",
+    "no-param-reassign": "off"
   },
   "overrides": [
     // Configuration for TypeScript files
@@ -59,9 +62,6 @@
           { "argsIgnorePattern": "^_" }
         ],
         "@typescript-eslint/naming-convention": "off",
-        "consistent-return": "off",
-        "import/no-cycle": "off",
-        "no-param-reassign": "off",
         "tailwindcss/no-custom-classname": "off"
       }
     },
