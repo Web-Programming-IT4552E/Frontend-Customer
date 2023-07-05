@@ -1,9 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from '@tanstack/react-query';
 
-import type { GetAllProductsResponse, ProductItemData } from "@/@types/product";
-import env from "@/configs/env";
-import { request } from "@/utils/request";
-import { ProductFilter } from "@/interfaces/product.interface";
+import type { GetAllProductsResponse, ProductItemData } from '@/@types/product';
+import env from '@/configs/env';
+import type { ProductFilter } from '@/interfaces/product.interface';
+import { request } from '@/utils/request';
 
 const productApis = {
   async getAllProduct(filter: ProductFilter) {
@@ -32,7 +32,7 @@ export const useGetAllProducts = (
   enabled: boolean = true
 ) => {
   return useQuery<GetAllProductsResponse>(
-    ["product/all", filter],
+    ['product/all', filter],
     () => productApis.getAllProduct(filter),
     { enabled }
   );
@@ -43,7 +43,7 @@ export const useGetDetailProduct = (
   enabled: boolean = true
 ) => {
   return useQuery<ProductItemData>(
-    ["product/", productId],
+    ['product/', productId],
     () => productApis.getDetailProduct(productId),
     {
       enabled,

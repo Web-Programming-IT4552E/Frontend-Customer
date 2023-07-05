@@ -1,34 +1,33 @@
-import { Button, Pagination } from "antd";
-import React, { useState } from "react";
-import { AiOutlinePlusCircle } from "react-icons/ai";
+import { Button, Pagination } from 'antd';
+import React, { useState } from 'react';
+import { AiOutlinePlusCircle } from 'react-icons/ai';
 
-import { truncateString } from "@/utils/string";
 import {
   useGetAllShippingAddresses,
   useGetShippingAddressDetail,
-} from "@/apis/shippingAddressApi";
-import ShippingAddressModal from "@/components/ShippingAddressModal";
+} from '@/apis/shippingAddressApi';
+import ShippingAddressModal from '@/components/ShippingAddressModal';
 
 const DEFAULT_LIMIT = 9;
 const ShippingAddresses = () => {
   const [page, setPage] = useState(1);
   const { data: shippingAddressData, refetch } = useGetAllShippingAddresses({
-    page: page,
+    page,
     limit: DEFAULT_LIMIT,
   });
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
-  const [shippingId, setShippingId] = useState("");
+  const [shippingId, setShippingId] = useState('');
   const { data: shippingAddressDetail } = useGetShippingAddressDetail(
     shippingId,
-    shippingId !== ""
+    shippingId !== ''
   );
 
-  const handleClickBtn = (isAdd: boolean = false) => {
+  const handleClickBtn = () => {
     setIsOpenModal(true);
   };
 
   const handleClose = () => {
-    setShippingId("");
+    setShippingId('');
     setIsOpenModal(false);
   };
 
@@ -38,7 +37,7 @@ const ShippingAddresses = () => {
 
   const handleClickShippingAddress = (id: string) => {
     setShippingId(id);
-    handleClickBtn(false);
+    handleClickBtn();
   };
 
   return (
@@ -68,19 +67,19 @@ const ShippingAddresses = () => {
                 >
                   <div className="flex flex-col gap-[5px] text-start">
                     <p>
-                      <span>Address:</span>{" "}
-                      {`${item.address_detail.address}` || ""}
-                      {", "}
-                      <span>Ward:</span> {`${item.address_detail.ward}` || ""}
+                      <span>Address:</span>{' '}
+                      {`${item.address_detail.address}` || ''}
+                      {', '}
+                      <span>Ward:</span> {`${item.address_detail.ward}` || ''}
                     </p>
                     <p>
-                      <span>District:</span>{" "}
-                      {`${item.address_detail.district}` || ""}
-                      {", "}
-                      <span>City:</span> {`${item.address_detail.city}` || ""}
+                      <span>District:</span>{' '}
+                      {`${item.address_detail.district}` || ''}
+                      {', '}
+                      <span>City:</span> {`${item.address_detail.city}` || ''}
                     </p>
                     <p>
-                      <span>Phone:</span>{" "}
+                      <span>Phone:</span>{' '}
                       {item.address_detail.receiver_phone_number}
                     </p>
                   </div>
@@ -94,7 +93,7 @@ const ShippingAddresses = () => {
               <Button
                 type="dashed"
                 onClick={() => {
-                  handleClickBtn(true);
+                  handleClickBtn();
                 }}
               >
                 <AiOutlinePlusCircle className="mr-[5px] text-[20px]" /> Add

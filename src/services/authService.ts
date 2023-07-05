@@ -4,6 +4,31 @@ import Router from 'next/router';
 import type { LoginRequest, RefreshTokenRequest } from '@/@types/auth';
 import * as httpRequest from '@/utils/request';
 
+export const setTokenToLocal = (accessToken: string, refreshToken: string) => {
+  localStorage.setItem('accessToken', accessToken);
+  localStorage.setItem('refreshToken', refreshToken);
+};
+
+export const getTokenFromLocal = () => {
+  const accessToken = localStorage.getItem('accessToken');
+  const refreshToken = localStorage.getItem('refreshToken');
+  const token = { accessToken, refreshToken };
+
+  return token;
+};
+
+export const setIsAuthToLocal = (isAuth: boolean) => {
+  localStorage.setItem('isAuth', isAuth.toString());
+};
+
+export const getIsAuthFromLocal = () => {
+  const isAuth = localStorage.getItem('isAuth');
+  if (isAuth === 'true') {
+    return true;
+  }
+  return false;
+};
+
 export const login = async ({ email, password }: LoginRequest) => {
   const options: AxiosRequestConfig<AxiosDefaults> = {
     url: 'auth/login',
@@ -51,29 +76,4 @@ export const getToken = async () => {
     return null;
   }
   return response;
-};
-
-export const setTokenToLocal = (accessToken: string, refreshToken: string) => {
-  localStorage.setItem('accessToken', accessToken);
-  localStorage.setItem('refreshToken', refreshToken);
-};
-
-export const getTokenFromLocal = () => {
-  const accessToken = localStorage.getItem('accessToken');
-  const refreshToken = localStorage.getItem('refreshToken');
-  const token = { accessToken, refreshToken };
-
-  return token;
-};
-
-export const setIsAuthToLocal = (isAuth: boolean) => {
-  localStorage.setItem('isAuth', isAuth.toString());
-};
-
-export const getIsAuthFromLocal = () => {
-  const isAuth = localStorage.getItem('isAuth');
-  if (isAuth === 'true') {
-    return true;
-  }
-  return false;
 };

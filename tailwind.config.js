@@ -1,4 +1,4 @@
-/** @type {import('tailwindcss').Config} */
+const aspectRatio = require('@tailwindcss/aspect-ratio');
 
 module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
@@ -63,7 +63,5 @@ module.exports = {
   variants: {
     transitionProperty: ['responsive', 'motion-safe', 'motion-reduce'],
   },
-  plugins: [
-    require('@tailwindcss/aspect-ratio'),
-  ]
+  plugins: [aspectRatio],
 };

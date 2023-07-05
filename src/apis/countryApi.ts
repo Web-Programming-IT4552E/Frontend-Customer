@@ -1,8 +1,7 @@
-import {
-  useQuery,
-} from "@tanstack/react-query";
-import { request } from "@/utils/request";
-import { CountryData } from "@/@types/country";
+import { useQuery } from '@tanstack/react-query';
+
+import type { CountryData } from '@/@types/country';
+import { request } from '@/utils/request';
 
 const countryApis = {
   async getAll() {
@@ -17,5 +16,9 @@ const countryApis = {
 };
 
 export const useGetAllCountries = (enabled: boolean = true) => {
-  return useQuery<CountryData[]>(["/area/countries"], () => countryApis.getAll(), { enabled});
+  return useQuery<CountryData[]>(
+    ['/area/countries'],
+    () => countryApis.getAll(),
+    { enabled }
+  );
 };

@@ -18,9 +18,8 @@ import { PersistGate } from 'redux-persist/lib/integration/react';
 
 import store, { persistor } from '@/configs/redux';
 import LayoutDefault from '@/layouts/LayoutDefault';
-import * as authService from '@/services/authService';
-
 import { fetchCategories } from '@/reducers/category';
+import * as authService from '@/services/authService';
 
 // Remove auto adding css
 config.autoAddCss = false;
@@ -54,13 +53,11 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
     const path = router.pathname;
     const isLogin = authService.getIsAuthFromLocal();
 
-    if (
-      isLogin && ['/auth/login', '/auth/register'].includes(path)
-    ) {
+    if (isLogin && ['/auth/login', '/auth/register'].includes(path)) {
       router.push('/');
     }
-    
-    store.dispatch(fetchCategories())
+
+    store.dispatch(fetchCategories());
   }, []);
 
   return (

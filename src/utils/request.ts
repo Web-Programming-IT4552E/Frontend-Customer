@@ -1,12 +1,12 @@
 import type {
-	AxiosDefaults,
-	AxiosRequestConfig,
-	AxiosResponse,
-	InternalAxiosRequestConfig,
-} from "axios";
-import axios, { AxiosHeaders } from "axios";
+  AxiosDefaults,
+  AxiosRequestConfig,
+  AxiosResponse,
+  InternalAxiosRequestConfig,
+} from 'axios';
+import axios, { AxiosHeaders } from 'axios';
 
-import * as authService from "@/services/authService";
+import * as authService from '@/services/authService';
 
 const client = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API,
@@ -23,8 +23,8 @@ const client = axios.create({
  */
 
 export const request = async (
-	{ ...options }: AxiosRequestConfig<AxiosDefaults>,
-	auth: boolean
+  { ...options }: AxiosRequestConfig<AxiosDefaults>,
+  auth: boolean
 ) => {
   if (auth) {
     client.interceptors.request.use(
@@ -69,12 +69,11 @@ export const request = async (
     );
   }
 
-
-	try {
-		const res = await client(options);
-		return res;
-	} catch (err: any) {
-    console.log(err)
-		return err?.response;
-	}
+  try {
+    const res = await client(options);
+    return res;
+  } catch (err: any) {
+    console.log(err);
+    return err?.response;
+  }
 };
