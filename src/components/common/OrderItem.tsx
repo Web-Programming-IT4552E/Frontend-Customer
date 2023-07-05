@@ -1,5 +1,4 @@
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
 
 import type { IOrderItem, OrderItemUpdateQuantity } from "@/@types/order";
 import { useAppDispatch } from "@/configs/redux";
@@ -7,7 +6,7 @@ import { updateOrderItemQuantity, deleteOrderFromCart } from "@/reducers/order";
 
 const OrderItem = ({ data }: IOrderItem) => {
 	const dispatch = useAppDispatch();
-	const [itemCount, setItemCount] = useState(data.quantity);
+	const itemCount = data.quantity;
 
 	const handleIncreaseItemQuantity = () => {
 		const newItemCount = itemCount + 1;
@@ -15,7 +14,6 @@ const OrderItem = ({ data }: IOrderItem) => {
 			data: data,
 			quantity: newItemCount,
 		};
-		setItemCount(newItemCount);
 		dispatch(updateOrderItemQuantity(updateOrderItem));
 	};
 
@@ -26,14 +24,11 @@ const OrderItem = ({ data }: IOrderItem) => {
         data: data,
         quantity: newItemCount,
       };
-      setItemCount(newItemCount);
       dispatch(updateOrderItemQuantity(updateOrderItem));
     } else {
       dispatch(deleteOrderFromCart(data))
     }
   };
-
-	useEffect(() => {}, [itemCount]);
 
 	return (
 		<div className="grid grid-cols-5 items-center border-b-[1px] border-solid border-[#ccc] py-4">

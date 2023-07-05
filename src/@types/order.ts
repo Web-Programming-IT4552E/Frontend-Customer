@@ -1,5 +1,3 @@
-import type { StaticImageData } from 'next/image';
-
 import type { ShippingAddressData } from './shipping-address';
 
 export interface OrderProduct {
