@@ -7,7 +7,7 @@ import ReviewsProduct from '@/components/ReviewsProduct';
 
 const Index = () => {
   return (
-    <div id="home">
+    <div id='home'>
       <Banner />
       <GenuineCosmetics />
       <DealDay />

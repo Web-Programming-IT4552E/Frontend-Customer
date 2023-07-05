@@ -7,11 +7,7 @@ import { useUpdateProfile } from '@/apis/customerApi';
 import store, { useAppSelector } from '@/configs/redux';
 import { useDebounce } from '@/hooks/useDebounce';
 import { ProfilePage } from '@/interfaces/profile.interface';
-import {
-  cancelProfile,
-  confirmProfile,
-  updateProfile,
-} from '@/reducers/profile';
+import { cancelProfile, confirmProfile, updateProfile } from '@/reducers/profile';
 
 import RenderIf from './common/RenderIf';
 import MemberCard from './MemberCard';
@@ -59,13 +55,13 @@ const ProfileInfo = () => {
 
   return (
     <>
-      <div className="info-section flex flex-col gap-[16px]">
-        <div className="flex items-center justify-between">
-          <h4 className="font-medium">Fullname: </h4>
+      <div className='info-section flex flex-col gap-[16px]'>
+        <div className='flex items-center justify-between'>
+          <h4 className='font-medium'>Fullname: </h4>
           {currentPage === ProfilePage.EDIT ? (
             <Input
-              className="w-full max-w-[300px]"
-              placeholder="Please input username!"
+              className='w-full max-w-[300px]'
+              placeholder='Please input username!'
               defaultValue={profileData?.data?.fullname}
               onChange={(e: any) => {
                 setUpdatedValue({
@@ -78,16 +74,16 @@ const ProfileInfo = () => {
             <p>{profileData?.data?.fullname}</p>
           )}
         </div>
-        <div className="flex items-center justify-between">
-          <h4 className="font-medium">Email: </h4>
+        <div className='flex items-center justify-between'>
+          <h4 className='font-medium'>Email: </h4>
           <p>{profileData?.data?.email}</p>
         </div>
-        <div className="flex items-center justify-between">
-          <h4 className="font-medium">Phone: </h4>
+        <div className='flex items-center justify-between'>
+          <h4 className='font-medium'>Phone: </h4>
           {currentPage === ProfilePage.EDIT ? (
             <Input
-              className="w-full max-w-[300px]"
-              placeholder="Please input username!"
+              className='w-full max-w-[300px]'
+              placeholder='Please input username!'
               defaultValue={profileData?.data?.phone}
               onChange={(e: any) => {
                 setUpdatedValue({
@@ -108,15 +104,11 @@ const ProfileInfo = () => {
         rank_point={profileData?.data?.rank_point || 0}
       />
       <RenderIf isTrue={currentPage === ProfilePage.EDIT}>
-        <div className="actions-btn">
-          <Button
-            className="confirm-btn"
-            onClick={handleUpdateProfile}
-            loading={loading}
-          >
+        <div className='actions-btn'>
+          <Button className='confirm-btn' onClick={handleUpdateProfile} loading={loading}>
             Confirm
           </Button>
-          <Button className="cancel-btn" onClick={handleCancelProfile}>
+          <Button className='cancel-btn' onClick={handleCancelProfile}>
             Cancel
           </Button>
         </div>
