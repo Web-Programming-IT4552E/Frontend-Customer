@@ -9,16 +9,14 @@ const cityApis = {
       {
         url: `area/cities?country=${countryId}`,
       },
-      true
+      true,
     );
     return response.data;
   },
 };
 
 export const useGetAllCities = (countryId: string, enabled: boolean = true) => {
-  return useQuery<CityData[]>(
-    ['/area/cities', countryId],
-    () => cityApis.getAll(countryId),
-    { enabled }
-  );
+  return useQuery<CityData[]>(['/area/cities', countryId], () => cityApis.getAll(countryId), {
+    enabled,
+  });
 };

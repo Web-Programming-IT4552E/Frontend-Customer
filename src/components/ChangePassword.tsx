@@ -41,39 +41,23 @@ const ChangePassword = () => {
         form={form}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
-        className="mt-[20px] flex flex-col gap-[12px]"
+        className='mt-[20px] flex flex-col gap-[12px]'
         {...{
           labelCol: { span: 8 },
           wrapperCol: { span: 16 },
         }}
       >
-        <Form.Item
-          name="old_password"
-          label="Old Password:"
-          rules={[{ required: true }]}
-        >
-          <Input
-            type="password"
-            className="w-full"
-            placeholder="Please input your old password!"
-          />
+        <Form.Item name='old_password' label='Old Password:' rules={[{ required: true }]}>
+          <Input type='password' className='w-full' placeholder='Please input your old password!' />
         </Form.Item>
-        <Form.Item
-          name="new_password"
-          label="New Password:"
-          rules={[{ required: true }]}
-        >
-          <Input
-            type="password"
-            className="w-full"
-            placeholder="Please input your new password!"
-          />
+        <Form.Item name='new_password' label='New Password:' rules={[{ required: true }]}>
+          <Input type='password' className='w-full' placeholder='Please input your new password!' />
         </Form.Item>
-        <div className="flex justify-end gap-[2px]">
-          <Button className="confirm-btn" htmlType="submit">
+        <div className='flex justify-end gap-[2px]'>
+          <Button className='confirm-btn' htmlType='submit'>
             Confirm
           </Button>
-          <Button className="cancel-btn" onClick={handleClose}>
+          <Button className='cancel-btn' onClick={handleClose}>
             Cancel
           </Button>
         </div>

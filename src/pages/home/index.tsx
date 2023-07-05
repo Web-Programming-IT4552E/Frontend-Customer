@@ -9,7 +9,7 @@ import ReviewsProduct from '@/components/ReviewsProduct';
 
 const Home = () => {
   return (
-    <div id="home">
+    <div id='home'>
       <Banner />
       <GenuineCosmetics />
       <DealDay />

@@ -17,7 +17,7 @@ export const shippingApis = {
       {
         url: `shipping-address?page=${filter.page}&limit=${filter.limit}`,
       },
-      true
+      true,
     );
     return response.data;
   },
@@ -26,7 +26,7 @@ export const shippingApis = {
       {
         url: `shipping-address/${shippingId}`,
       },
-      true
+      true,
     );
     return response.data;
   },
@@ -37,7 +37,7 @@ export const shippingApis = {
         method: 'POST',
         data: data as any,
       },
-      true
+      true,
     );
     if (!SuccessCode.includes(response.status)) {
       throw new Error(response.data?.message || 'Add shipping address failed');
@@ -51,7 +51,7 @@ export const shippingApis = {
         method: 'PUT',
         data: data as any,
       },
-      true
+      true,
     );
     return response.data;
   },
@@ -59,17 +59,14 @@ export const shippingApis = {
 
 export const useGetAllShippingAddresses = (filter: ShippingAddressFilter) => {
   return useQuery<GetAllShippingAddresses>(['/shipping-address', filter], () =>
-    shippingApis.getAll(filter)
+    shippingApis.getAll(filter),
   );
 };
 
-export const useGetShippingAddressDetail = (
-  shippingId: string,
-  enabled: boolean = true
-) => {
+export const useGetShippingAddressDetail = (shippingId: string, enabled: boolean = true) => {
   return useQuery<GetAllShippingAddressDataFieldItem>(
     ['/shipping-address/:id', shippingId],
     () => shippingApis.getDetail(shippingId),
-    { enabled }
+    { enabled },
   );
 };

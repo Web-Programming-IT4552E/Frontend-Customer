@@ -11,10 +11,7 @@ import { useAppSelector } from '@/configs/redux';
 import type { ProductFilter } from '@/interfaces/product.interface';
 import { DEFAULT_LIMIT } from '@/utils/pagination';
 
-import type {
-  GetAllProductsResponse,
-  ProductItemData,
-} from '../../../@types/product';
+import type { GetAllProductsResponse, ProductItemData } from '../../../@types/product';
 
 const ProductList = () => {
   const categoryStore = useAppSelector((state) => state.category);
@@ -27,9 +24,7 @@ const ProductList = () => {
     category: undefined,
   });
   const { data: response } = useGetAllProducts(filter);
-  const [data, setData] = useState<GetAllProductsResponse | undefined>(
-    undefined
-  );
+  const [data, setData] = useState<GetAllProductsResponse | undefined>(undefined);
 
   useEffect(() => {
     if (response !== undefined) {
@@ -75,55 +70,46 @@ const ProductList = () => {
   };
 
   return (
-    <div id="product-list">
+    <div id='product-list'>
       <BreadCumb navigations={['Home', breadcump, `Page ${filter.page}`]} />
-      <div className="content-area">
-        <div className="container">
+      <div className='content-area'>
+        <div className='container'>
           <RenderIf isTrue={data === undefined}>
-            <p className="text-center">Loading...</p>
+            <p className='text-center'>Loading...</p>
           </RenderIf>
           <RenderIf isTrue={data !== undefined}>
-            <div className="grid grid-cols-3 lg:grid-cols-4">
-              <div className="col-span-3 lg:px-[15px]">
+            <div className='grid grid-cols-3 lg:grid-cols-4'>
+              <div className='col-span-3 lg:px-[15px]'>
                 <div
-                  className="mb-[30px] flex items-center justify-between"
-                  id="wrapper-result-count"
+                  className='mb-[30px] flex items-center justify-between'
+                  id='wrapper-result-count'
                 >
-                  <p className="mb-0">
+                  <p className='mb-0'>
                     Showing{' '}
                     {data !== undefined &&
-                      `${
-                        (data!.paginationInfo.page - 1) *
-                          data!.paginationInfo.limit +
-                        1
-                      }-${
+                      `${(data!.paginationInfo.page - 1) * data!.paginationInfo.limit + 1}-${
                         data!.paginationInfo.page * data!.paginationInfo.limit >
                         data.paginationInfo.total
                           ? data.paginationInfo.total
-                          : data!.paginationInfo.page *
-                            data!.paginationInfo.limit
+                          : data!.paginationInfo.page * data!.paginationInfo.limit
                       } of ${data!.paginationInfo.total} results`}
                   </p>
                   <Select
-                    placeholder="Default sorting"
-                    className="w-[200px]"
+                    placeholder='Default sorting'
+                    className='w-[200px]'
                     onChange={handleSortFilter}
                   >
-                    <Select.Option value="esc">
-                      Sort By Value in ESC
-                    </Select.Option>
-                    <Select.Option value="desc">
-                      Sort By Value in DESC
-                    </Select.Option>
+                    <Select.Option value='esc'>Sort By Value in ESC</Select.Option>
+                    <Select.Option value='desc'>Sort By Value in DESC</Select.Option>
                   </Select>
                 </div>
-                <div className="grid grid-cols-1 gap-[15px] sm:grid-cols-2 lg:grid-cols-3">
+                <div className='grid grid-cols-1 gap-[15px] sm:grid-cols-2 lg:grid-cols-3'>
                   {data !== undefined &&
                     data.data.map((product: ProductItemData, idx) => {
                       return <ProductItem key={idx} product={product} />;
                     })}
                 </div>
-                <div className="mt-[20px] flex justify-center">
+                <div className='mt-[20px] flex justify-center'>
                   {data !== undefined && (
                     <Pagination
                       total={data.paginationInfo.total}
@@ -134,48 +120,48 @@ const ProductList = () => {
                   )}
                 </div>
               </div>
-              <div className="col-span-3 pt-[30px] lg:col-span-1 lg:px-[15px] lg:pt-[0px]">
-                <aside className="mb-[50px]">
+              <div className='col-span-3 pt-[30px] lg:col-span-1 lg:px-[15px] lg:pt-[0px]'>
+                <aside className='mb-[50px]'>
                   <Input.Search
-                    placeholder="Search products..."
+                    placeholder='Search products...'
                     enterButton
                     onSearch={handleSearchFilter}
                     onChange={handleSearchChangeFilter}
                   />
                 </aside>
-                <aside className="mb-[50px]">
-                  <h3 className="widget-title">Filter By Price</h3>
+                <aside className='mb-[50px]'>
+                  <h3 className='widget-title'>Filter By Price</h3>
                   <Slider
                     onChange={handlePriceFilter}
                     range={{ draggableTrack: true }}
                     defaultValue={[0, 100]}
                   />
-                  <div className="price-slider mt-[30px]">
-                    <p className="text-[14px] text-[#666]">Price: 0$ - 100$</p>
+                  <div className='price-slider mt-[30px]'>
+                    <p className='text-[14px] text-[#666]'>Price: 0$ - 100$</p>
                   </div>
                 </aside>
-                <aside className="mb-[50px]">
-                  <h3 className="widget-title">Categories</h3>
+                <aside className='mb-[50px]'>
+                  <h3 className='widget-title'>Categories</h3>
 
-                  <div className="product-categories">
+                  <div className='product-categories'>
                     {categoryStore.data.map((category, idx) => {
                       return (
                         <Link
                           href={`${pathname}?category=${category?.name}`}
-                          className="flex cursor-pointer justify-between py-[12px] text-[#666]"
+                          className='flex cursor-pointer justify-between py-[12px] text-[#666]'
                           key={idx}
                         >
-                          <span className="text-[15px]">{category?.name}</span>
-                          <span className="text-[15px]">{`(${category?.slug})`}</span>
+                          <span className='text-[15px]'>{category?.name}</span>
+                          <span className='text-[15px]'>{`(${category?.slug})`}</span>
                         </Link>
                       );
                     })}
                     <Link
                       href={`${pathname}`}
-                      className="flex cursor-pointer justify-between py-[12px] text-[#666]"
+                      className='flex cursor-pointer justify-between py-[12px] text-[#666]'
                     >
-                      <span className="text-[15px]">{'All'}</span>
-                      <span className="text-[15px]">{`(${'all'})`}</span>
+                      <span className='text-[15px]'>{'All'}</span>
+                      <span className='text-[15px]'>{`(${'all'})`}</span>
                     </Link>
                   </div>
                 </aside>

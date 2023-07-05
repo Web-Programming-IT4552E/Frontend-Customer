@@ -17,40 +17,36 @@ const ReviewsProduct = () => {
   };
 
   return (
-    <div id="reviews-product">
+    <div id='reviews-product'>
       <Slider {...sliderSettings}>
         {[1, 2, 3].map((item) => {
           return (
             <div
               key={item}
-              className="cover justify-content flex items-end bg-reviews_product bg-cover bg-no-repeat px-[66px] pt-[60px] lg:pt-[150px]"
+              className='cover justify-content flex items-end bg-reviews_product bg-cover bg-no-repeat px-[66px] pt-[60px] lg:pt-[150px]'
             >
-              <div className="inner container w-full px-[15px]">
-                <div className="reviews mt-[80px] bg-white px-[15px] pt-[35px]">
-                  <div className="avatar-author">
+              <div className='inner container w-full px-[15px]'>
+                <div className='reviews mt-[80px] bg-white px-[15px] pt-[35px]'>
+                  <div className='avatar-author'>
                     <Image
-                      className=" rounded-[100%]"
+                      className=' rounded-[100%]'
                       src={ReviewAvt}
-                      alt="product-item"
-                      loading="lazy"
+                      alt='product-item'
+                      loading='lazy'
                       width={380}
                       height={380}
                     ></Image>
                   </div>
-                  <div className="entry-content">
-                    <h2 className="author-name">Dang Minh Khoi</h2>
-                    <div className="item-rating">
-                      <div className="star-rating">
+                  <div className='entry-content'>
+                    <h2 className='author-name'>Dang Minh Khoi</h2>
+                    <div className='item-rating'>
+                      <div className='star-rating'>
                         {[1, 2].map((i) => (
-                          <FontAwesomeIcon
-                            icon={faStar}
-                            key={i}
-                            className="text-light_pink"
-                          />
+                          <FontAwesomeIcon icon={faStar} key={i} className='text-light_pink' />
                         ))}
                       </div>
                     </div>
-                    <p className="description">
+                    <p className='description'>
                       {`There are many variations of passages of Lorem Ipsum
                       available, but the majority have suffered alteration in
                       some form, by injected humour, or randomised words which

@@ -43,11 +43,10 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
           retry: false,
         },
       },
-    })
+    }),
   );
 
-  const getLayout =
-    Component.getLayout ?? ((page) => <LayoutDefault>{page}</LayoutDefault>);
+  const getLayout = Component.getLayout ?? ((page) => <LayoutDefault>{page}</LayoutDefault>);
 
   useEffect(() => {
     const path = router.pathname;
