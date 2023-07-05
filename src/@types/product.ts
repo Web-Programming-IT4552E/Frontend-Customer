@@ -15,6 +15,7 @@ export interface ProductItemData {
   name: string;
   price: number;
   scent_category: string;
+  description: string;
   status: ProductStatus;
   stock: number;
   width: number;

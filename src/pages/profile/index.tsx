@@ -1,38 +1,71 @@
-import { Avatar, Button, DatePicker, Input, Upload } from 'antd';
+import { Avatar, Button, Upload } from 'antd';
 import dayjs from 'dayjs';
 import localeData from 'dayjs/plugin/localeData';
 import weekday from 'dayjs/plugin/weekday';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiFillEdit } from 'react-icons/ai';
 import { FaAddressBook } from 'react-icons/fa';
+import { MdPassword } from 'react-icons/md';
 
-import { RankEnum } from '@/@types/rank';
-import MemberCard from '@/components/MemberCard';
+import type { Customer } from '@/@types/customer';
+import { useGetProfile } from '@/apis/customerApi';
+import ChangePassword from '@/components/ChangePassword';
+import RenderIf from '@/components/common/RenderIf';
+import ProfileInfo from '@/components/ProfileInfo';
+import store, { useAppSelector } from '@/configs/redux';
+import { ProfilePage } from '@/interfaces/profile.interface';
+import { updateProfile } from '@/reducers/profile';
+import { uploadImage } from '@/services/image';
 
 dayjs.extend(weekday);
 dayjs.extend(localeData);
 
 const Profile = () => {
+  const profileData = useAppSelector((state) => state.profile);
   const router = useRouter();
-  const [isEdit, setIsEdit] = useState(true);
-  const [profileData, setProfileData] = useState({
-    username: 'Alexander Kelvin',
-    birthday: new Date().toLocaleDateString(),
-    email: 'longdieu12x@gmail.com',
-  });
+  const { pathname } = router;
+  const { data: customerData } = useGetProfile();
+  const [currentPage, setCurrentPage] = useState(ProfilePage.VIEW);
+  const [avatarUrl, setAvatarUrl] = useState('');
 
-  const handleUploadAvatar = (e: any) => {
-    console.log(e);
+  const updateProfileStore = (profile: Customer) => {
+    store.dispatch(updateProfile(profile));
   };
 
-  const handleEditProfile = () => {
-    setIsEdit(!isEdit);
+  const handleUploadAvatar = (e: any) => {
+    uploadImage(e.file.name, e.file, setAvatarUrl);
+  };
+
+  const handleEditProfile = async () => {
+    router.push(`${pathname}?page=${ProfilePage.EDIT}`);
   };
 
   const handleDirectShippingAddresses = () => {
     router.push('/profile/shipping-addresses');
   };
+
+  const handleChangePasswordPage = () => {
+    router.push(`${pathname}?page=${ProfilePage.CHANGE_PASSWORD}`);
+  };
+
+  useEffect(() => {
+    if (customerData !== undefined) {
+      updateProfileStore(customerData as Customer);
+    }
+  }, [customerData]);
+  useEffect(() => {
+    if (avatarUrl !== '') {
+      updateProfileStore({
+        ...profileData.data,
+        avatar: avatarUrl,
+      } as Customer);
+    }
+  }, [avatarUrl]);
+
+  useEffect(() => {
+    setCurrentPage(router.query.page as ProfilePage);
+  }, [router.query]);
 
   return (
     <div className="mt-[80px]" id="profile">
@@ -40,11 +73,22 @@ const Profile = () => {
         <div className="flex flex-col gap-[20px] text-center">
           <Upload showUploadList={false} customRequest={handleUploadAvatar}>
             <Avatar
-              className="h-full max-h-[150px] w-full max-w-[150px]"
-              src="https://www.nicepng.com/png/detail/186-1866063_dicks-out-for-harambe-sample-avatar.png"
+              size={{
+                xs: 150,
+                sm: 150,
+                md: 150,
+                lg: 150,
+                xl: 150,
+                xxl: 150,
+              }}
+              src={
+                avatarUrl ||
+                profileData?.data?.avatar ||
+                'https://www.nicepng.com/png/detail/186-1866063_dicks-out-for-harambe-sample-avatar.png'
+              }
             />
           </Upload>
-          <h2 className="text-[24px] font-semibold">Alexander Kelvin</h2>
+          <h2 className="text-[24px] font-semibold">{`${profileData?.data?.fullname}`}</h2>
           <div className="setting-options flex flex-col gap-[10px]">
             <Button className="setting-btn" onClick={handleEditProfile}>
               {' '}
@@ -57,68 +101,20 @@ const Profile = () => {
               {' '}
               <FaAddressBook className="mr-[5px]" /> Shipping Addresses
             </Button>
+            <Button className="setting-btn" onClick={handleChangePasswordPage}>
+              {' '}
+              <MdPassword className="mr-[5px]" /> Change Password
+            </Button>
           </div>
         </div>
         <div className="detail-info mt-[20px] flex w-full max-w-[450px] flex-col gap-[20px] py-[0px] px-[20px] lg:mx-[60px] lg:mt-0">
           <h2 className="text-[24px] font-semibold lg:text-[32px]">Profile</h2>
-          <div className="info-section flex flex-col gap-[16px]">
-            <div className="flex items-center justify-between">
-              <h4 className="font-medium">Username: </h4>
-              {isEdit ? (
-                <Input
-                  className="w-full max-w-[300px]"
-                  placeholder="Please input username!"
-                  defaultValue={profileData.username}
-                  onChange={(e: any) => {
-                    setProfileData({
-                      ...profileData,
-                      username: e.target.value,
-                    });
-                  }}
-                />
-              ) : (
-                <p>{profileData.username}</p>
-              )}
-            </div>
-            <div className="flex items-center justify-between">
-              <h4 className="font-medium">Birthday: </h4>
-              {isEdit ? (
-                <DatePicker
-                  className="w-full max-w-[300px]"
-                  defaultValue={dayjs(profileData.birthday, 'DD/MM/YYYY')}
-                  format={'DD/MM/YYYY'}
-                  onChange={(e: any) => {
-                    console.log(e);
-                  }}
-                />
-              ) : (
-                <p>{profileData.birthday}</p>
-              )}
-            </div>
-            <div className="flex items-center justify-between">
-              <h4 className="font-medium">Email: </h4>
-              {isEdit ? (
-                <Input
-                  className="w-full max-w-[300px]"
-                  placeholder="Please input email!"
-                  defaultValue={profileData.email}
-                  onChange={(e: any) => {
-                    setProfileData({
-                      ...profileData,
-                      email: e.target.value,
-                    });
-                  }}
-                />
-              ) : (
-                <p>{profileData.email}</p>
-              )}
-            </div>
-          </div>
-          <MemberCard rank={RankEnum.SILVER} point={60} rank_point={50} />
-          <div className="actions-btn">
-            <Button className="confirm-btn">Confirm</Button>
-            <Button className="cancel-btn">Cancel</Button>
-          </div>
+          <RenderIf isTrue={currentPage !== ProfilePage.CHANGE_PASSWORD}>
+            <ProfileInfo />
+          </RenderIf>
+          <RenderIf isTrue={currentPage === ProfilePage.CHANGE_PASSWORD}>
+            <ChangePassword />
+          </RenderIf>
         </div>
       </div>
     </div>

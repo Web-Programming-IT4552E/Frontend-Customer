@@ -1,6 +1,8 @@
+import { RankEnum } from '@/@types/rank';
+
 export const RankColor = {
-  BRONZE: '#DCD7C9',
-  SILVER: '#748DA6',
-  GOLD: '#FFD24C',
-  DIAMOND: '#1B2430',
+  [RankEnum.BRONZE]: '#DCD7C9',
+  [RankEnum.SILVER]: '#748DA6',
+  [RankEnum.GOLD]: '#FFD24C',
+  [RankEnum.DIAMOND]: '#1B2430',
 };

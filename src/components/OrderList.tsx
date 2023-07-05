@@ -34,8 +34,8 @@ const OrderList = () => {
             <h1 className="mb-0 font-bold tracking-wider">Subtotal</h1>
           </div>
           <div className="flex w-[600px] flex-col gap-3 sm:w-full">
-            {orderList.map((orderItem, idx) => (
-              <OrderItem data={orderItem} key={idx} />
+            {orderList.map((orderItem, index) => (
+              <OrderItem data={orderItem} key={index} />
             ))}
           </div>
         </div>

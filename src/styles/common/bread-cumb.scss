@@ -10,7 +10,7 @@
   #inner {
     @apply px-[15px];
     .heading-primary {
-      @apply text-[30px] mb-[20px] md:text-[40px] lg:text-[60px] pb-[15px] relative;
+      @apply text-[30px] mb-[20px] md:text-[40px] lg:text-[60px] pb-[15px] relative capitalize;
       font-family: "El Messiri", Helvetica, Arial, sans-serif;
       &::before {
         position: absolute;
