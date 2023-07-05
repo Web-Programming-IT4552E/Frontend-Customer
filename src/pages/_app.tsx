@@ -34,7 +34,6 @@ type AppPropsWithLayout = AppProps & {
 
 const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
   const router = useRouter();
-
   const [queryClient] = useState(
     new QueryClient({
       defaultOptions: {

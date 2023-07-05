@@ -1,5 +1,5 @@
 import type { StaticImageData } from 'next/image';
-import React from 'react';
+import Link from 'next/link';
 
 import Button from './common/Button';
 
@@ -25,7 +25,9 @@ const BannerItem = ({ title, description, imgUrl }: IBannerItem) => {
           {firstTitle} <br /> {restTitle}
         </h1>
         <p className='mb-11 text-[22px] text-[#B8B8B8] lg:text-[25px]'>{description}</p>
-        <Button primary>SHOP NOW</Button>
+        <Link href='/product/all'>
+          <Button primary>SHOP NOW</Button>
+        </Link>
       </div>
     </div>
   );

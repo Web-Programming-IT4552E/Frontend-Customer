@@ -5,6 +5,7 @@ import type {
   InternalAxiosRequestConfig,
 } from 'axios';
 import axios, { AxiosHeaders } from 'axios';
+import jwt_decode from 'jwt-decode';
 
 import * as authService from '@/services/authService';
 
@@ -46,17 +47,24 @@ export const request = async ({ ...options }: AxiosRequestConfig<AxiosDefaults>,
       async (error) => {
         // take out the origin request
         const originalRequest = error.config;
-        if (error.response?.status === 401) {
+        const { refreshToken } = authService.getTokenFromLocal();
+        const jwtDecodeToken = refreshToken ? jwt_decode(refreshToken) : null;
+
+        if (error.response?.status === 401 && jwtDecodeToken) {
           // Unauthorized request
-          const data = await authService.getToken();
-          if (data) {
-            axios.defaults.headers.common.Authorization = `Bearer ${data?.accessToken}`;
-            if (data?.accessToken) {
-              authService.setTokenToLocal(data?.accessToken, data?.refreshToken);
+          if ((jwtDecodeToken as any).exp * 1000 < Date.now()) {
+            authService.logout();
+          } else {
+            const data = await authService.getToken();
+            if (data) {
+              axios.defaults.headers.common.Authorization = `Bearer ${data?.accessToken}`;
+              if (data?.accessToken) {
+                authService.setTokenToLocal(data?.accessToken, data?.refreshToken);
+              }
+              return client(originalRequest);
             }
-            return client(originalRequest);
+            authService.logout();
           }
-          authService.logout();
         }
         return Promise.reject(error);
       },
