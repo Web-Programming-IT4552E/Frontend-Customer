@@ -3,7 +3,7 @@
 
 
   .ant-btn {
-    @apply flex justify-center items-center rounded-none border-[2px] py-[50px] text-[16px] max-w-[400px] w-full;
+    @apply flex justify-center items-center rounded-none border-[2px] py-[50px] text-[12px] max-w-[500px] w-full md:text-[16px];
     span {
       font-weight: 600;
     }

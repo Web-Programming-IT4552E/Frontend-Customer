@@ -1,4 +1,4 @@
-export interface DistrictData {
+export interface CountryData {
   _id: string;
   code: string;
   name: string;

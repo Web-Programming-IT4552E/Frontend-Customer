@@ -18,6 +18,7 @@ export interface UpdateShippingAddressDto {
 }
 
 export interface GetAllShippingAddressDataFieldItem {
+  _id: string;
   user_id: string,
   address_detail: ShippingAddressData,
 }

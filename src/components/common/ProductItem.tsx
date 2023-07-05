@@ -23,7 +23,7 @@ const ProductItem: React.FC<{ product: ProductItemData }> = ({ product }) => {
           width={500}
           height={500}
           className="h-full w-full object-cover max-w-[300px] max-h-[300px]"
-          onClick={() => { router.push(`/${"profuct"}/${product._id}`) }}
+          onClick={() => { router.push(`/${"product"}/${product._id}`) }}
         />
         <div className="translate-x-[-100%] transition-all duration-200 ease-in-out group-hover:translate-x-[0%]"></div>
         <div className="box-hover translate-y-[100%] transition-all duration-200 ease-linear group-hover:translate-y-[-75%]">
@@ -46,10 +46,10 @@ const ProductItem: React.FC<{ product: ProductItemData }> = ({ product }) => {
         <div id="cat_product" className="text-[15px] text-[#999]">
           {product.category.map((item, idx) => {
             return (
-              <>
+              <React.Fragment key={idx}>
                 <Link rel="tag" href={`/product/all?category=${item.name}`}>{item.name}</Link>
                 {idx + 1 < product.category.length ? ', ' : ''}
-              </>);
+              </React.Fragment>);
           })}
 
         </div>

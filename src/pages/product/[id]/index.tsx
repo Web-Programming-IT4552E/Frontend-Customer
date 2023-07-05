@@ -12,12 +12,12 @@ import ProductItem from '@/components/common/ProductItem';
 const DetailProduct = () => {
   const router = useRouter();
   const productId = router.query.id as string;
-  const { data: productData } = useGetDetailProduct(productId);
+  const { data: productData } = useGetDetailProduct(productId, productId !== undefined);
   const { data: relatedProductsData } = useGetAllProducts({
     page: 1,
     limit: 4,
     category: `${productData?.category && productData?.category.map(item => item._id).join(",")}`
-  })
+  }, productData !== undefined)
   const [_, setImageUrl] = useState(
     'https://uray.physcode.com/wp-content/uploads/2019/02/product8-1024x1024.jpg'
   );

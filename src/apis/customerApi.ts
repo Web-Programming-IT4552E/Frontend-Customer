@@ -51,7 +51,7 @@ export const useGetProfile = () => {
 
 export const useUpdateProfile = (data: Customer) => {
   const queryClient = useQueryClient();
-  return useMutation<Customer>(() => customerApis.updateProfile(data), {
+  return useMutation(() => customerApis.updateProfile(data), {
     onSuccess: () => {
       queryClient.invalidateQueries(["/profile"]);
       toast.success("Update profile successfully!");

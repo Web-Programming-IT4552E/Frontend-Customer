@@ -1,4 +1,4 @@
-import { Avatar, Button, Input, Upload } from "antd";
+import { Avatar, Button, Upload } from "antd";
 import dayjs from "dayjs";
 import localeData from "dayjs/plugin/localeData";
 import weekday from "dayjs/plugin/weekday";
@@ -7,8 +7,7 @@ import React, { useEffect, useState } from "react";
 import { AiFillEdit } from "react-icons/ai";
 import { FaAddressBook } from "react-icons/fa";
 import { MdPassword } from "react-icons/md";
-import MemberCard from "@/components/MemberCard";
-import { useGetProfile, useUpdateProfile } from "@/apis/customerApi";
+import { useGetProfile } from "@/apis/customerApi";
 import { Customer } from "@/@types/customer";
 import RenderIf from "@/components/common/RenderIf";
 import { uploadImage } from "@/services/image";
@@ -20,8 +19,6 @@ import ProfileInfo from "@/components/ProfileInfo";
 
 dayjs.extend(weekday);
 dayjs.extend(localeData);
-
-
 
 const Profile = () => {
   const profileData = useAppSelector(state => state.profile);

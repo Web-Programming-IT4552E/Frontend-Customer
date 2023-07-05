@@ -20,7 +20,7 @@ export const profileSlice = createSlice({
   reducers: {
     updateProfile: (state, action: PayloadAction<Customer>) => {
       state.data = action.payload;
-      if (state.data === undefined) {
+      if (state.pre_data === undefined) {
         state.pre_data = action.payload;
       }
       state.status = ReduxDataStatus.IDLE;
