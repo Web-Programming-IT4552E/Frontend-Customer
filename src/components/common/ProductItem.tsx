@@ -8,8 +8,7 @@ import React from 'react';
 import type { ProductItemData } from '@/@types/product';
 
 const ProductItem: React.FC<{ product: ProductItemData }> = ({ product }) => {
-	const router = useRouter();
-	const dispatch = useAppDispatch();
+  const router = useRouter();
 
   return (
     <div

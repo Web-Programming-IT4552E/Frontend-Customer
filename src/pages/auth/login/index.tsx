@@ -52,8 +52,8 @@ const Login: NextPageWithLayout = () => {
   const handleForgotPassword = async () => {
     const response = await authService.forgotPassword(email);
     console.log(response);
-    
-    switch(response.status) {
+
+    switch (response.status) {
       case 200:
         toast.success(response.data.message, {
           position: toast.POSITION.TOP_RIGHT,

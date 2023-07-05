@@ -13,7 +13,7 @@ export interface IOrderItem {
 
 export type OrderItemUpdateQuantity = {
   data: OrderProduct;
-  quantity: number
+  quantity: number;
 };
 
 export enum OrderStatus {

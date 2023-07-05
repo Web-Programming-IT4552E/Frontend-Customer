@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import type { Dispatch, SetStateAction } from 'react';
 
 export interface Voucher {
   _id: string;
@@ -8,10 +8,10 @@ export interface Voucher {
   description: string;
   applied_user: [
     {
-      user_id: string,
-      remaining: number
-    }
-  ]
+      user_id: string;
+      remaining: number;
+    },
+  ];
 }
 
 export interface IVoucherItem {

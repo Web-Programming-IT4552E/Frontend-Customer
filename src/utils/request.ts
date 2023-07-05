@@ -1,19 +1,19 @@
 import type {
-	AxiosDefaults,
-	AxiosRequestConfig,
-	AxiosResponse,
-	InternalAxiosRequestConfig,
-} from "axios";
-import axios, { AxiosHeaders } from "axios";
-import jwt_decode from "jwt-decode";
+  AxiosDefaults,
+  AxiosRequestConfig,
+  AxiosResponse,
+  InternalAxiosRequestConfig,
+} from 'axios';
+import axios, { AxiosHeaders } from 'axios';
+import jwt_decode from 'jwt-decode';
 
 import * as authService from '@/services/authService';
 
 const client = axios.create({
-	baseURL: process.env.NEXT_PUBLIC_API,
-	headers: {
-		"Content-Type": "application/json",
-	},
+  baseURL: process.env.NEXT_PUBLIC_API,
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
 /**
@@ -23,65 +23,59 @@ const client = axios.create({
  * @returns
  */
 
-export const request = async (
-	{ ...options }: AxiosRequestConfig<AxiosDefaults>,
-	auth: boolean
-) => {
-	if (auth) {
-		client.interceptors.request.use(
-			async (config: InternalAxiosRequestConfig<AxiosRequestConfig>) => {
-				// Handle logic access token here, to request to server here
-				const { accessToken } = authService.getTokenFromLocal();
-				config.headers = new AxiosHeaders({
-					Authorization: `Bearer ${accessToken}`,
-					"Content-Type": "application/json",
-				});
-				return config;
-			},
-			(error) => {
-				return Promise.reject(error);
-			}
-		);
+export const request = async ({ ...options }: AxiosRequestConfig<AxiosDefaults>, auth: boolean) => {
+  if (auth) {
+    client.interceptors.request.use(
+      async (config: InternalAxiosRequestConfig<AxiosRequestConfig>) => {
+        // Handle logic access token here, to request to server here
+        const { accessToken } = authService.getTokenFromLocal();
+        config.headers = new AxiosHeaders({
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        });
+        return config;
+      },
+      (error) => {
+        return Promise.reject(error);
+      },
+    );
 
-		client.interceptors.response.use(
-			(response: AxiosResponse) => {
-				return response;
-			},
-			async (error) => {
-				// take out the origin request
-				const originalRequest = error.config;
-				const { refreshToken } = authService.getTokenFromLocal();
-				const jwtDecodeToken = refreshToken ? jwt_decode(refreshToken) : null;
+    client.interceptors.response.use(
+      (response: AxiosResponse) => {
+        return response;
+      },
+      async (error) => {
+        // take out the origin request
+        const originalRequest = error.config;
+        const { refreshToken } = authService.getTokenFromLocal();
+        const jwtDecodeToken = refreshToken ? jwt_decode(refreshToken) : null;
 
-				if (error.response?.status === 401 && jwtDecodeToken) {
-					// Unauthorized request
-					if ((jwtDecodeToken as any).exp * 1000 < Date.now()) {
-						authService.logout();
-					} else {
+        if (error.response?.status === 401 && jwtDecodeToken) {
+          // Unauthorized request
+          if ((jwtDecodeToken as any).exp * 1000 < Date.now()) {
+            authService.logout();
+          } else {
             const data = await authService.getToken();
             if (data) {
               axios.defaults.headers.common.Authorization = `Bearer ${data?.accessToken}`;
               if (data?.accessToken) {
-                authService.setTokenToLocal(
-                  data?.accessToken,
-                  data?.refreshToken
-                );
+                authService.setTokenToLocal(data?.accessToken, data?.refreshToken);
               }
               return client(originalRequest);
             }
             authService.logout();
           }
-				}
-				return Promise.reject(error);
-			}
-		);
-	}
+        }
+        return Promise.reject(error);
+      },
+    );
+  }
 
-	try {
-		const res = await client(options);
-		return res;
-	} catch (err: any) {
-		console.log(err);
-		return err?.response;
-	}
+  try {
+    const res = await client(options);
+    return res;
+  } catch (err: any) {
+    console.log(err);
+    return err?.response;
+  }
 };
