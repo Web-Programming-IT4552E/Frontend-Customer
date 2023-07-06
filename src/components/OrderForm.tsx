@@ -7,10 +7,29 @@ import { useAppSelector } from '@/configs/redux';
 import * as authService from '@/services/authService';
 import orderService from '@/services/orderService';
 import type { OrderForm } from '@/@types/order';
+import { useGetAllCountries } from '@/apis/countryApi';
+import { useGetAllCities } from '@/apis/cityApi';
+import { useState } from 'react';
+import { useGetAllDistricts } from '@/apis/districtApi';
+import { useGetAllWards } from '@/apis/wardApi';
+import { useGetAllShippingAddresses } from '@/apis/shippingAddressApi';
 
-const OrderForm = ({subTotal, discount, voucherApply, setVoucherApply}: OrderForm) => {
+const OrderForm = ({ subTotal, discount, voucherApply, setVoucherApply }: OrderForm) => {
+  const [form] = Form.useForm();
   const { Option } = Select;
   const isAuth = authService.getIsAuthFromLocal();
+
+  const [cityCode, setCityCode] = useState('');
+  const [districtCode, setDistrictCode] = useState('');
+
+  const { data: addresses } = isAuth
+    ? useGetAllShippingAddresses({ page: 1, limit: 10 })
+    : { data: undefined };
+  const { data: countries = [] } = useGetAllCountries();
+  const countryCode = countries.at(0)?.code;
+  const { data: cities = [] } = countryCode ? useGetAllCities(countryCode) : useGetAllCities('');
+  const { data: districts = [] } = useGetAllDistricts(cityCode);
+  const { data: wards = [] } = useGetAllWards(districtCode);
 
   const orderProductList = useAppSelector((state) =>
     state.order.data.map((orderProductItem) => ({
@@ -62,7 +81,7 @@ const OrderForm = ({subTotal, discount, voucherApply, setVoucherApply}: OrderFor
         pauseOnHover: false,
       });
     }
-    setVoucherApply(undefined)
+    setVoucherApply(undefined);
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -76,6 +95,7 @@ const OrderForm = ({subTotal, discount, voucherApply, setVoucherApply}: OrderFor
   return (
     <>
       <Form
+        form={form}
         name='basic'
         initialValues={{ remember: false }}
         onFinish={onFinish}
@@ -88,46 +108,115 @@ const OrderForm = ({subTotal, discount, voucherApply, setVoucherApply}: OrderFor
         }}
         className='order-last col-span-4 sm:order-first'
       >
-        <Form.Item label='Fullname' name='fullname' rules={[{ required: false }]}>
+        {isAuth && (
+          <Form.Item name='address' label='Choose your address' rules={[{ required: false }]}>
+            <Select
+              placeholder='Select address'
+              allowClear
+              onSelect={(value, option) => {
+                const { address_detail } = option.address;
+                form.setFieldsValue({
+                  fullname: address_detail.receiver_name,
+                  phone: address_detail.receiver_phone_number,
+                  city: address_detail.city,
+                  district: address_detail.district,
+                  ward: address_detail.ward,
+                  shipping_address: address_detail.address,
+                });
+              }}
+            >
+              {addresses &&
+                addresses.data.map((address) => (
+                  <Option key={address._id} value={address._id} address={address}>
+                    {`${address.address_detail.address}, ${address.address_detail.ward}, ${address.address_detail.district}, ${address.address_detail.city}`}
+                  </Option>
+                ))}
+            </Select>
+          </Form.Item>
+        )}
+
+        <Form.Item label='Fullname' name='fullname' rules={[{ required: true }]}>
           <Input />
         </Form.Item>
-  
-        <Form.Item label='Email' name='email' rules={[{ required: false }]}>
+
+        <Form.Item label='Email' name='email' rules={[{ required: true }]}>
           <Input />
         </Form.Item>
-  
-        <Form.Item label='Phone' name='phone' rules={[{ required: false }]}>
+
+        <Form.Item label='Phone' name='phone' rules={[{ required: true }]}>
           <Input />
         </Form.Item>
-  
-        <Form.Item name='city' label='City' rules={[{ required: false }]}>
-          <Select placeholder='Select city' onChange={() => {}} allowClear>
-            <Option value='Ha Noi'>Ha Noi</Option>
-            <Option value='Ninh Binh'>Ninh Binh</Option>
-            <Option value='Thanh Hoa'>Thanh Hoa</Option>
-            <Option value='Ha Giang'>Thanh Hoa</Option>
+
+        <Form.Item name='city' label='City' rules={[{ required: true }]}>
+          <Select
+            placeholder='Select city'
+            allowClear
+            onSelect={(value, option) => {
+              setCityCode(option.code);
+              isAuth
+                ? form.resetFields(['address', 'district', 'ward', 'shipping_address'])
+                : form.resetFields(['district', 'ward', 'shipping_address']);
+            }}
+          >
+            {cities &&
+              cities.map((city) => (
+                <Option key={city._id} value={city.name} code={city.code}>
+                  {city.name}
+                </Option>
+              ))}
           </Select>
         </Form.Item>
-  
-        <Form.Item label='District' name='district' rules={[{ required: false }]}>
-          <Input />
+
+        <Form.Item name='district' label='District' rules={[{ required: true }]}>
+          <Select
+            placeholder='Select district'
+            allowClear
+            onSelect={(value, option) => {
+              setDistrictCode(option.code);
+              isAuth
+                ? form.resetFields(['address', 'ward', 'shipping_address'])
+                : form.resetFields(['ward', 'shipping_address']);
+            }}
+          >
+            {districts &&
+              districts.map((district) => (
+                <Option key={district._id} value={district.name} code={district.code}>
+                  {district.name}
+                </Option>
+              ))}
+          </Select>
         </Form.Item>
-  
-        <Form.Item label='Ward' name='ward' rules={[{ required: false }]}>
-          <Input />
+
+        <Form.Item name='ward' label='Ward' rules={[{ required: true }]}>
+          <Select
+            placeholder='Select ward'
+            allowClear
+            onSelect={() =>
+              isAuth
+                ? form.resetFields(['address', 'shipping_address'])
+                : form.resetFields(['shipping_address'])
+            }
+          >
+            {wards &&
+              wards.map((ward) => (
+                <Option key={ward._id} value={ward.name} code={ward.code}>
+                  {ward.name}
+                </Option>
+              ))}
+          </Select>
         </Form.Item>
-  
-        <Form.Item name='payment_method' label='Payment method' rules={[{ required: false }]}>
+
+        <Form.Item name='payment_method' label='Payment method' rules={[{ required: true }]}>
           <Select placeholder='Select payment method' onChange={() => {}} allowClear>
             <Option value='cash'>Cash</Option>
             <Option value='credit card'>Credit card</Option>
           </Select>
         </Form.Item>
-  
-        <Form.Item name='shipping_address' label='Shipping address'>
+
+        <Form.Item name='shipping_address' label='Shipping address' rules={[{ required: true }]}>
           <Input.TextArea />
         </Form.Item>
-  
+
         <Form.Item className='self-end'>
           <Button third type='submit' className='sm:w-[160px] sm:py-[10px]'>
             Checkout
