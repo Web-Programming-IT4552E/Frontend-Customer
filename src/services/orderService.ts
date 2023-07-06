@@ -11,7 +11,7 @@ const publicOrder = async ({
 }: CreateOrderData) => {
   const options: AxiosRequestConfig<AxiosDefaults> = {
     method: 'post',
-    url: '/order/public',
+    url: 'order/public',
     data: {
       customer_email,
       products,
@@ -33,7 +33,7 @@ const loyalOrder = async ({
 }: CreateLoyalOrderData) => {
   const options: AxiosRequestConfig<AxiosDefaults> = {
     method: 'post',
-    url: '/order/loyal',
+    url: 'order/loyal',
     data: {
       products,
       total_product_cost,
