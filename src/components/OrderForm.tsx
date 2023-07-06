@@ -1,9 +1,9 @@
 import 'react-toastify/dist/ReactToastify.css';
 
 import { Form, Input, Select } from 'antd';
+import jwt_decode from 'jwt-decode';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-import jwt_decode from 'jwt-decode';
 
 import type { IOrderForm } from '@/@types/order';
 import { useGetAllCities } from '@/apis/cityApi';
@@ -121,7 +121,7 @@ const OrderForm = ({ subTotal, discount, voucherApply, setVoucherApply }: IOrder
                 const { accessToken } = authService.getTokenFromLocal();
                 const jwtDecodeToken: any = accessToken ? jwt_decode(accessToken) : null;
                 console.log(jwtDecodeToken);
-                
+
                 form.setFieldsValue({
                   fullname: address_detail.receiver_name,
                   email: jwtDecodeToken ? jwtDecodeToken.email : '',
