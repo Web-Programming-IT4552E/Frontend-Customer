@@ -114,7 +114,7 @@ const OrderForm = ({ subTotal, discount, voucherApply, setVoucherApply }: IOrder
             <Select
               placeholder='Select address'
               allowClear
-              onSelect={(value, option) => {
+              onSelect={(_, option) => {
                 const { address_detail } = option.address;
                 form.setFieldsValue({
                   fullname: address_detail.receiver_name,
@@ -152,7 +152,7 @@ const OrderForm = ({ subTotal, discount, voucherApply, setVoucherApply }: IOrder
           <Select
             placeholder='Select city'
             allowClear
-            onSelect={(value, option) => {
+            onSelect={(_, option) => {
               setCityCode(option.code);
               isAuth
                 ? form.resetFields(['address', 'district', 'ward', 'shipping_address'])
@@ -172,7 +172,7 @@ const OrderForm = ({ subTotal, discount, voucherApply, setVoucherApply }: IOrder
           <Select
             placeholder='Select district'
             allowClear
-            onSelect={(value, option) => {
+            onSelect={(_, option) => {
               setDistrictCode(option.code);
               isAuth
                 ? form.resetFields(['address', 'ward', 'shipping_address'])

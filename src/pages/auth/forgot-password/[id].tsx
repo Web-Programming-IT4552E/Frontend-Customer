@@ -78,15 +78,18 @@ const VerifyActiveToken = () => {
   }, [router]);
 
   useEffect(() => {
+    let timerId: any;
     if (isUpdatePassWord) {
-      const timerId = setTimeout(() => {
+      timerId = setTimeout(() => {
         router.push('/auth/login');
       }, 1500);
-
-      return () => {
-        clearTimeout(timerId);
-      };
     }
+
+    return () => {
+      if (timerId) {
+        clearTimeout(timerId);
+      }
+    };
   }, [isUpdatePassWord]);
 
   return (
