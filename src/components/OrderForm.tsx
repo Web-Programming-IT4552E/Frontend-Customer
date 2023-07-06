@@ -4,7 +4,7 @@ import { Form, Input, Select } from 'antd';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 
-import { IOrderForm } from '@/@types/order';
+import type { IOrderForm } from '@/@types/order';
 import { useGetAllCities } from '@/apis/cityApi';
 import { useGetAllCountries } from '@/apis/countryApi';
 import { useGetAllDistricts } from '@/apis/districtApi';
