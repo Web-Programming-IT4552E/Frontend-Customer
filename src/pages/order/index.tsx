@@ -54,7 +54,6 @@ const OrderDetail = () => {
         discount_code: voucherApply.code,
         total_product_cost: subTotal,
       }));
-    console.log(response);
     if (response.status === 200) {
       toast.success('Apply voucher successfully!', {
         position: toast.POSITION.TOP_RIGHT,

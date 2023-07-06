@@ -38,7 +38,7 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
     new QueryClient({
       defaultOptions: {
         queries: {
-          refetchOnWindowFocus: false,
+          refetchOnWindowFocus: true,
           retry: false,
         },
       },
