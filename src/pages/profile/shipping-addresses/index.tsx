@@ -65,7 +65,7 @@ const ShippingAddresses = () => {
                   <div className='flex flex-col gap-[5px] text-start'>
                     <p>
                       <span>Address:</span> {`${item.address_detail.address}` || ''}
-                    </p>  
+                    </p>
                     <p>
                       <span>Phone:</span> {item.address_detail.receiver_phone_number}
                       {', '}
@@ -82,7 +82,8 @@ const ShippingAddresses = () => {
             })}
           {shippingAddressData !== undefined &&
             (Math.ceil(shippingAddressData.paginationInfo.total / DEFAULT_LIMIT) ===
-              shippingAddressData.paginationInfo.page || shippingAddressData.paginationInfo.total === 0) && (
+              shippingAddressData.paginationInfo.page ||
+              shippingAddressData.paginationInfo.total === 0) && (
               <Button
                 type='dashed'
                 onClick={() => {
