@@ -22,7 +22,6 @@ const CartItem = ({ data }: IOrderItem) => {
           <HiXMark className='cursor-pointer text-xl' onClick={handleDeleteItem} />
         </div>
         <div className='self-start'>{`${data.quantity}  x  $${data.price}`}</div>
-        <div className='self-start'>{`${data.quantity}  x  $${data.price}`}</div>
       </div>
     </div>
   );

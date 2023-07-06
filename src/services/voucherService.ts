@@ -2,6 +2,7 @@ import type { AxiosDefaults, AxiosRequestConfig } from 'axios';
 
 import type { IApplyVoucher, IRequestVoucher } from '@/@types/voucher';
 import * as httpRequest from '@/utils/request';
+import * as authServive from '@/services/authService';
 
 const getVoucher = async ({ page, limit }: IRequestVoucher) => {
   const options: AxiosRequestConfig<AxiosDefaults> = {
@@ -10,18 +11,20 @@ const getVoucher = async ({ page, limit }: IRequestVoucher) => {
     params: { page, limit },
   };
 
-  const response = await httpRequest.request(options, true);
+  const isAuth = authServive.getIsAuthFromLocal();
+  const response = await httpRequest.request(options, isAuth);
   return response;
 };
 
-const applyVoucher = async ({ discount_code, total_product_code }: IApplyVoucher) => {
+const applyVoucher = async ({ discount_code, total_product_cost }: IApplyVoucher) => {
   const options: AxiosRequestConfig<AxiosDefaults> = {
     method: 'get',
     url: `discount-code/tryApplying/${discount_code}`,
-    params: { total_product_code },
+    params: { total_product_cost },
   };
 
-  const response = await httpRequest.request(options, true);
+  const isAuth = authServive.getIsAuthFromLocal();
+  const response = await httpRequest.request(options, isAuth);
   return response;
 };
 
