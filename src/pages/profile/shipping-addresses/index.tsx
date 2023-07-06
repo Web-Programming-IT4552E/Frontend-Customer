@@ -65,6 +65,9 @@ const ShippingAddresses = () => {
                   <div className='flex flex-col gap-[5px] text-start'>
                     <p>
                       <span>Address:</span> {`${item.address_detail.address}` || ''}
+                    </p>  
+                    <p>
+                      <span>Phone:</span> {item.address_detail.receiver_phone_number}
                       {', '}
                       <span>Ward:</span> {`${item.address_detail.ward}` || ''}
                     </p>
@@ -73,16 +76,13 @@ const ShippingAddresses = () => {
                       {', '}
                       <span>City:</span> {`${item.address_detail.city}` || ''}
                     </p>
-                    <p>
-                      <span>Phone:</span> {item.address_detail.receiver_phone_number}
-                    </p>
                   </div>
                 </Button>
               );
             })}
           {shippingAddressData !== undefined &&
-            Math.ceil(shippingAddressData.paginationInfo.total / DEFAULT_LIMIT) ===
-              shippingAddressData.paginationInfo.page && (
+            (Math.ceil(shippingAddressData.paginationInfo.total / DEFAULT_LIMIT) ===
+              shippingAddressData.paginationInfo.page || shippingAddressData.paginationInfo.total === 0) && (
               <Button
                 type='dashed'
                 onClick={() => {
