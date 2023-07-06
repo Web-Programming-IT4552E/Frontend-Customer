@@ -1,7 +1,7 @@
 import type { AxiosDefaults, AxiosRequestConfig } from 'axios';
 
+import type { CreateLoyalOrderData, CreateOrderData } from '@/@types/order';
 import * as httpRequest from '@/utils/request';
-import { CreateOrderData, CreateLoyalOrderData } from '@/@types/order';
 
 const publicOrder = async ({
   customer_email,
@@ -29,7 +29,7 @@ const loyalOrder = async ({
   total_product_cost,
   payment_method,
   shipping_address,
-  discount_code
+  discount_code,
 }: CreateLoyalOrderData) => {
   const options: AxiosRequestConfig<AxiosDefaults> = {
     method: 'post',
@@ -39,7 +39,7 @@ const loyalOrder = async ({
       total_product_cost,
       payment_method,
       shipping_address,
-      discount_code
+      discount_code,
     } as any,
   };
 

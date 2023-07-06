@@ -1,20 +1,21 @@
-import { Form, Input, Select } from 'antd';
-import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { Form, Input, Select } from 'antd';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
+
+import { IOrderForm } from '@/@types/order';
+import { useGetAllCities } from '@/apis/cityApi';
+import { useGetAllCountries } from '@/apis/countryApi';
+import { useGetAllDistricts } from '@/apis/districtApi';
+import { useGetAllShippingAddresses } from '@/apis/shippingAddressApi';
+import { useGetAllWards } from '@/apis/wardApi';
 import Button from '@/components/common/Button';
 import { useAppSelector } from '@/configs/redux';
 import * as authService from '@/services/authService';
 import orderService from '@/services/orderService';
-import type { OrderForm } from '@/@types/order';
-import { useGetAllCountries } from '@/apis/countryApi';
-import { useGetAllCities } from '@/apis/cityApi';
-import { useState } from 'react';
-import { useGetAllDistricts } from '@/apis/districtApi';
-import { useGetAllWards } from '@/apis/wardApi';
-import { useGetAllShippingAddresses } from '@/apis/shippingAddressApi';
 
-const OrderForm = ({ subTotal, discount, voucherApply, setVoucherApply }: OrderForm) => {
+const OrderForm = ({ subTotal, discount, voucherApply, setVoucherApply }: IOrderForm) => {
   const [form] = Form.useForm();
   const { Option } = Select;
   const isAuth = authService.getIsAuthFromLocal();

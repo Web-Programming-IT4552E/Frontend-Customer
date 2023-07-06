@@ -1,8 +1,8 @@
 import type { AxiosDefaults, AxiosRequestConfig } from 'axios';
 
 import type { IApplyVoucher, IRequestVoucher } from '@/@types/voucher';
-import * as httpRequest from '@/utils/request';
 import * as authServive from '@/services/authService';
+import * as httpRequest from '@/utils/request';
 
 const getVoucher = async ({ page, limit }: IRequestVoucher) => {
   const options: AxiosRequestConfig<AxiosDefaults> = {

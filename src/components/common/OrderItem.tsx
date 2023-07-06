@@ -36,8 +36,8 @@ const OrderItem = ({ data }: IOrderItem) => {
         <Image src={data.image} alt='order item' width={100} height={100} />
         <h1 className='mb-0 text-[15px] leading-5'>{data.name}</h1>
       </div>
-      <span className='text-[15px] ml-4'>{`$ ${data.price}`}</span>
-      <span className='flex items-center text-[15px] ml-4'>
+      <span className='ml-4 text-[15px]'>{`$ ${data.price}`}</span>
+      <span className='ml-4 flex items-center text-[15px]'>
         <span
           onClick={handleDecreaseItemQuantity}
           className='cursor-pointer border-[1px] border-solid border-black px-2 py-[2px] text-[23px]'
@@ -53,7 +53,7 @@ const OrderItem = ({ data }: IOrderItem) => {
           +
         </span>
       </span>
-      <span className='text-[15px] ml-6'>{`$ ${data.price * data.quantity}`}</span>
+      <span className='ml-6 text-[15px]'>{`$ ${data.price * data.quantity}`}</span>
     </div>
   );
 };

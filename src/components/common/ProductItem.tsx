@@ -1,14 +1,15 @@
+import 'react-toastify/dist/ReactToastify.css';
+
 import { faCartPlus, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
-import 'react-toastify/dist/ReactToastify.css';
 import { toast, ToastContainer } from 'react-toastify';
 
-import type { ProductItemData } from '@/@types/product';
 import type { OrderProduct } from '@/@types/order';
+import type { ProductItemData } from '@/@types/product';
 import { useAppDispatch } from '@/configs/redux';
 import { addOrderToCart } from '@/reducers/order';
 
@@ -23,14 +24,14 @@ const ProductItem: React.FC<{ product: ProductItemData }> = ({ product }) => {
       price: product.price,
       quantity: 1,
       image: product.image,
-    }
+    };
     dispatch(addOrderToCart(productItem));
     toast.success('Add to cart successfully!', {
       position: toast.POSITION.TOP_RIGHT,
       autoClose: 1500,
       pauseOnHover: false,
     });
-  }
+  };
 
   return (
     <div>
@@ -60,7 +61,7 @@ const ProductItem: React.FC<{ product: ProductItemData }> = ({ product }) => {
             </Link>
           </div>
         </div>
-  
+
         <div id='wrapper_content_item' className='my-[30px] w-[100%] text-center'>
           <div id='cat_product' className='text-[15px] text-[#999]'>
             {product.category.map((item, idx) => {

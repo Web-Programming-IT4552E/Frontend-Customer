@@ -5,12 +5,12 @@ import React, { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 
 import type { Voucher } from '@/@types/voucher';
+import OrderForm from '@/components/OrderForm';
 import OrderList from '@/components/OrderList';
 import VoucherItem from '@/components/VoucherItem';
 import { useAppSelector } from '@/configs/redux';
-import voucherService from '@/services/voucherService';
 import * as authService from '@/services/authService';
-import OrderForm from '@/components/OrderForm';
+import voucherService from '@/services/voucherService';
 
 const OrderDetail = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -100,7 +100,7 @@ const OrderDetail = () => {
                 <h1 className='mb-5 flex items-center gap-4 text-[15px] font-bold uppercase tracking-widest'>
                   <span>Voucher:</span>
                   <button
-                    disabled={isAuth ? false : true}
+                    disabled={!isAuth}
                     onClick={isAuth ? handleOpenModal : () => {}}
                     className={`rounded ${
                       isAuth ? 'bg-primary-color hover:bg-[#e08082]' : 'bg-[#ccc]'

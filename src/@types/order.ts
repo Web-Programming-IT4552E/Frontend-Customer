@@ -45,14 +45,14 @@ export interface OrderData {
 
 export interface ProductOrder {
   product_id: string;
-  quantity: number
+  quantity: number;
 }
 
-export interface OrderForm {
+export interface IOrderForm {
   subTotal: number;
   discount: number;
   voucherApply: Voucher | undefined;
-  setVoucherApply: Dispatch<SetStateAction<Voucher | undefined>>
+  setVoucherApply: Dispatch<SetStateAction<Voucher | undefined>>;
 }
 
 export interface CreateOrderData {
@@ -63,7 +63,7 @@ export interface CreateOrderData {
 }
 
 export interface CreateLoyalOrderData {
-  products:  Array<ProductOrder>; // _id of product
+  products: Array<ProductOrder>; // _id of product
   total_product_cost: number;
   payment_method: string;
   shipping_address: ShippingAddressData;
