@@ -27,5 +27,5 @@ export interface IRequestVoucher {
 
 export interface IApplyVoucher {
   discount_code: string;
-  total_product_code: number;
+  total_product_cost: number;
 }

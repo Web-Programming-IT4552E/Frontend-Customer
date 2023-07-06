@@ -1,4 +1,7 @@
+import type { Dispatch, SetStateAction } from 'react';
+
 import type { ShippingAddressData } from './shipping-address';
+import type { Voucher } from './voucher';
 
 export interface OrderProduct {
   product_id: string;
@@ -40,17 +43,29 @@ export interface OrderData {
   updated_at: string;
 }
 
+export interface ProductOrder {
+  product_id: string;
+  quantity: number;
+}
+
+export interface IOrderForm {
+  subTotal: number;
+  discount: number;
+  voucherApply: Voucher | undefined;
+  setVoucherApply: Dispatch<SetStateAction<Voucher | undefined>>;
+}
+
 export interface CreateOrderData {
   customer_email: string;
-  products: [string]; // _id of product
+  products: Array<ProductOrder>; // _id of product
   payment_method: string;
   shipping_address: ShippingAddressData;
 }
 
 export interface CreateLoyalOrderData {
-  customer_email: string;
-  products: [string]; // _id of product
+  products: Array<ProductOrder>; // _id of product
   total_product_cost: number;
   payment_method: string;
   shipping_address: ShippingAddressData;
+  discount_code: string;
 }

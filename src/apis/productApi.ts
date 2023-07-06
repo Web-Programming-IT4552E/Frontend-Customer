@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
 import type { GetAllProductsResponse, ProductItemData } from '@/@types/product';
-import env from '@/configs/env';
 import type { ProductFilter } from '@/interfaces/product.interface';
 import { request } from '@/utils/request';
 
@@ -9,7 +8,7 @@ const productApis = {
   async getAllProduct(filter: ProductFilter) {
     const response = await request(
       {
-        url: `${env.api}/product`,
+        url: `product`,
         params: filter,
       },
       false,
@@ -19,7 +18,7 @@ const productApis = {
   async getDetailProduct(productId: string) {
     const response = await request(
       {
-        url: `${env.api}/product/${productId}`,
+        url: `product/${productId}`,
       },
       false,
     );
