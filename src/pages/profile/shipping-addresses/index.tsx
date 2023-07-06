@@ -39,14 +39,15 @@ const ShippingAddresses = () => {
 
   return (
     <>
-      <ShippingAddressModal
-        shippingData={shippingAddressDetail}
-        open={isOpenModal}
-        onCancel={handleClose}
-        onSuccess={() => {
-          refetch();
-        }}
-      />
+      {isOpenModal && (
+        <ShippingAddressModal
+          shippingData={shippingAddressDetail}
+          open={isOpenModal}
+          onCancel={handleClose}
+          onSuccess={() => {
+            refetch();
+          }}
+        />)}
       <div id='shipping-addresses'>
         <h2 className='mt-[60px] mb-[40px] text-[24px] font-semibold md:text-[36px]'>
           Shipping Address
