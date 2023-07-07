@@ -1,12 +1,12 @@
-import '@/styles/globals.scss';
 import 'antd/dist/reset.css';
+// import 'antd/dist/antd.css';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import '@/styles/globals.scss';
 
 import { config } from '@fortawesome/fontawesome-svg-core';
 // import 'antd/dist/reset.css';
-// import 'antd/dist/antd.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { NextPage } from 'next';
 import type { AppProps } from 'next/app';

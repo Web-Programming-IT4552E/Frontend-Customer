@@ -1,7 +1,6 @@
 import 'react-toastify/dist/ReactToastify.css';
 
 import { Form, Input, Select } from 'antd';
-import jwt_decode from 'jwt-decode';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 
@@ -118,13 +117,9 @@ const OrderForm = ({ subTotal, discount, voucherApply, setVoucherApply }: IOrder
               allowClear
               onSelect={(_, option) => {
                 const { address_detail } = option.address;
-                const { accessToken } = authService.getTokenFromLocal();
-                const jwtDecodeToken: any = accessToken ? jwt_decode(accessToken) : null;
-                console.log(jwtDecodeToken);
 
                 form.setFieldsValue({
                   fullname: address_detail.receiver_name,
-                  email: jwtDecodeToken ? jwtDecodeToken.email : '',
                   phone: address_detail.receiver_phone_number,
                   city: address_detail.city,
                   district: address_detail.district,
@@ -147,9 +142,11 @@ const OrderForm = ({ subTotal, discount, voucherApply, setVoucherApply }: IOrder
           <Input />
         </Form.Item>
 
-        <Form.Item label='Email' name='email' rules={[{ required: true }]}>
-          <Input />
-        </Form.Item>
+        {!isAuth && (
+          <Form.Item label='Email' name='email' rules={[{ required: true }]}>
+            <Input />
+          </Form.Item>
+        )}
 
         <Form.Item label='Phone' name='phone' rules={[{ required: true }]}>
           <Input />

@@ -4,7 +4,7 @@ import { Checkbox } from 'antd';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FormEvent, ReactElement } from 'react';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 
 import authBanner from '@/assets/images/auth-banner.webp';
@@ -16,7 +16,6 @@ import * as authService from '@/services/authService';
 const Login: NextPageWithLayout = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoginSuccess, setIsLoginSuccess] = useState(false);
   const router = useRouter();
 
   const handleSubmitLogin = async (event: FormEvent) => {
@@ -34,7 +33,7 @@ const Login: NextPageWithLayout = () => {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 1500,
           pauseOnHover: false,
-          onClose: () => setIsLoginSuccess(true),
+          onClose: () => router.push('/'),
         });
         break;
       case 400:
@@ -70,20 +69,6 @@ const Login: NextPageWithLayout = () => {
         break;
     }
   };
-
-  useEffect(() => {
-    if (isLoginSuccess) {
-      const timerId = setTimeout(() => {
-        router.push('/');
-      }, 1500);
-
-      return () => {
-        clearTimeout(timerId);
-      };
-    }
-
-    return undefined;
-  }, [isLoginSuccess]);
 
   return (
     <>
