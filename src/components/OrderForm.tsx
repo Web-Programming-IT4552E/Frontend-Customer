@@ -75,6 +75,7 @@ const OrderForm = ({ subTotal, discount, voucherApply, setVoucherApply }: IOrder
         autoClose: 1500,
         pauseOnHover: false,
       });
+      form.resetFields();
     } else {
       toast.error('Create order failed!', {
         position: toast.POSITION.TOP_RIGHT,
@@ -116,6 +117,7 @@ const OrderForm = ({ subTotal, discount, voucherApply, setVoucherApply }: IOrder
               allowClear
               onSelect={(_, option) => {
                 const { address_detail } = option.address;
+
                 form.setFieldsValue({
                   fullname: address_detail.receiver_name,
                   phone: address_detail.receiver_phone_number,
@@ -140,9 +142,11 @@ const OrderForm = ({ subTotal, discount, voucherApply, setVoucherApply }: IOrder
           <Input />
         </Form.Item>
 
-        <Form.Item label='Email' name='email' rules={[{ required: true }]}>
-          <Input />
-        </Form.Item>
+        {!isAuth && (
+          <Form.Item label='Email' name='email' rules={[{ required: true }]}>
+            <Input />
+          </Form.Item>
+        )}
 
         <Form.Item label='Phone' name='phone' rules={[{ required: true }]}>
           <Input />
@@ -210,7 +214,6 @@ const OrderForm = ({ subTotal, discount, voucherApply, setVoucherApply }: IOrder
         <Form.Item name='payment_method' label='Payment method' rules={[{ required: true }]}>
           <Select placeholder='Select payment method' onChange={() => {}} allowClear>
             <Option value='cash'>Cash</Option>
-            <Option value='credit card'>Credit card</Option>
           </Select>
         </Form.Item>
 
