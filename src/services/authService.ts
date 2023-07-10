@@ -45,6 +45,17 @@ export const login = async ({ email, password }: LoginRequest) => {
   return response;
 };
 
+export const removeTokens = () => {
+  localStorage.removeItem('accessToken');
+  localStorage.removeItem('refreshToken');
+  setIsAuthToLocal(false);
+};
+
+export const forceLogout = () => {
+  removeTokens();
+  window.location.href = '/auth/login';
+};
+
 export const logout = async () => {
   const options: AxiosRequestConfig<AxiosDefaults> = {
     url: 'auth/logout',
@@ -55,23 +66,11 @@ export const logout = async () => {
   if (SuccessCode.includes(response.status)) {
     removeTokens();
     Router.push('/auth/login');
-  }
-  else {
+  } else {
     forceLogout();
   }
   return response;
 };
-
-export const removeTokens = () => {
-  localStorage.removeItem('accessToken');
-  localStorage.removeItem('refreshToken');
-  setIsAuthToLocal(false);
-}
-
-export const forceLogout = () => {
-  removeTokens();
-  window.location.href = "/auth/login"
-}
 
 export const register = async ({ email, password, phone, fullname }: RegisterUserRequest) => {
   const options: AxiosRequestConfig<AxiosDefaults> = {

@@ -50,7 +50,11 @@ export const request = async ({ ...options }: AxiosRequestConfig<AxiosDefaults>,
         const { refreshToken } = authService.getTokenFromLocal();
         const jwtDecodeToken = refreshToken ? jwt_decode(refreshToken) : null;
 
-        if ((error.response?.status === 401 || error.response?.status === 403) && jwtDecodeToken && !originalRequest._retry) {
+        if (
+          (error.response?.status === 401 || error.response?.status === 403) &&
+          jwtDecodeToken &&
+          !originalRequest._retry
+        ) {
           // Unauthorized request
           const data = await authService.getToken();
           if (data) {
@@ -60,9 +64,8 @@ export const request = async ({ ...options }: AxiosRequestConfig<AxiosDefaults>,
             }
             return client(originalRequest);
           }
-          else {
-            authService.forceLogout();
-          }
+
+          authService.forceLogout();
         }
         return Promise.reject(error);
       },
