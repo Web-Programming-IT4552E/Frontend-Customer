@@ -4,6 +4,7 @@ import Router from 'next/router';
 import type { LoginRequest, RefreshTokenRequest, ResetPasswordRequest } from '@/@types/auth';
 import type { RegisterUserRequest } from '@/@types/user';
 import * as httpRequest from '@/utils/request';
+import { SuccessCode } from '@/utils/status';
 
 export const setTokenToLocal = (accessToken: string, refreshToken: string) => {
   localStorage.setItem('accessToken', accessToken);
@@ -51,16 +52,26 @@ export const logout = async () => {
   };
 
   const response = await httpRequest.request(options, true);
-  if (response.status === 200) {
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
-    setIsAuthToLocal(false);
+  if (SuccessCode.includes(response.status)) {
+    removeTokens();
     Router.push('/auth/login');
-  } else {
-    console.log(response.data.message);
+  }
+  else {
+    forceLogout();
   }
   return response;
 };
+
+export const removeTokens = () => {
+  localStorage.removeItem('accessToken');
+  localStorage.removeItem('refreshToken');
+  setIsAuthToLocal(false);
+}
+
+export const forceLogout = () => {
+  removeTokens();
+  window.location.href = "/auth/login"
+}
 
 export const register = async ({ email, password, phone, fullname }: RegisterUserRequest) => {
   const options: AxiosRequestConfig<AxiosDefaults> = {
@@ -133,8 +144,7 @@ export const getToken = async () => {
   };
 
   const response = await httpRequest.request(options, false);
-  console.log(response);
-  if (response.status) {
+  if (!SuccessCode.includes(response.status)) {
     // has status mean has error code 400
     return null;
   }

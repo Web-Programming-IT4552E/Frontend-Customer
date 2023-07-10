@@ -29,7 +29,9 @@ export const profileSlice = createSlice({
       state.pre_data = state.data;
     },
     cancelProfile: (state) => {
-      state.data = state.pre_data;
+      if (state.pre_data !== undefined && Object.keys(state.pre_data).length > 0) {
+        state.data = state.pre_data;
+      }
     }
   },
 });
