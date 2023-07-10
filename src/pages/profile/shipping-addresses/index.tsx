@@ -82,7 +82,7 @@ const ShippingAddresses = () => {
                 </Button>
               );
             })}
-          {shippingAddressData !== undefined &&
+          {shippingAddressData?.paginationInfo !== undefined &&
             (Math.ceil(shippingAddressData.paginationInfo.total / DEFAULT_LIMIT) ===
               shippingAddressData.paginationInfo.page ||
               shippingAddressData.paginationInfo.total === 0) && (
@@ -97,7 +97,7 @@ const ShippingAddresses = () => {
             )}
         </div>
         <div className='mt-[20px] flex justify-center'>
-          {shippingAddressData !== undefined && (
+          {shippingAddressData?.paginationInfo !== undefined && (
             <Pagination
               total={shippingAddressData.paginationInfo.total}
               onChange={handleChangePagination}
