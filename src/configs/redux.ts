@@ -8,12 +8,10 @@ import storage from 'redux-persist/lib/storage';
 import categoryReducer from '@/reducers/category';
 import counterReducer from '@/reducers/counter';
 import orderReducer from '@/reducers/order';
-import profileReducer from '@/reducers/profile';
 
 const appReducer = combineReducers({
   counter: counterReducer,
   category: categoryReducer,
-  profile: profileReducer,
   order: orderReducer,
 });
 
