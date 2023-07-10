@@ -8,30 +8,22 @@ import { AiFillEdit } from 'react-icons/ai';
 import { FaAddressBook } from 'react-icons/fa';
 import { MdPassword } from 'react-icons/md';
 
-import type { Customer } from '@/@types/customer';
 import { useGetProfile } from '@/apis/customerApi';
 import ChangePassword from '@/components/ChangePassword';
 import RenderIf from '@/components/common/RenderIf';
 import ProfileInfo from '@/components/ProfileInfo';
-import store, { useAppSelector } from '@/configs/redux';
 import { ProfilePage } from '@/interfaces/profile.interface';
-import { updateProfile } from '@/reducers/profile';
 import { uploadImage } from '@/services/image';
 
 dayjs.extend(weekday);
 dayjs.extend(localeData);
 
 const Profile = () => {
-  const profileData = useAppSelector((state) => state.profile);
+  const { data: customerData } = useGetProfile();
   const router = useRouter();
   const { pathname } = router;
-  const { data: customerData } = useGetProfile();
   const [currentPage, setCurrentPage] = useState(ProfilePage.VIEW);
   const [avatarUrl, setAvatarUrl] = useState('');
-
-  const updateProfileStore = (profile: Customer) => {
-    store.dispatch(updateProfile(profile));
-  };
 
   const handleUploadAvatar = (e: any) => {
     uploadImage(e.file.name, e.file, setAvatarUrl);
@@ -50,22 +42,14 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    if (customerData !== undefined) {
-      updateProfileStore(customerData as Customer);
-    }
-  }, [customerData]);
-  useEffect(() => {
-    if (avatarUrl !== '') {
-      updateProfileStore({
-        ...profileData.data,
-        avatar: avatarUrl,
-      } as Customer);
-    }
-  }, [avatarUrl]);
-
-  useEffect(() => {
     setCurrentPage(router.query.page as ProfilePage);
   }, [router.query]);
+
+  useEffect(() => {
+    if (customerData !== undefined) {
+      setAvatarUrl(customerData.avatar);
+    }
+  }, [customerData]);
 
   return (
     <div className='mt-[80px]' id='profile'>
@@ -83,12 +67,12 @@ const Profile = () => {
               }}
               src={
                 avatarUrl ||
-                profileData?.data?.avatar ||
+                customerData?.avatar ||
                 'https://www.nicepng.com/png/detail/186-1866063_dicks-out-for-harambe-sample-avatar.png'
               }
             />
           </Upload>
-          <h2 className='text-[24px] font-semibold'>{`${profileData?.data?.fullname}`}</h2>
+          <h2 className='text-[24px] font-semibold'>{`${customerData?.fullname}`}</h2>
           <div className='setting-options flex flex-col gap-[10px]'>
             <Button className='setting-btn' onClick={handleEditProfile}>
               {' '}
@@ -107,7 +91,7 @@ const Profile = () => {
         <div className='detail-info mt-[20px] flex w-full max-w-[450px] flex-col gap-[20px] py-[0px] px-[20px] lg:mx-[60px] lg:mt-0'>
           <h2 className='text-[24px] font-semibold lg:text-[32px]'>Profile</h2>
           <RenderIf isTrue={currentPage !== ProfilePage.CHANGE_PASSWORD}>
-            <ProfileInfo />
+            <ProfileInfo avatarUrl={avatarUrl} />
           </RenderIf>
           <RenderIf isTrue={currentPage === ProfilePage.CHANGE_PASSWORD}>
             <ChangePassword />
