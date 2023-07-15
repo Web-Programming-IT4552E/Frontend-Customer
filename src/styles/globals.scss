@@ -159,6 +159,7 @@ html,
 body {
   font-family: var(--global-font);
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 // css slick slider

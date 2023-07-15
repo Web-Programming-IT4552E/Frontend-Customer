@@ -9,6 +9,7 @@ export interface IButton {
   normal?: boolean;
   type?: 'button' | 'submit' | 'reset';
   className?: string;
+  onClick?: () => void;
   children: ReactNode;
 }
 
@@ -20,6 +21,7 @@ const Button = ({
   type,
   className,
   children,
+  onClick,
   ...passProps
 }: IButton) => {
   const classname = classnames(
@@ -35,7 +37,7 @@ const Button = ({
   );
 
   return (
-    <button type={type} className={classname} {...passProps}>
+    <button type={type} onClick={onClick} className={classname} {...passProps}>
       {children}
     </button>
   );
