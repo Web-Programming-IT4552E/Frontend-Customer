@@ -103,11 +103,11 @@ const Header = () => {
             <Link href='/product/all' className='header-list-item'>
               SHOP
             </Link>
-            <Link href='/' className='header-list-item'>
-              BLOG
+            <Link href='https://forum.uray.store' target='_blank' className='header-list-item'>
+              FORUM
             </Link>
-            <Link href='/' className='header-list-item'>
-              CONTACT US
+            <Link href='/order' className='header-list-item'>
+              CHECKOUT
             </Link>
           </div>
 

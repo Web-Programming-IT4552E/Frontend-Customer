@@ -1,9 +1,12 @@
+import { useRouter } from 'next/router';
 import React from 'react';
 
 import dealDayImg from '@/assets/images/bg-deal-day.jpg';
 import Button from '@/components/common/Button';
 
 const DealDay = () => {
+  const router = useRouter();
+
   return (
     <div
       id='deal-day'
@@ -30,7 +33,14 @@ const DealDay = () => {
           <span className='mt-[2px] block text-[17px]'>Secs</span>
         </div>
       </div>
-      <Button secondary>SHOW NOW</Button>
+      <Button
+        secondary
+        onClick={() => {
+          router.push('/product/all');
+        }}
+      >
+        SHOW NOW
+      </Button>
     </div>
   );
 };

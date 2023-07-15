@@ -48,6 +48,10 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
   const getLayout = Component.getLayout ?? ((page) => <LayoutDefault>{page}</LayoutDefault>);
 
   useEffect(() => {
+    router.push(`${router.asPath}#home-header`);
+  }, [router.pathname]);
+
+  useEffect(() => {
     const path = router.pathname;
     const isLogin = authService.getIsAuthFromLocal();
 

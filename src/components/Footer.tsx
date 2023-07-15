@@ -1,6 +1,7 @@
 import { faFacebook, faInstagram, faLinkedin, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 import Logo from '@/assets/images/logo.png';
@@ -41,11 +42,11 @@ const Footer = () => {
         <div id='contact'>
           <h3 className='widget-text'>Contact</h3>
           <ul>
-            <li>No 40 Baria Sreet 133/2</li>
-            <li>+ (156) 1800-366-6666</li>
-            <li>Eric-82@example.com</li>
+            <li>Đại Học Bách Khoa Hà Nội</li>
+            <li>Môn học: Web Programming</li>
+            <li>ICT 03 - K64 - Group 4</li>
             <li>
-              <a href='https://uray.physcode.com'>uray.physcode.com</a>
+              <a href='https://uray.store'>uray.store</a>
             </li>
           </ul>
         </div>
@@ -53,16 +54,10 @@ const Footer = () => {
           <h3 className='widget-text'>Profile</h3>
           <ul>
             <li>
-              <a>My Account</a>
+              <Link href='/profile'>My Account</Link>
             </li>
             <li>
-              <a>Checkout</a>
-            </li>
-            <li>
-              <a>Order Tracking</a>
-            </li>
-            <li>
-              <a>Help & Support</a>{' '}
+              <Link href='/order'>Checkout</Link>
             </li>
           </ul>
         </div>
