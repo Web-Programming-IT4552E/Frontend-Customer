@@ -125,7 +125,7 @@ const VerifyActiveToken = () => {
               <label className='text-base font-semibold sm:w-[40%]'>New password:</label>
               <input
                 value={password}
-                type='text'
+                type='password'
                 placeholder='Your password...'
                 className='auth-input flex-1 border border-solid border-[#ccc] p-3 text-base outline-none placeholder:text-[#848484]'
                 onChange={(event) => setPassword(event.target.value)}
@@ -135,7 +135,7 @@ const VerifyActiveToken = () => {
               <label className='text-base font-semibold sm:w-[40%]'>Confirm new password: </label>
               <input
                 value={rePassword}
-                type='text'
+                type='password'
                 placeholder='Re-enter your password...'
                 className='auth-input flex-1 border border-solid border-[#ccc] p-3 text-base outline-none placeholder:text-[#848484]'
                 onChange={(event) => setRePassword(event.target.value)}
