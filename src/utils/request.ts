@@ -56,7 +56,9 @@ export const request = async ({ ...options }: AxiosRequestConfig<AxiosDefaults>,
           !originalRequest._retry
         ) {
           // Unauthorized request
-          const { data } = await authService.getToken();
+          const res = await authService.getToken();
+          const data = res?.data;
+
           if (data) {
             axios.defaults.headers.common.Authorization = `Bearer ${data?.accessToken}`;
             if (data?.accessToken) {
