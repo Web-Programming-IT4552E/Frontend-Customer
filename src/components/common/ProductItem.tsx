@@ -46,7 +46,7 @@ const ProductItem: React.FC<{ product: ProductItemData }> = ({ product }) => {
             loading='lazy'
             width={500}
             height={500}
-            className='h-full max-h-[300px] w-full max-w-[300px] object-cover'
+            className='aspect-square h-full max-h-[300px] w-full max-w-[300px] object-cover'
             onClick={() => {
               router.push(`/${'product'}/${product._id}`);
             }}

@@ -21,9 +21,7 @@ const Footer = () => {
               height={70}
             />
           </p>
-          <p className='mb-[15px] text-medium_gray'>
-            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut.
-          </p>
+          <p className='mb-[15px] text-medium_gray'>Beauty Haven: Your Beauty, Our Passion</p>
           <div className='pt-[7px]' id='socials'>
             <a className='mr-[20px] text-medium_gray'>
               <FontAwesomeIcon icon={faFacebook} />

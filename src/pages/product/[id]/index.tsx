@@ -4,7 +4,6 @@ import { Button, Input } from 'antd';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import Slider from 'react-slick';
 
 import { useGetAllProducts, useGetDetailProduct } from '@/apis/productApi';
 import BreadCumb from '@/components/common/BreadCumb';
@@ -24,18 +23,18 @@ const DetailProduct = () => {
     },
     productData !== undefined,
   );
-  const [, setImageUrl] = useState(
-    'https://uray.physcode.com/wp-content/uploads/2019/02/product8-1024x1024.jpg',
-  );
+  // const [, setImageUrl] = useState(
+  //   'https://uray.physcode.com/wp-content/uploads/2019/02/product8-1024x1024.jpg',
+  // );
   const [quantity, setQuantity] = useState(0);
 
-  const settings = {
-    dots: false,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
-  };
+  // const settings = {
+  //   dots: false,
+  //   infinite: false,
+  //   speed: 500,
+  //   slidesToShow: 4,
+  //   slidesToScroll: 4,
+  // };
 
   const increaseQuantity = () => {
     setQuantity(quantity + 1);
@@ -54,7 +53,7 @@ const DetailProduct = () => {
         <div className='grid grid-cols-1 md:grid-cols-2'>
           <div className='product-images'>
             <Image src={`${productData?.image || '/'}`} width={800} height={800} alt='main-image' />
-            <Slider {...settings}>
+            {/* <Slider {...settings}>
               {[
                 'https://uray.physcode.com/wp-content/uploads/2019/02/product1-1024x1024.jpg',
                 'https://uray.physcode.com/wp-content/uploads/2019/02/product11-1024x1024.jpg',
@@ -79,7 +78,7 @@ const DetailProduct = () => {
                   </div>
                 );
               })}
-            </Slider>
+            </Slider> */}
           </div>
           <div className='product-content  mt-[60px] md:mt-0 md:pl-[45px]'>
             <div className='wrap-title-price mb-[25px]'>

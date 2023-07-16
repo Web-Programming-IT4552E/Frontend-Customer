@@ -49,7 +49,7 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
 
   useEffect(() => {
     router.push(`${router.asPath}#home-header`);
-  }, [router.pathname]);
+  }, [router.pathname, JSON.stringify(router.query)]);
 
   useEffect(() => {
     const path = router.pathname;
