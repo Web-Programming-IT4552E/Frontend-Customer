@@ -55,7 +55,6 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
         router.push(`${router.asPath}#home-header`);
       }
     }
-
   }, [router.pathname, JSON.stringify(router.query), router.isReady]);
 
   useEffect(() => {
