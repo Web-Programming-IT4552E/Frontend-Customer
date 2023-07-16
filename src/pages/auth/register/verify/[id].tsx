@@ -43,7 +43,10 @@ const VerifyActiveToken = () => {
             <h1 className='mb-0 text-center text-[32px] font-bold'>
               You are registed {isSuccess ? 'successfully' : 'failed'}!
             </h1>
-            <Link href={isSuccess ? '/auth/login' : '/'} className='bg-black p-4 font-semibold text-white hover:opacity-80'>
+            <Link
+              href={isSuccess ? '/auth/login' : '/'}
+              className='bg-black p-4 font-semibold text-white hover:opacity-80'
+            >
               Return to {isSuccess ? 'login' : 'home'}
             </Link>
           </>
