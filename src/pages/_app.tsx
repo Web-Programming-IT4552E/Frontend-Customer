@@ -48,7 +48,9 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
   const getLayout = Component.getLayout ?? ((page) => <LayoutDefault>{page}</LayoutDefault>);
 
   useEffect(() => {
-    if (!router.asPath.includes("#home-header")) {
+    if (router.asPath.includes('#home-header')) {
+      router.push(`${router.asPath.split('#home-header')[0]}#home-header`);
+    } else {
       router.push(`${router.asPath}#home-header`);
     }
   }, [router.pathname, JSON.stringify(router.query)]);

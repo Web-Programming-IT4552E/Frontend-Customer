@@ -4,5 +4,6 @@ export interface ProductFilter {
   category?: string;
   search?: string;
   sort?: string;
-  price?: number[];
+  price_start?: number;
+  price_end?: number;
 }
