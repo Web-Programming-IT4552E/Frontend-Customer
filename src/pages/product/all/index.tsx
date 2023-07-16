@@ -16,11 +16,16 @@ import type { GetAllProductsResponse, ProductItemData } from '../../../@types/pr
 const ProductList = () => {
   const categoryStore = useAppSelector((state) => state.category);
   const router = useRouter();
+  
   const { pathname } = router;
+  const searchQuery = router.query?.search as string;
+  console.log(router.asPath);
+  
   const breadcump = router.query?.category as string;
   const [filter, setFilter] = useState<ProductFilter>({
     page: 1,
-    limit: DEFAULT_LIMIT,
+    search: searchQuery,
+    limit: searchQuery ? 5 : DEFAULT_LIMIT,
     category: undefined,
   });
   const { data: response } = useGetAllProducts(filter);

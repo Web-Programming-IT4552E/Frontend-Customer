@@ -4,7 +4,7 @@ import Tippy from '@tippyjs/react/headless';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { FormEvent } from 'react';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { HiLogin, HiLogout, HiOutlineUser } from 'react-icons/hi';
 import {
   HiBars3,
@@ -16,6 +16,7 @@ import {
   HiOutlineXMark,
 } from 'react-icons/hi2';
 import { toast, ToastContainer } from 'react-toastify';
+import { useRouter } from 'next/router';
 
 import logoImg from '@/assets/images/logo.png';
 import { useAppSelector } from '@/configs/redux';
@@ -24,9 +25,11 @@ import * as authService from '@/services/authService';
 import CartList from './CartList';
 
 const Header = () => {
+  const router = useRouter();
   const [searchInput, setSearchInput] = useState('');
   const isLogin = authService.getIsAuthFromLocal();
   const cartList = useAppSelector((state) => state.order.data);
+  const searchRef = useRef<HTMLInputElement>(null);
 
   const handleSearchCloseIcon = () => {
     const searchElement = document.querySelector('#home-header .header-search');
@@ -36,14 +39,18 @@ const Header = () => {
       classList.remove('top-0', 'xl:top-0');
       classList?.add('top-[-70px]', 'xl:top-[-110px]');
     } else {
+      searchRef.current && searchRef.current.focus();
       classList?.remove('top-[-70px]', 'xl:top-[-110px]');
       classList?.add('top-0', 'xl:top-0');
     }
+    setSearchInput('');
   };
 
   const handleSubmitSearch = (event: FormEvent) => {
     event.preventDefault();
-    console.log(event.target);
+    router.push(`/product/all/?search=${encodeURIComponent(searchInput)}`);
+    setSearchInput('');
+    handleSearchCloseIcon();
   };
 
   const handleSubMenu = () => {
@@ -235,6 +242,7 @@ const Header = () => {
           <form className='flex flex-1 items-center' onSubmit={handleSubmitSearch}>
             <input
               type='text'
+              ref={searchRef}
               value={searchInput}
               onChange={(e) => {
                 setSearchInput(e.target.value);

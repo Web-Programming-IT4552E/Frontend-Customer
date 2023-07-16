@@ -8,6 +8,10 @@ import React, { useState } from 'react';
 import { useGetAllProducts, useGetDetailProduct } from '@/apis/productApi';
 import BreadCumb from '@/components/common/BreadCumb';
 import ProductItem from '@/components/common/ProductItem';
+import { useAppDispatch } from '@/configs/redux';
+import { OrderProduct } from '@/@types/order';
+import { addOrderToCart } from '@/reducers/order';
+import { toast } from 'react-toastify';
 
 const DetailProduct = () => {
   const router = useRouter();
@@ -26,7 +30,8 @@ const DetailProduct = () => {
   // const [, setImageUrl] = useState(
   //   'https://uray.physcode.com/wp-content/uploads/2019/02/product8-1024x1024.jpg',
   // );
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
+  const dispatch = useAppDispatch();
 
   // const settings = {
   //   dots: false,
@@ -43,6 +48,26 @@ const DetailProduct = () => {
   const decreaseQuantity = () => {
     if (quantity > 1) {
       setQuantity(quantity - 1);
+    }
+  };
+
+  const handleAddProductToCart = () => {
+    const productItem: OrderProduct | null = productData
+      ? {
+          product_id: productData._id,
+          name: productData.name,
+          price: productData.price,
+          quantity,
+          image: productData.image,
+        }
+      : null;
+    if (productItem) {
+      dispatch(addOrderToCart(productItem));
+      toast.success('Add to cart successfully!', {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 1500,
+        pauseOnHover: false,
+      });
     }
   };
 
@@ -134,7 +159,9 @@ const DetailProduct = () => {
                   </Button>
                 </div>
                 <div className='add-to-cart'>
-                  <Button id='add-to-cart-btn'>ADD TO CART</Button>
+                  <Button id='add-to-cart-btn' onClick={handleAddProductToCart}>
+                    ADD TO CART
+                  </Button>
                 </div>
               </div>
             </div>
