@@ -84,7 +84,7 @@ const ProductList = () => {
   };
 
   const handlePriceFilter = (e: any) => {
-    setFilter({ ...filter, price: e as number[] });
+    setFilter({ ...filter, price_start: e[0] as number, price_end: e[1] as number });
   };
 
   const handleSearchFilter = (e: any) => {
