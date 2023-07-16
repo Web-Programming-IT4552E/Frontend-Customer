@@ -40,7 +40,7 @@ const Register: NextPageWithLayout = () => {
               pauseOnHover: false,
             },
           );
-          router.push('auth/login');
+          router.push('/auth/login');
           break;
         case 400:
           const messageLength = response.data.message.length;
