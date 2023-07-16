@@ -4,14 +4,14 @@ import { Button, Input } from 'antd';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 
+import type { OrderProduct } from '@/@types/order';
 import { useGetAllProducts, useGetDetailProduct } from '@/apis/productApi';
 import BreadCumb from '@/components/common/BreadCumb';
 import ProductItem from '@/components/common/ProductItem';
 import { useAppDispatch } from '@/configs/redux';
-import { OrderProduct } from '@/@types/order';
 import { addOrderToCart } from '@/reducers/order';
-import { toast } from 'react-toastify';
 
 const DetailProduct = () => {
   const router = useRouter();

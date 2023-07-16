@@ -3,6 +3,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Tippy from '@tippyjs/react/headless';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import type { FormEvent } from 'react';
 import React, { useRef, useState } from 'react';
 import { HiLogin, HiLogout, HiOutlineUser } from 'react-icons/hi';
@@ -16,7 +17,6 @@ import {
   HiOutlineXMark,
 } from 'react-icons/hi2';
 import { toast, ToastContainer } from 'react-toastify';
-import { useRouter } from 'next/router';
 
 import logoImg from '@/assets/images/logo.png';
 import { useAppSelector } from '@/configs/redux';
