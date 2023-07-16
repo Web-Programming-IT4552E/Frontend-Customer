@@ -24,8 +24,6 @@ const client = axios.create({
  */
 
 export const request = async ({ ...options }: AxiosRequestConfig<AxiosDefaults>, auth: boolean) => {
-  console.log(options);
-
   if (auth) {
     client.interceptors.request.use(
       async (config: InternalAxiosRequestConfig<AxiosRequestConfig>) => {
