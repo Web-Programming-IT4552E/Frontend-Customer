@@ -17,7 +17,7 @@ const ProductList = () => {
   const categoryStore = useAppSelector((state) => state.category);
   const router = useRouter();
   const { pathname } = router;
-  const breadcump = (router.query?.category as string) || 'Shop';
+  const breadcump = router.query?.category as string;
   const [filter, setFilter] = useState<ProductFilter>({
     page: 1,
     limit: DEFAULT_LIMIT,
@@ -25,6 +25,12 @@ const ProductList = () => {
   });
   const { data: response } = useGetAllProducts(filter);
   const [data, setData] = useState<GetAllProductsResponse | undefined>(undefined);
+  const [breadCumpName, setBreadCumpName] = useState('Shop');
+  const [visibleResults, setVisibleResults] = useState({
+    min: 0,
+    max: 0,
+    total: 0,
+  });
 
   useEffect(() => {
     if (response !== undefined) {
@@ -33,19 +39,45 @@ const ProductList = () => {
   }, [response]);
 
   useEffect(() => {
+    if (response && response?.paginationInfo !== undefined) {
+      setVisibleResults({
+        min: (response.paginationInfo.page - 1) * response.paginationInfo.limit + 1,
+        max:
+          response!.paginationInfo.page * response!.paginationInfo.limit >
+          response.paginationInfo.total
+            ? response.paginationInfo.total
+            : response!.paginationInfo.page * response!.paginationInfo.limit,
+        total: response!.paginationInfo.total,
+      });
+    }
+  }, [response]);
+
+  useEffect(() => {
     const category =
       categoryStore.data.length === 0
         ? undefined
         : categoryStore.data
-            .filter((item) => item!.name === breadcump.toLocaleUpperCase())
+            .filter((item) => item!._id === breadcump)
             .map((item) => item!._id)
             .join(',');
+
+    setBreadCumpName(
+      categoryStore.data.filter((item) => item!._id === breadcump)[0]?.name || 'Shop',
+    );
+
     setFilter({
       ...filter,
       page: 1,
       category,
     });
   }, [breadcump]);
+
+  useEffect(() => {
+    setFilter({
+      ...filter,
+      page: 1,
+    });
+  }, [router.pathname]);
 
   const handleChangePagination = (e: any) => {
     setFilter({ ...filter, page: e as number });
@@ -71,7 +103,7 @@ const ProductList = () => {
 
   return (
     <div id='product-list'>
-      <BreadCumb navigations={['Home', breadcump, `Page ${filter.page}`]} />
+      <BreadCumb navigations={['Home', breadCumpName, `Page ${filter.page}`]} />
       <div className='content-area'>
         <div className='container'>
           <RenderIf isTrue={data === undefined}>
@@ -87,12 +119,7 @@ const ProductList = () => {
                   <p className='mb-0'>
                     Showing{' '}
                     {data !== undefined &&
-                      `${(data!.paginationInfo.page - 1) * data!.paginationInfo.limit + 1}-${
-                        data!.paginationInfo.page * data!.paginationInfo.limit >
-                        data.paginationInfo.total
-                          ? data.paginationInfo.total
-                          : data!.paginationInfo.page * data!.paginationInfo.limit
-                      } of ${data!.paginationInfo.total} results`}
+                      `${visibleResults.min}-${visibleResults.max} of ${visibleResults.total} results`}
                   </p>
                   <Select
                     placeholder='Default sorting'
@@ -147,7 +174,7 @@ const ProductList = () => {
                     {categoryStore.data.map((category, idx) => {
                       return (
                         <Link
-                          href={`${pathname}?category=${category?.name}`}
+                          href={`${pathname}?category=${category?._id}`}
                           className='flex cursor-pointer justify-between py-[12px] text-[#666]'
                           key={idx}
                         >

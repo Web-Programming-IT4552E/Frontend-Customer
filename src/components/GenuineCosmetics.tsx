@@ -25,10 +25,10 @@ const GenuineCosmetics = () => {
               <span className='mask-img mt-4 block h-3 w-[60px] bg-primary-color'></span>
             </h1>
             <p className='text-[15px] leading-7'>
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-              laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-              architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia
-              voluptas.
+              Organic cream is a natural and wholesome skincare product designed to provide
+              nourishment and hydration to the skin. Made from carefully sourced organic
+              ingredients, this cream aims to deliver the best possible benefits while avoiding
+              harmful chemicals.
             </p>
           </div>
 
@@ -38,10 +38,10 @@ const GenuineCosmetics = () => {
               <span className='mask-img mt-4 block h-3 w-[60px] bg-primary-color'></span>
             </h1>
             <p className='text-[15px] leading-7'>
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-              laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-              architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia
-              voluptas.
+              Harness the power of nature with skincare products enriched with natural extracts.
+              These extracts are derived from various plants and botanicals, carefully chosen for
+              their beneficial properties. Packed with vitamins, antioxidants, and minerals, natural
+              extracts offer a multitude of skincare benefits.
             </p>
           </div>
 
@@ -51,10 +51,10 @@ const GenuineCosmetics = () => {
               <span className='mask-img mt-4 block h-3 w-[60px] bg-primary-color'></span>
             </h1>
             <p className='text-[15px] leading-7'>
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-              laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-              architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia
-              voluptas.
+              Our commitment to quality assurance is at the heart of everything we do. From the
+              sourcing of premium ingredients to the meticulous manufacturing process, we adhere to
+              the highest industry standards to ensure the excellence of our products. Each step of
+              the production is carefully monitored and tested to meet rigorous quality benchmarks.
             </p>
           </div>
         </div>
