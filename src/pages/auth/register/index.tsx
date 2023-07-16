@@ -32,15 +32,12 @@ const Register: NextPageWithLayout = () => {
       switch (response.status) {
         case 200:
         case 201:
-          toast.success(
-            `Register ${response.data.message}! Please check email to confirm account!`,
-            {
-              position: toast.POSITION.TOP_RIGHT,
-              autoClose: 1500,
-              pauseOnHover: false,
-            },
-          );
-          router.push('/auth/login');
+          toast.success(`Register successfully! Please check email to confirm account!`, {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 1500,
+            pauseOnHover: false,
+            onClose: () => router.push('/auth/login'),
+          });
           break;
         case 400:
           const messageLength = response.data.message.length;
@@ -153,6 +150,7 @@ const Register: NextPageWithLayout = () => {
           </form>
         </div>
       </div>
+
       <ToastContainer />
     </>
   );

@@ -48,7 +48,7 @@ const Header = () => {
 
   const handleSubmitSearch = (event: FormEvent) => {
     event.preventDefault();
-    router.push(`/product/all/?search=${encodeURIComponent(searchInput)}`);
+    router.push(`/product/all/?search=${encodeURIComponent(searchInput.trim())}`);
     setSearchInput('');
     handleSearchCloseIcon();
   };
